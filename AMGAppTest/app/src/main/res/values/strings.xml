@@ -1,0 +1,34 @@
+<resources>
+
+    <!--It-Team-Fehler-->
+
+    <string name="fehler1">Computer startet nicht</string>
+    <string name="fehler2">Beamer funktioniert nicht</string>
+    <string name="fehler3">Ton funktioniert nicht</string>
+    <string name="fehler4">Programm fehlt</string>
+    <string name="fehler5">Friert ein</string>
+    <string name="fehler6">Stürzt ab</string>
+
+    <string name="fehlersonstige">Sonstige</string>
+
+    <!--Normales-->
+
+    <string name="app_name">AMGApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="title_activity_itteam_senden">Gebäude</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_itteam_senden2">Etage</string>
+    <string name="title_activity_itteam_senden3">Raumnummer</string>
+    <string name="title_activity_itteam_senden4">Fehler</string>
+    <string name="title_activity_itteam_senden4_vorhanden">Meldung vorhanden</string>
+    <string name="title_activity_itteam4_sonstige">Sonstige Fehler</string>
+    <string name="title_activity_itteam_senden5">Wichtigkeit</string>
+    <string name="title_activity_itteam_senden6">Beschreibung</string>
+    <string name="title_activity_itteam_senden_pruefeung">Zusammenfassung</string>
+    <string name="title_activity_itteam_holen">Fehlermeldungen</string>
+
+
+</resources>

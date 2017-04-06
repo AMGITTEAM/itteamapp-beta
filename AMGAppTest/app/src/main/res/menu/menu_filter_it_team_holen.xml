@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Status"
+        android:id="@+id/FilterStatus">
+
+        <menu>
+            <group android:checkableBehavior="all">
+                <item android:id="@+id/Offen"
+                    android:title="Offen" />
+                <item android:id="@+id/InBearbeitung"
+                    android:title="In Bearbeitung" />
+                <item android:id="@+id/Fertig"
+                    android:title="Fertig" />
+            </group>
+        </menu>
+
+    </item>
+
+    <item android:title="Gebäude"
+        android:id="@+id/FilterGebaeude">
+
+        <menu>
+            <group android:checkableBehavior="all">
+                <item android:id="@+id/FilterGebaeudeH"
+                    android:title="Hauptbau" />
+                <item android:id="@+id/FilterGebaeudeA"
+                    android:title="Altbau" />
+                <item android:id="@+id/FilterGebaeudeN"
+                    android:title="Neubau" />
+            </group>
+        </menu>
+
+    </item>
+
+    <item android:title="Etage"
+        android:id="@+id/FilterEtage">
+
+        <menu>
+            <group android:checkableBehavior="all">
+                <item android:id="@+id/FilterEtage2"
+                    android:title="2" />
+                <item android:id="@+id/FilterEtage1"
+                    android:title="1" />
+                <item android:id="@+id/FilterEtage0"
+                    android:title="0" />
+                <item android:id="@+id/FilterEtageZ"
+                    android:title="Z" />
+                <item android:id="@+id/FilterEtageU"
+                    android:title="U" />
+            </group>
+        </menu>
+
+    </item>
+
+    <item android:title="Raum"
+        android:id="@+id/FilterRaum">
+
+        <menu>
+            <group android:checkableBehavior="all">
+                <item android:id="@+id/FilterRaum01"
+                    android:title="01" />
+                <item android:id="@+id/FilterRaum02"
+                    android:title="02" />
+                <item android:id="@+id/FilterRaum03"
+                    android:title="03" />
+                <item android:id="@+id/FilterRaum04"
+                    android:title="04" />
+                <item android:id="@+id/FilterRaum05"
+                    android:title="05" />
+                <item android:id="@+id/FilterRaum06"
+                    android:title="06" />
+                <item android:id="@+id/FilterRaum07"
+                    android:title="07" />
+                <item android:id="@+id/FilterRaum08"
+                    android:title="08" />
+                <item android:id="@+id/FilterRaum09"
+                    android:title="09" />
+                <item android:id="@+id/FilterRaum10"
+                    android:title="10" />
+                <item android:id="@+id/FilterRaum11"
+                    android:title="11" />
+                <item android:id="@+id/FilterRaum12"
+                    android:title="12" />
+                <item android:id="@+id/FilterRaum13"
+                    android:title="13" />
+                <item android:id="@+id/FilterRaum14"
+                    android:title="14" />
+            </group>
+        </menu>
+
+    </item>
+
+</menu>

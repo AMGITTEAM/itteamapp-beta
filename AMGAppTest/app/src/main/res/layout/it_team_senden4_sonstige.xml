@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_itteam4_sonstige"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="www.amg_witten.de.apptest.ITTeamSenden4Sonstige"
+    tools:showIn="@layout/it_team_senden4_sonstige_app_bar">
+
+    <EditText
+        android:hint="Beschreibung des Fehlers"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/it_team_fehlersonstige"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Fertig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/it_team_fehlerweiter"
+        android:onClick="FehlerSonstige"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/it_team_fehlersonstige"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_itteam_senden3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="www.amg_witten.de.apptest.ITTeamSenden3"
+    tools:showIn="@layout/it_team_senden3_app_bar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Bitte wähle den Raum mit dem zu meldendem Fehler aus!"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Hilfe"/>
+
+        <Button
+            android:text="01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Hilfe"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R01"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R01"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R02"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R02"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R03"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="04"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R03"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R04"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="05"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R04"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R05"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="06"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R05"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R06"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="07"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R06"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R07"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="08"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R07"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R08"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="09"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R08"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R09"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R09"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R10"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R10"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R11"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R11"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R12"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R12"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R13"
+            android:onClick="raum"/>
+
+        <Button
+            android:text="14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/R13"
+            android:layout_alignRight="@+id/Hilfe"
+            android:layout_alignEnd="@+id/Hilfe"
+            android:id="@+id/R14"
+            android:onClick="raum"/>
+
+    </RelativeLayout>
+
+</ScrollView>

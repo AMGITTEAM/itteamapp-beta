@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="www.amg_witten.de.apptest">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Startseite"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ITTeamSenden"
+            android:label="@string/title_activity_itteam_senden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamSenden2"
+            android:label="@string/title_activity_itteam_senden2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamSenden3"
+            android:label="@string/title_activity_itteam_senden3"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamSenden4"
+            android:label="@string/title_activity_itteam_senden4"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamSenden4Vorhanden"
+            android:label="@string/title_activity_itteam_senden4_vorhanden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamSenden4Sonstige"
+            android:label="@string/title_activity_itteam4_sonstige"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamSenden5"
+            android:label="@string/title_activity_itteam_senden5"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamSenden6"
+            android:label="@string/title_activity_itteam_senden6"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamSendenPruefung"
+            android:label="@string/title_activity_itteam_senden_pruefeung"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ITTeamHolen"
+            android:label="@string/title_activity_itteam_holen"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>
