@@ -17,7 +17,7 @@ public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static int login;
     public static String benutzername;
-    public static String ip="10.0.2.2";
+    public static String ip="amgitt.de";
     public static int port=18732;
     public static int timeout=5000;
 
