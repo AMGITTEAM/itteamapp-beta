@@ -1,3 +1,1 @@
-Filtermenü (Siehe Blatt)
-Zuletzt Bearbeitet -> Datum immer gleich
-Bearbeitet von wem? Wenn nichts -> keiner, sonst Nachname
+Passwort als Hash
