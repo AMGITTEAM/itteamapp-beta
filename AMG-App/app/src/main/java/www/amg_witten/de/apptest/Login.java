@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -115,7 +114,7 @@ public class Login extends AppCompatActivity
 
     public void LoginAction(View view) {
         final String benutzername = ((EditText)findViewById(R.id.benutzername)).getText().toString();
-        final int passwort = ((EditText)findViewById(R.id.passwort)).getText().toString().hashCode();
+        final String passwort = ((EditText)findViewById(R.id.passwort)).getText().toString().hashCode() + "";
         final Activity ac=this;
         new Thread(new Runnable() {
             @Override
@@ -131,7 +130,9 @@ public class Login extends AppCompatActivity
                     pw.println("select * from login where benutzername=\""+benutzername+"\" and passwort=\""+passwort+"\";");
                     pw.flush();
                     System.out.println("Daten übertragen");
-                    int rechthoehe = Integer.parseInt(br.readLine());
+                    String intAnmeldungErfolgreich = br.readLine();
+                    System.out.println(intAnmeldungErfolgreich);
+                    int rechthoehe = Integer.parseInt(intAnmeldungErfolgreich);
                     System.out.println("Gelesen");
                     Startseite.login = rechthoehe;
 
@@ -155,10 +156,11 @@ public class Login extends AppCompatActivity
                     });
 
                 } catch (Exception e) {
+                    e.printStackTrace();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac, "Login fehlgeschlagen", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ac,"Fehler beim Verbinden zum Server",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(ac, Startseite.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
