@@ -4,6 +4,11 @@
     <item android:title="Startseite"
         android:id="@+id/nav_startseite"/>
 
+    <item android:title="Vertretungsplan-heute"
+        android:id="@+id/nav_vertret_heute"/>
+    <item android:title="Vertretungsplan morgen"
+        android:id="@+id/nav_vertret_morgen"/>
+
     <item android:title="Meldung an IT-Team"
         android:id="@+id/nav_it_team_senden"/>
     <item android:title="Meldungen abrufen"

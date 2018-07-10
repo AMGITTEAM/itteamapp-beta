@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.URL;
 
 public class Login extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -71,9 +72,9 @@ public class Login extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    Socket s = new Socket();
-                    s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),Startseite.timeout);
-                    s.close();
+                    URL oracle = new URL("http://amgitt.de:8080/AMGAppServlet/");
+                    BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
+                    in.close();
                     progress.dismiss();
                 } catch (final Exception e){
                     runOnUiThread(new Runnable() {
@@ -120,17 +121,16 @@ public class Login extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    Socket server = new Socket();
-                    server.connect(new InetSocketAddress(Startseite.ip, Startseite.port),Startseite.timeout);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(server.getInputStream()));
-                    PrintWriter pw = new PrintWriter(server.getOutputStream());
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Login&request=select * from login where benutzername=\""+benutzername+"\" and passwort=\""+passwort+"\";&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    url = url.replaceAll(" ","%20");
+                    System.out.println(url);
+                    URL oracle = new URL(url);
+                    BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
 
-                    pw.println("Login");
-                    pw.flush();
-                    pw.println("select * from login where benutzername=\""+benutzername+"\" and passwort=\""+passwort+"\";");
-                    pw.flush();
-                    System.out.println("Daten übertragen");
-                    String intAnmeldungErfolgreich = br.readLine();
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    String intAnmeldungErfolgreich = in.readLine();
+                    in.close();
                     System.out.println(intAnmeldungErfolgreich);
                     int rechthoehe = Integer.parseInt(intAnmeldungErfolgreich);
                     System.out.println("Gelesen");

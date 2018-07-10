@@ -2,14 +2,8 @@ package www.amg_witten.de.apptest;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,13 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +27,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
 
 public class ITTeamHolen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,11 +68,11 @@ public class ITTeamHolen extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,2);
+        methoden.onCreateFillIn(this,this,4);
 
         ITTeamHolenAnzeigen("select * from fehlermeldungen where status=\"Offen\";");
     }
@@ -153,9 +142,9 @@ public class ITTeamHolen extends AppCompatActivity
         boolean etwMarkiert = false;
 
         if(offen.isChecked()){
-            if(etwMarkiert){
+            /*if(etwMarkiert){
                 anfrage+=" OR ";
-            }
+            }*/
             etwMarkiert=true;
             anfrage+="status=\"Offen\"";
         }
@@ -324,7 +313,7 @@ public class ITTeamHolen extends AppCompatActivity
             if(etwMarkiert){
                 anfrage+=" OR ";
             }
-            etwMarkiert=true;
+            //etwMarkiert=true;
             anfrage+="raum=\"14\"";
         }
 
@@ -339,16 +328,17 @@ public class ITTeamHolen extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    Socket s = new Socket();
-                    s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                    PrintWriter pw = new PrintWriter(s.getOutputStream());
+                    URL url = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamHolen&request="+filter+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(url.openStream()));
 
-                    pw.println("ITTeamHolen");
-                    pw.flush();
-                    pw.println(filter);
-                    pw.flush();
-                    int eintraegeZahl = Integer.parseInt(br.readLine());
+                    do {} while (!(in.readLine()).equals("<body>"));
+                    in.readLine();
+                    String data = in.readLine();
+                    System.out.println(data);
+                    in.close();
+
+                    int eintraegeZahl = Integer.parseInt(data.split("/newthing/")[0]);
 
                     final ViewGroup vg = (ViewGroup)findViewById(R.id.content_itteam_holen);
                     runOnUiThread(new Runnable() {
@@ -359,7 +349,7 @@ public class ITTeamHolen extends AppCompatActivity
                     });
                     final String[] texte = new String[eintraegeZahl];
                     for(int i=0;i<eintraegeZahl;i++){
-                        String readLine=br.readLine();
+                        String readLine=data.split("/newthing/")[i+1];
                         texte[i]=readLine;
                         readLine = readLine.replaceAll("//","\n");
                         readLine = readLine.replaceAll("ae","ä");
@@ -544,10 +534,10 @@ public class ITTeamHolen extends AppCompatActivity
 
         System.out.println(neu);
 
-        final String[] daten = new String[4];
+        final String[] daten = new String[8];
         String[] results = text.split("//");
         daten[0]=results[0].replace("Datum: ","");
-        daten[1]=results[2].replace("Gebäude: ","");
+        daten[1]=results[2].replace("Gebaeude: ","");
         daten[2]=results[3].replace("Etage: ","");
         daten[3]=results[4].replace("Raum: ","");
         daten[4]=results[5].replace("Wichtigkeit: ","");
@@ -560,40 +550,26 @@ public class ITTeamHolen extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    Socket s = new Socket();
-                    s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                    PrintWriter pw = new PrintWriter(s.getOutputStream());
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+daten[1]+"\" and etage=\""+daten[2]+"\" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    url = url.replaceAll(" ","%20");
+                    URL oracle = new URL(url);
+                    System.out.println(url);
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
 
-                    pw.println("ITTeamLoeschen");
-                    pw.flush();
-                    pw.println("delete from fehlermeldungen where gebaeude=\""+daten[1]+" and etage=\""+daten[2]+" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";");
-                    pw.flush();
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    System.out.println(in.readLine());
+                    in.close();
 
-                    s.close();
+                    oracle = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&datum="+daten[0]+"&gebaeude="+daten[1]+"&etage="+daten[2]+"&raum="+daten[3]+"&wichtigkeit="+daten[4]+"&fehler="+daten[5]+"&beschreibung="+daten[6]+"&status="+neu+"&bearbeitetVon=");
+                    in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
 
-                    s=new Socket();
-                    s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                    pw=new PrintWriter(s.getOutputStream());
-
-                    pw.println("ITTeamMelden");
-                    pw.flush();
-                    pw.println(daten[0]);
-                    pw.flush();
-                    pw.println(daten[1]);
-                    pw.flush();
-                    pw.println(daten[2]);
-                    pw.flush();
-                    pw.println(daten[3]);
-                    pw.flush();
-                    pw.println(daten[4]);
-                    pw.flush();
-                    pw.println(daten[5]);
-                    pw.flush();
-                    pw.println(daten[6]);
-                    pw.flush();
-                    pw.println(daten[7]);
-                    pw.flush();
-                    pw.close();
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    System.out.println(in.readLine());
+                    in.close();
 
                     startActivity(new Intent(ac,ITTeamHolen.class));
 

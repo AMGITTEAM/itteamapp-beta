@@ -1,0 +1,1 @@
+Es muss über die Einstellungen und unter App -> AMG-App die Speicherfreigabe manuell vorgenommen werden.

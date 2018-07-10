@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,27 +102,25 @@ public class ITTeamSenden4 extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    Socket server=new Socket();
-                    server.connect(new InetSocketAddress(Startseite.ip,Startseite.port),Startseite.timeout);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(server.getInputStream()));
-                    PrintWriter pw = new PrintWriter(server.getOutputStream());
+                    URL oracle = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamHolen&request="+"select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\";"+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
 
-                    pw.println("ITTeamHolen");
-                    pw.flush();
-                    pw.println("select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\";");
-                    pw.flush();
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    String data = (in.readLine());
+                    in.close();
 
-                    int eintraegeZahl = Integer.parseInt(br.readLine());
+                    int eintraegeZahl = Integer.parseInt(data.split("/newthing/")[0]);
                     List<String> eintraege = new ArrayList<>();
                     for(int i=0;i<eintraegeZahl;i++){
-                        String bearbeiten = br.readLine();
+                        String bearbeiten = data.split("/newthing/")[i+1];
                         System.out.println(bearbeiten);
                         String[] results = bearbeiten.split("Wichtigkeit: ");
                         String raumDahinter = results[1];
                         results = raumDahinter.split("//");
                         eintraege.add(results[0]);
                     }
-                    server.close();
                     if(eintraegeZahl>0){
                         ITTeamSenden.wichtigkeit=eintraege.get(0);
                         runOnUiThread(new Runnable() {

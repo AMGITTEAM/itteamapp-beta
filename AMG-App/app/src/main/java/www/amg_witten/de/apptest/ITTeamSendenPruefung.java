@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -42,7 +43,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         Methoden methoden = new Methoden();
@@ -80,60 +81,45 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                 System.out.println("WORKING");
                 try {
                     if(!ITTeamSenden.ueberschreiben){
-                        Socket s = new Socket();
-                        s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                        BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                        PrintWriter pw = new PrintWriter(s.getOutputStream());
-                        pw.println("ITTeamHolen");
-                        pw.flush();
-                        pw.println("select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\";");
-                        pw.flush();
-                        br.readLine();
-                        String bisher = br.readLine();
+                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamHolen&request=select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                        url = url.replaceAll(" ","%20");
+                        URL oracle = new URL(url);
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(oracle.openStream()));
+
+                        while (!(in.readLine()).equals("<body>")){}
+                        in.readLine();
+                        String fullBisher = (in.readLine());
+                        in.close();
+                        String bisher = fullBisher.split("/newthing/")[1];
                         String[] beschrs = bisher.split("Beschreibung: ");
                         String beschr = beschrs[1];
                         System.out.println(beschr);
                         String[] datums = bisher.split("Datum: ");
                         String datum = datums[1];
-                        br.close();
-                        pw.close();
-                        s.close();
 
-                        s = new Socket();
-                        s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                        pw=new PrintWriter(s.getOutputStream());
-                        pw.println("ITTeamLoeschen");
-                        pw.flush();
-                        pw.println("delete from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\";");
-                        pw.flush();
-                        pw.close();
-                        s.close();
+                        url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                        url = url.replaceAll(" ","%20");
+                        oracle = new URL(url);
+                        in = new BufferedReader(
+                                new InputStreamReader(oracle.openStream()));
 
-                        s = new Socket();
-                        s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                        pw = new PrintWriter(s.getOutputStream());
-                        pw.println("ITTeamMelden");
-                        pw.flush();
-                        pw.println(datum);
-                        pw.flush();
-                        pw.println(ITTeamSenden.gebaeude);
-                        pw.flush();
-                        pw.println(ITTeamSenden.etage);
-                        pw.flush();
-                        pw.println(ITTeamSenden.raum);
-                        pw.flush();
-                        pw.println(ITTeamSenden.wichtigkeit);
-                        pw.flush();
-                        pw.println(ITTeamSenden.fehler);
-                        pw.flush();
-                        pw.println(ITTeamSenden.beschreibung);
-                        pw.flush();
-                        pw.println("Offen");
-                        pw.flush();
-                        pw.println("Keiner");
-                        pw.flush();
-                        pw.close();
-                        s.close();
+                        while (!(in.readLine()).equals("<body>")){}
+                        in.readLine();
+                        System.out.println(in.readLine());
+                        in.close();
+
+                        url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&datum="+datum+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
+                        url = url.replaceAll(" ","%20");
+                        oracle = new URL(url);
+                        in = new BufferedReader(
+                                new InputStreamReader(oracle.openStream()));
+
+                        while (!(in.readLine()).equals("<body>")){}
+                        in.readLine();
+                        System.out.println(in.readLine());
+                        in.close();
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -142,31 +128,17 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                         });
                     }
                     else {
-                        Socket s = new Socket();
-                        s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                        PrintWriter pw = new PrintWriter(s.getOutputStream());
-                        pw.println("ITTeamMelden");
-                        pw.flush();
-                        pw.println(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
-                        pw.flush();
-                        pw.println(ITTeamSenden.gebaeude);
-                        pw.flush();
-                        pw.println(ITTeamSenden.etage);
-                        pw.flush();
-                        pw.println(ITTeamSenden.raum);
-                        pw.flush();
-                        pw.println(ITTeamSenden.wichtigkeit);
-                        pw.flush();
-                        pw.println(ITTeamSenden.fehler);
-                        pw.flush();
-                        pw.println(ITTeamSenden.beschreibung);
-                        pw.flush();
-                        pw.println("Offen");
-                        pw.flush();
-                        pw.println("Keiner");
-                        pw.flush();
-                        pw.close();
-                        s.close();
+                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
+                        url = url.replaceAll(" ","%20");
+                        URL oracle = new URL(url);
+                        System.out.println(oracle);
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(oracle.openStream()));
+
+                        while (!(in.readLine()).equals("<body>")){}
+                        in.readLine();
+                        System.out.println(in.readLine());
+                        in.close();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
