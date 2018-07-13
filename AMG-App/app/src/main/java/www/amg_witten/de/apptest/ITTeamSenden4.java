@@ -32,7 +32,7 @@ public class ITTeamSenden4 extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.it_team_senden4_main);
+        setContentView(R.layout.all_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -43,7 +43,7 @@ public class ITTeamSenden4 extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,null);
+        methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden4);
 
         TextView raumPr = (TextView)findViewById(R.id.raumPruefen);
         raumPr.setText("Bitte wähle den Fehler für den Raum "+ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum+" aus!");

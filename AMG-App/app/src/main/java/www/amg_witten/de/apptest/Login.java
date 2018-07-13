@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.all_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,900);
+        methoden.onCreateFillIn(this,this,900,R.layout.login);
 
         if(Startseite.login>0){
             File file = new File(this.getFilesDir(),"Login.txt");

@@ -20,7 +20,7 @@ public class ITTeamSenden5 extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.it_team_senden5_main);
+        setContentView(R.layout.all_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -31,7 +31,7 @@ public class ITTeamSenden5 extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,null);
+        methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden5);
     }
 
     @Override

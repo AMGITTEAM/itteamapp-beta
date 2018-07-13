@@ -36,7 +36,7 @@ public class Vertretungsplan extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vertretungsplan_main);
+        setContentView(R.layout.all_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,7 +49,7 @@ public class Vertretungsplan extends AppCompatActivity
         Intent thisIntent = getIntent();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,thisIntent.getIntExtra("navID",0));
+        methoden.onCreateFillIn(this,this,thisIntent.getIntExtra("navID",0),R.layout.vertretungsplan);
 
         date = thisIntent.getStringExtra("Date");
         setTitle(thisIntent.getStringExtra("Title"));

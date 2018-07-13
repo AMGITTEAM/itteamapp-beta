@@ -24,7 +24,7 @@ public class Info extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.info_main);
+        setContentView(R.layout.all_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,7 +35,7 @@ public class Info extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,901);
+        methoden.onCreateFillIn(this,this,901, R.layout.info);
 
         String currentVersionCode = BuildConfig.VERSION_NAME;
 

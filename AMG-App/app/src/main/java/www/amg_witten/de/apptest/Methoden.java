@@ -6,6 +6,8 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewStub;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
@@ -65,7 +67,7 @@ public class Methoden {
         return true;
     }
 
-    public void onCreateFillIn(Activity currentActivity, NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener, Integer navigationNr){
+    public void onCreateFillIn(Activity currentActivity, NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener, Integer navigationNr, int layout){
         NavigationView navigationView = (NavigationView) currentActivity.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(navigationItemSelectedListener);
 
@@ -95,6 +97,10 @@ public class Methoden {
         if(Startseite.login<=2){
             navigationView.getMenu().getItem(4).setVisible(false);
         }
+
+        ViewStub stub = (ViewStub) currentActivity.findViewById(R.id.all_content);
+        stub.setLayoutResource(layout);
+        stub.inflate();
     }
 }
 

@@ -32,7 +32,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.it_team_senden_pruefung_main);
+        setContentView(R.layout.all_main);
         TextView raumPr = (TextView)findViewById(R.id.pruefen);
         raumPr.setText("Raum: "+ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum+"\n\n\nFehler: "+ITTeamSenden.fehler+"\n\n\nWichtigkeit: "+ITTeamSenden.wichtigkeit+"\n\n\nBeschreibung: "+ITTeamSenden.beschreibung);
 
@@ -47,7 +47,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,null);
+        methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden_pruefung);
     }
 
     @Override

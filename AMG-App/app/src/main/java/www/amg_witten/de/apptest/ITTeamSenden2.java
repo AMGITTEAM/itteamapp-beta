@@ -21,7 +21,7 @@ public class ITTeamSenden2 extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.it_team_senden2_main);
+        setContentView(R.layout.all_main);
         View u = findViewById(R.id.U);
         View z = findViewById(R.id.Z);
         switch (ITTeamSenden.gebaeude){
@@ -48,7 +48,7 @@ public class ITTeamSenden2 extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,null);
+        methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden2);
     }
 
     @Override

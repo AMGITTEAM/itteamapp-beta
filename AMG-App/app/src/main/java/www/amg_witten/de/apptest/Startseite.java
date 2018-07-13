@@ -23,7 +23,7 @@ public class Startseite extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.startseite_main);
+        setContentView(R.layout.all_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,7 +47,7 @@ public class Startseite extends AppCompatActivity
         System.out.println(login);
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,0);
+        methoden.onCreateFillIn(this,this,0, R.layout.startseite);
 
         // Get current version code
         int currentVersionCode = BuildConfig.VERSION_CODE;

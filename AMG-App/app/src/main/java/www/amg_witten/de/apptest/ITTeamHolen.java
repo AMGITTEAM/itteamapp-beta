@@ -61,7 +61,7 @@ public class ITTeamHolen extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.it_team_holen_main);
+        setContentView(R.layout.all_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,7 +72,7 @@ public class ITTeamHolen extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,4);
+        methoden.onCreateFillIn(this,this,4, R.layout.it_team_holen);
 
         ITTeamHolenAnzeigen("select * from fehlermeldungen where status=\"Offen\";");
     }
