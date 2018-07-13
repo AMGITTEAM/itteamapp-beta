@@ -1,1 +1,4 @@
-Vertretungsplan-Bereich hinzugefügt (Heute und Morgen)
+Vertretungsplan verschönert (mit Bildern und Beschreibung)
+Vertretungsplan in unsichtbaren Bereich der Speicherkarte verschoben (Speicherfreigabe entfernt)
+Version Control eingeführt
+Bugs behoben (und dabei den Code in Vertretungsplan.java EXTREM verlängert)

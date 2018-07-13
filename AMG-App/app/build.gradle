@@ -7,8 +7,10 @@ android {
         applicationId "www.amg_witten.de.apptest"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+
+        versionCode=1
+        versionName="0.1-PRE"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

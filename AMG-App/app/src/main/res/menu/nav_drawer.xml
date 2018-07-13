@@ -18,5 +18,7 @@
 
     <item android:title="Login"
         android:id="@+id/nav_login"/>
+    <item android:title="Info"
+        android:id="@+id/nav_info"/>
 
 </menu>

@@ -29,6 +29,7 @@
     <string name="title_activity_itteam_senden6">Beschreibung</string>
     <string name="title_activity_itteam_senden_pruefeung">Zusammenfassung</string>
     <string name="title_activity_itteam_holen">Fehlermeldungen</string>
+    <string name="title_activity_info">Info</string>
 
 
 </resources>
