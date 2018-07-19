@@ -1,4 +1,10 @@
-Vertretungsplan verschönert (mit Bildern und Beschreibung)
-Vertretungsplan in unsichtbaren Bereich der Speicherkarte verschoben (Speicherfreigabe entfernt)
-Version Control eingeführt
-Bugs behoben (und dabei den Code in Vertretungsplan.java EXTREM verlängert)
+Abhängigkeiten aktualisiert
+Backup-Descriptor hinzugefügt (Damit die App vollständig nach einer Neuinstallation von Google wiederhergestellt werden kann)
+Benachrichtigungen zum Vertretungsplan hinzugefügt, diese werden um 7:00 Uhr (ungefähr) angezeigt (mit Daten zur eigenen Klasse)
+Einstellungen hinzugefügt
+Login-Daten werden ab sofort in eine Datenbank geschrieben (Neuanmeldung wahrscheinlich nötig)
+Die eigene Klasse (festgelegt in den Einstellungen) wird rot im Vertretungsplan markiert
+
+Unnötige Ressourcen entfernt
+Viele Kompilierungswarnungen behoben
+Klasse umbenannt

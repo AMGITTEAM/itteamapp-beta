@@ -1,7 +1,5 @@
 package www.amg_witten.de.apptest;
 
-import android.app.Activity;
-
 class VertretungModel {
 
     private String Stunde;

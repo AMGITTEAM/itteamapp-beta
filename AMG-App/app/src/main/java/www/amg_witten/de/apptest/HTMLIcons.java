@@ -8,7 +8,7 @@ import android.util.Base64;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class CreateHTMLIcons {
+class HTMLIcons {
 
     public static void writeToFile(String imageBase,String fileName,Context thise){
         byte[] imageAsBytes = Base64.decode(imageBase.getBytes(), Base64.DEFAULT);

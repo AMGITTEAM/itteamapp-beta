@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="www.amg_witten.de.apptest.ITTeamHolen"
-    tools:showIn="@layout/it_team_holen_app_bar">
+    tools:context="www.amg_witten.de.apptest.ITTeamHolen">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/content_itteam_holen">
 

@@ -3,6 +3,7 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -16,9 +17,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -29,10 +27,10 @@ public class Login extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -42,14 +40,10 @@ public class Login extends AppCompatActivity
         methoden.onCreateFillIn(this,this,900,R.layout.login);
 
         if(Startseite.login>0){
-            File file = new File(this.getFilesDir(),"Login.txt");
-            boolean erfolg = file.delete();
-            if(erfolg){
-                Toast.makeText(this,"Logout erfolgreich",Toast.LENGTH_LONG).show();
-            }
-            else {
-                Toast.makeText(this,"Logout fehlgeschlagen",Toast.LENGTH_LONG).show();
-            }
+            SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+            prefs.edit().putInt("login",0).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
+            prefs.edit().putString("loginUsername","").apply();
+            Toast.makeText(this,"Logout erfolgreich",Toast.LENGTH_LONG).show();
             Startseite.login=0;
             Intent intent = new Intent(this, Startseite.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -91,7 +85,7 @@ public class Login extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -105,7 +99,8 @@ public class Login extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
-        return methoden.onNavigationItemSelectedFillIn(item,R.id.nav_login,this);
+        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_login,this);
+        return true;
     }
 
     public void LoginAction(View view) {
@@ -137,12 +132,9 @@ public class Login extends AppCompatActivity
                     System.out.println("Gelesen");
                     Startseite.login = rechthoehe;
 
-                    File file = new File(ac.getFilesDir(),"Login.txt");
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-                    bw.write(""+rechthoehe+"\n");
-                    bw.write(benutzername);
-                    bw.flush();
-                    bw.close();
+                    SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+                    prefs.edit().putInt("login",rechthoehe).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
+                    prefs.edit().putString("loginUsername",benutzername).apply();
 
                     System.out.println(Startseite.login);
 

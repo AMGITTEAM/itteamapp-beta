@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,48 +25,45 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.net.URL;
 
 public class ITTeamHolen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    MenuItem offen;
-    MenuItem inBearbeitung;
-    MenuItem fertig;
-    MenuItem gebH;
-    MenuItem gebA;
-    MenuItem gebN;
-    MenuItem et2;
-    MenuItem et1;
-    MenuItem et0;
-    MenuItem etZ;
-    MenuItem etU;
-    MenuItem raum01;
-    MenuItem raum02;
-    MenuItem raum03;
-    MenuItem raum04;
-    MenuItem raum05;
-    MenuItem raum06;
-    MenuItem raum07;
-    MenuItem raum08;
-    MenuItem raum09;
-    MenuItem raum10;
-    MenuItem raum11;
-    MenuItem raum12;
-    MenuItem raum13;
-    MenuItem raum14;
+    private MenuItem offen;
+    private MenuItem inBearbeitung;
+    private MenuItem fertig;
+    private MenuItem gebH;
+    private MenuItem gebA;
+    private MenuItem gebN;
+    private MenuItem et2;
+    private MenuItem et1;
+    private MenuItem et0;
+    private MenuItem etZ;
+    private MenuItem etU;
+    private MenuItem raum01;
+    private MenuItem raum02;
+    private MenuItem raum03;
+    private MenuItem raum04;
+    private MenuItem raum05;
+    private MenuItem raum06;
+    private MenuItem raum07;
+    private MenuItem raum08;
+    private MenuItem raum09;
+    private MenuItem raum10;
+    private MenuItem raum11;
+    private MenuItem raum12;
+    private MenuItem raum13;
+    private MenuItem raum14;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -137,7 +135,7 @@ public class ITTeamHolen extends AppCompatActivity
         }
     }
 
-    public String AnfrageGenerieren() {
+    private String AnfrageGenerieren() {
         String anfrage = "select * from fehlermeldungen where ";
         boolean etwMarkiert = false;
 
@@ -322,7 +320,7 @@ public class ITTeamHolen extends AppCompatActivity
         return anfrage;
     }
 
-    public void ITTeamHolenAnzeigen(final String filter){
+    private void ITTeamHolenAnzeigen(final String filter){
         final Activity ac=this;
         new Thread(new Runnable() {
             @Override
@@ -332,7 +330,7 @@ public class ITTeamHolen extends AppCompatActivity
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(url.openStream()));
 
-                    do {} while (!(in.readLine()).equals("<body>"));
+                    while (!(in.readLine()).equals("<body>")){}
                     in.readLine();
                     String data = in.readLine();
                     System.out.println(data);
@@ -340,7 +338,7 @@ public class ITTeamHolen extends AppCompatActivity
 
                     int eintraegeZahl = Integer.parseInt(data.split("/newthing/")[0]);
 
-                    final ViewGroup vg = (ViewGroup)findViewById(R.id.content_itteam_holen);
+                    final ViewGroup vg = findViewById(R.id.content_itteam_holen);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -500,7 +498,7 @@ public class ITTeamHolen extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -511,25 +509,13 @@ public class ITTeamHolen extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_startseite) {
-            Intent intent = new Intent(this, Startseite.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        } else if (id == R.id.nav_it_team_senden) {
-            startActivity(new Intent(this,ITTeamSenden.class));
-        } else if (id == R.id.nav_login) {
-            startActivity(new Intent(this,Login.class));
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Methoden methoden = new Methoden();
+        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_it_team_holen,this);
         return true;
     }
 
-    public void StatusAendern(final String neu, String text){
+    private void StatusAendern(final String neu, String text){
         final Activity ac = this;
 
         System.out.println(neu);

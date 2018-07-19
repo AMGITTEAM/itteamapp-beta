@@ -10,8 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="www.amg_witten.de.apptest.Login"
-    tools:showIn="@layout/login_app_bar">
+    tools:context="www.amg_witten.de.apptest.Login">
 
     <EditText
         android:hint="Benutzername"
@@ -20,7 +19,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:id="@+id/benutzername" />
+        android:id="@+id/benutzername"
+        android:inputType="text" />
 
     <EditText
         android:hint="Passwort"

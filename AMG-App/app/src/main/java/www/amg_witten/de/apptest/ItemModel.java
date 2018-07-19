@@ -8,7 +8,7 @@ class ItemModel {
         this.RightRows = rightRows;
     }
 
-    String getHTMLListItems(int id){
+    String getHTMLListItems(int id, String ownKlasse){
         StringBuilder content = new StringBuilder();
         String klasse = "";
         for(VertretungModel s : RightRows){
@@ -26,7 +26,10 @@ class ItemModel {
                     "            </tr>");
         }
         String color;
-        if(klasse.contains("5")||klasse.contains("6")){
+        if(klasse.equals(ownKlasse)){
+            color="#FF0000";
+        }
+        else if(klasse.contains("5")||klasse.contains("6")){
             color="#4aa3df";
         }
         else if(klasse.contains("7")||klasse.contains("8")||klasse.contains("9")){
@@ -62,6 +65,17 @@ class ItemModel {
                 "            "+content.toString()+"\n" +
                 "          </table>\n" +
                 "        </div>";
+    }
+
+    String getNotificationText(){
+
+        StringBuilder returns= new StringBuilder();
+
+        for(VertretungModel s : RightRows){
+            returns.append(s.toString());
+        }
+
+        return returns.toString();
     }
 
 }

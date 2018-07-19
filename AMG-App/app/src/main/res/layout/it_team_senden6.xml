@@ -10,8 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="www.amg_witten.de.apptest.ITTeamSenden6"
-    tools:showIn="@layout/it_team_senden6_app_bar">
+    tools:context="www.amg_witten.de.apptest.ITTeamSenden6">
 
     <EditText
         android:hint="Beschreibung"
@@ -20,7 +19,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/it_team_beschreibung"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:inputType="textAutoCorrect" />
 
     <Button
         android:text="Fertig"

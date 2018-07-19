@@ -3,6 +3,7 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -30,17 +31,18 @@ import java.util.regex.Pattern;
 public class Vertretungsplan extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Activity thise = this;
-    static String date = "";
+    private Activity thise = this;
+    private static String date = "";
+    private static String klasse = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -54,6 +56,9 @@ public class Vertretungsplan extends AppCompatActivity
         date = thisIntent.getStringExtra("Date");
         setTitle(thisIntent.getStringExtra("Title"));
 
+        SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+        klasse = prefs.getString("klasse","");
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -63,6 +68,7 @@ public class Vertretungsplan extends AppCompatActivity
     }
 
     public static void action(final Activity thise){
+        System.out.println(klasse);
         final List<String> urlEndings = new ArrayList<>();
         List<String> tables = new ArrayList<>();
         final List<String> klassen = new ArrayList<>();
@@ -1012,7 +1018,7 @@ public class Vertretungsplan extends AppCompatActivity
                                 "      <ul class=\"panels\">\n");
                         fw.flush();
                         for(int i=0;i<fertigeKlassen.size(); i++){
-                            fw.write(data.get(i).getHTMLListItems(i));
+                            fw.write(data.get(i).getHTMLListItems(i, klasse));
                             fw.flush();
                             pDialog.setProgress(i+3);
                         }
@@ -1029,7 +1035,7 @@ public class Vertretungsplan extends AppCompatActivity
                     pDialog.setMax(1);
                     pDialog.setMessage("Datei wird geöffnet...");
 
-                    WebView wv = (WebView)thise.findViewById(R.id.webView);
+                    WebView wv = thise.findViewById(R.id.webView);
                     wv.loadUrl("file:///"+lFile.getAbsolutePath());
                     wv.getSettings().setJavaScriptEnabled(true);
                     wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
@@ -1061,7 +1067,7 @@ public class Vertretungsplan extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -1071,10 +1077,10 @@ public class Vertretungsplan extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
-        return methoden.onNavigationItemSelectedFillIn(item,R.id.nav_login,this);
+        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_login,this);
+        return true;
     }
 }

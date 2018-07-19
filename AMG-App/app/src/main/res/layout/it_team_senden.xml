@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="www.amg_witten.de.apptest.ITTeamSenden"
-    tools:showIn="@layout/it_team_senden_app_bar">
+    tools:context="www.amg_witten.de.apptest.ITTeamSenden">
 
     <TextView
         android:text="Bitte wähle das Gebäude mit dem zu meldendem Fehler aus!"

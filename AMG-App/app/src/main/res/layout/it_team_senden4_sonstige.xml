@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="www.amg_witten.de.apptest.ITTeamSenden4Sonstige"
-    tools:showIn="@layout/it_team_senden4_sonstige_app_bar">
+    tools:context="www.amg_witten.de.apptest.ITTeamSenden4Sonstige">
 
     <EditText
         android:hint="Beschreibung des Fehlers"
@@ -16,7 +15,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/it_team_fehlersonstige"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:inputType="textAutoCorrect" />
 
     <Button
         android:text="Fertig"
