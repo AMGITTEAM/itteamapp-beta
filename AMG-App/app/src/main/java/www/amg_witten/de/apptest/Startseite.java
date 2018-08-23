@@ -21,6 +21,7 @@ public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static int login;
     public static String benutzername;
+    public static SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class Startseite extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+        prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
         login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
         benutzername = prefs.getString("loginUsername","");
         System.out.println(login);
@@ -60,34 +61,18 @@ public class Startseite extends AppCompatActivity
             HTMLIcons.writeToFile(HTMLIcons.getBookEditPNGBase(),"book_edit.png",this);
             HTMLIcons.writeToFile(HTMLIcons.getBulletErrorPNGBase(),"bullet_error.png",this);
             HTMLIcons.writeToFile(HTMLIcons.getDoorOpenPNGBase(),"door_open.png",this);
-
-            Intent alarmIntent = new Intent(this, NotifyVertretungsplan.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-
-            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 7);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 1);
-
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, pendingIntent);
-
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("firstTime", true);
-            editor.apply();
         } else if (currentVersionCode > savedVersionCode) {
             prefs.edit().putInt("version_code", currentVersionCode).apply();
-            HTMLIcons.writeToFile(HTMLIcons.getTimePNGBase(),"time.png",this);
-            HTMLIcons.writeToFile(HTMLIcons.getBookPNGBase(), "book.png",this);
-            HTMLIcons.writeToFile(HTMLIcons.getGroupPNGBase(),"group.png",this);
-            HTMLIcons.writeToFile(HTMLIcons.getLightbulbPNGBase(),"lightbulb.png",this);
-            HTMLIcons.writeToFile(HTMLIcons.getUserPNGBase(),"user.png",this);
-            HTMLIcons.writeToFile(HTMLIcons.getBookEditPNGBase(),"book_edit.png",this);
-            HTMLIcons.writeToFile(HTMLIcons.getBulletErrorPNGBase(),"bullet_error.png",this);
-            HTMLIcons.writeToFile(HTMLIcons.getDoorOpenPNGBase(),"door_open.png",this);
+            if(savedVersionCode<1){
+                HTMLIcons.writeToFile(HTMLIcons.getTimePNGBase(),"time.png",this);
+                HTMLIcons.writeToFile(HTMLIcons.getBookPNGBase(), "book.png",this);
+                HTMLIcons.writeToFile(HTMLIcons.getGroupPNGBase(),"group.png",this);
+                HTMLIcons.writeToFile(HTMLIcons.getLightbulbPNGBase(),"lightbulb.png",this);
+                HTMLIcons.writeToFile(HTMLIcons.getUserPNGBase(),"user.png",this);
+                HTMLIcons.writeToFile(HTMLIcons.getBookEditPNGBase(),"book_edit.png",this);
+                HTMLIcons.writeToFile(HTMLIcons.getBulletErrorPNGBase(),"bullet_error.png",this);
+                HTMLIcons.writeToFile(HTMLIcons.getDoorOpenPNGBase(),"door_open.png",this);
+            }
         }
     }
 

@@ -18,6 +18,8 @@ public class ErstesServletKlasse extends HttpServlet {
 	protected void doGet(HttpServletRequest HttpRequest, HttpServletResponse HttpResponse) throws ServletException, IOException {
 		String requestType = "";
 		String request = "";
+		String benutzername = "";
+		String passwort = "";
 		String datum = "";
 		String gebaeude = "";
 		String etage = "";
@@ -32,6 +34,10 @@ public class ErstesServletKlasse extends HttpServlet {
 			requestType = HttpRequest.getParameter("requestType").replaceAll("%20", " ");
 			System.out.println(requestType);
 			request = HttpRequest.getParameter("request").replaceAll("%20", " ");
+			System.out.println(request);
+			benutzername = HttpRequest.getParameter("username").replaceAll("%20", " ");
+			System.out.println(request);
+			passwort = HttpRequest.getParameter("password").replaceAll("%20", " ");
 			System.out.println(request);
 			datum = HttpRequest.getParameter("datum").replaceAll("%20", " ");
 			System.out.println(datum);
@@ -56,7 +62,7 @@ public class ErstesServletKlasse extends HttpServlet {
 			ausfuehrFehler = true;
 		}
 		try {
-			String returnString = Lite.transact(requestType, request, datum, gebaeude, etage, raum, wichtigkeit, fehler, beschreibung, status, bearbeitetVon);
+			String returnString = Lite.transact(requestType, request, benutzername, passwort, datum, gebaeude, etage, raum, wichtigkeit, fehler, beschreibung, status, bearbeitetVon);
 			HttpRequest.setAttribute("responsed", returnString);
 			HttpRequest.setAttribute("fehler", ausfuehrFehler);
 			getServletContext().getRequestDispatcher("/ergebnis.jsp").forward(HttpRequest, HttpResponse);
@@ -66,7 +72,6 @@ public class ErstesServletKlasse extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 	

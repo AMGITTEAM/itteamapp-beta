@@ -1,10 +1,8 @@
 Abhängigkeiten aktualisiert
-Backup-Descriptor hinzugefügt (Damit die App vollständig nach einer Neuinstallation von Google wiederhergestellt werden kann)
-Benachrichtigungen zum Vertretungsplan hinzugefügt, diese werden um 7:00 Uhr (ungefähr) angezeigt (mit Daten zur eigenen Klasse)
-Einstellungen hinzugefügt
-Login-Daten werden ab sofort in eine Datenbank geschrieben (Neuanmeldung wahrscheinlich nötig)
-Die eigene Klasse (festgelegt in den Einstellungen) wird rot im Vertretungsplan markiert
+Server-Client-Verbindung bei jedem Mal passwortgeschützt
+In den Einstellungen:
+    Farb-Bearbeiter hinzugefügt
+    Erweiterte Einstellungen hinzugefügt
+Vertretungsplan-Erstellart geändert
 
-Unnötige Ressourcen entfernt
-Viele Kompilierungswarnungen behoben
-Klasse umbenannt
+WICHTIG: Server muss neu installiert werden! (auf amgitt.de schon erledigt)

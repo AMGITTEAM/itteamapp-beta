@@ -326,7 +326,7 @@ public class ITTeamHolen extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamHolen&request="+filter+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
+                    URL url = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamHolen&request="+filter+"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(url.openStream()));
 
@@ -536,7 +536,7 @@ public class ITTeamHolen extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+daten[1]+"\" and etage=\""+daten[2]+"\" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+daten[1]+"\" and etage=\""+daten[2]+"\" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";$username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     URL oracle = new URL(url);
                     System.out.println(url);
@@ -548,7 +548,7 @@ public class ITTeamHolen extends AppCompatActivity
                     System.out.println(in.readLine());
                     in.close();
 
-                    oracle = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&datum="+daten[0]+"&gebaeude="+daten[1]+"&etage="+daten[2]+"&raum="+daten[3]+"&wichtigkeit="+daten[4]+"&fehler="+daten[5]+"&beschreibung="+daten[6]+"&status="+neu+"&bearbeitetVon=");
+                    oracle = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=$username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+daten[0]+"&gebaeude="+daten[1]+"&etage="+daten[2]+"&raum="+daten[3]+"&wichtigkeit="+daten[4]+"&fehler="+daten[5]+"&beschreibung="+daten[6]+"&status="+neu+"&bearbeitetVon=");
                     in = new BufferedReader(
                             new InputStreamReader(oracle.openStream()));
 

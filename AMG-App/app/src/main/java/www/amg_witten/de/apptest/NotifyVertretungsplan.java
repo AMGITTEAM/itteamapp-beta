@@ -708,7 +708,7 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                         }
                     }
 
-                    ItemModel data = null;
+                    VertretungModelArrayModel data = null;
                     for(int ie=0; ie<vertretungModels.size(); ie++){
                         if(vertretungModels.get(ie).getKlasse().equals(klasse)){
                             System.out.println("TRUE");
@@ -726,7 +726,7 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                                     rightRowsCount++;
                                 }
                             }
-                            data = (new ItemModel(rightRows));
+                            data = (new VertretungModelArrayModel(rightRows));
                         }
                         System.out.println(vertretungModels.get(ie).getKlasse());
                     }

@@ -1,7 +1,10 @@
 package www.amg_witten.de.apptest;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Calendar;
 
 public class Login extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,8 +47,15 @@ public class Login extends AppCompatActivity
             SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
             prefs.edit().putInt("login",0).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
             prefs.edit().putString("loginUsername","").apply();
+            prefs.edit().putString("loginPassword","").apply();
             Toast.makeText(this,"Logout erfolgreich",Toast.LENGTH_LONG).show();
             Startseite.login=0;
+            Intent alarmIntent = new Intent(this, NotifyVertretungsplan.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            manager.cancel(pendingIntent);
+            prefs.edit().putBoolean("notificationEnabled",false).apply();
             Intent intent = new Intent(this, Startseite.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -104,6 +115,7 @@ public class Login extends AppCompatActivity
     }
 
     public void LoginAction(View view) {
+        final Context context = this;
         final String benutzername = ((EditText)findViewById(R.id.benutzername)).getText().toString();
         final String passwort = ((EditText)findViewById(R.id.passwort)).getText().toString().hashCode() + "";
         final Activity ac=this;
@@ -111,7 +123,7 @@ public class Login extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Login&request=select * from login where benutzername=\""+benutzername+"\" and passwort=\""+passwort+"\";&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Login&request=&username="+benutzername+"&password="+passwort+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     System.out.println(url);
                     URL oracle = new URL(url);
@@ -132,9 +144,10 @@ public class Login extends AppCompatActivity
                     System.out.println("Gelesen");
                     Startseite.login = rechthoehe;
 
-                    SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+                    final SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
                     prefs.edit().putInt("login",rechthoehe).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
                     prefs.edit().putString("loginUsername",benutzername).apply();
+                    prefs.edit().putString("loginPassword",passwort).apply();
 
                     System.out.println(Startseite.login);
 
@@ -142,6 +155,22 @@ public class Login extends AppCompatActivity
                         @Override
                         public void run() {
                             Toast.makeText(ac,"Login erfolgreich",Toast.LENGTH_LONG).show();
+
+                            Intent alarmIntent = new Intent(context, NotifyVertretungsplan.class);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+
+                            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(System.currentTimeMillis());
+                            calendar.set(Calendar.HOUR_OF_DAY, 7);
+                            calendar.set(Calendar.MINUTE, 0);
+                            calendar.set(Calendar.SECOND, 1);
+
+                            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                    AlarmManager.INTERVAL_DAY, pendingIntent);
+                            prefs.edit().putBoolean("notificationEnabled",true).apply();
+                            prefs.edit().putInt("notificationTimeHour",7).putInt("notificationTimeMinute",0).apply();
                             Intent intent = new Intent(ac, Startseite.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);

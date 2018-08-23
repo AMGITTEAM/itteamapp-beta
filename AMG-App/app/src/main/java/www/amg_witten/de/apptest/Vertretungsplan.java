@@ -843,7 +843,7 @@ public class Vertretungsplan extends AppCompatActivity
                     pDialog.setMax(klassen.size());
                     pDialog.setMessage("Einträge werden zusammengestellt...");
 
-                    final List<ItemModel> data = new ArrayList<>();
+                    final List<VertretungModelArrayModel> data = new ArrayList<>();
                     final List<String> fertigeKlassen = new ArrayList<>();
                     for(int i=0; i<klassen.size(); i++){
                         if(!fertigeKlassen.contains(klassen.get(i))){
@@ -861,7 +861,7 @@ public class Vertretungsplan extends AppCompatActivity
                                     rightRowsCount++;
                                 }
                             }
-                            data.add(new ItemModel(
+                            data.add(new VertretungModelArrayModel(
                                     rightRows));
                             fertigeKlassen.add(klassen.get(i));
                         }
@@ -1018,7 +1018,7 @@ public class Vertretungsplan extends AppCompatActivity
                                 "      <ul class=\"panels\">\n");
                         fw.flush();
                         for(int i=0;i<fertigeKlassen.size(); i++){
-                            fw.write(data.get(i).getHTMLListItems(i, klasse));
+                            fw.write(data.get(i).getHTMLListItems(i, klasse,thise.getSharedPreferences("Prefs", MODE_PRIVATE)));
                             fw.flush();
                             pDialog.setProgress(i+3);
                         }
