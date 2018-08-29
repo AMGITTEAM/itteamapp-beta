@@ -28,10 +28,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        TextView raumPr = findViewById(R.id.pruefen);
-        raumPr.setText("Raum: "+ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum+"\n\n\nFehler: "+ITTeamSenden.fehler+"\n\n\nWichtigkeit: "+ITTeamSenden.wichtigkeit+"\n\n\nBeschreibung: "+ITTeamSenden.beschreibung);
 
-        ITTeamSenden.beschreibung = ITTeamSenden.beschreibung.replaceAll("\n","//");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -43,6 +40,11 @@ public class ITTeamSendenPruefung extends AppCompatActivity
 
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden_pruefung);
+
+        TextView raumPr = findViewById(R.id.pruefen);
+        raumPr.setText("Raum: "+ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum+"\n\n\nFehler: "+ITTeamSenden.fehler+"\n\n\nWichtigkeit: "+ITTeamSenden.wichtigkeit+"\n\n\nBeschreibung: "+ITTeamSenden.beschreibung);
+
+        ITTeamSenden.beschreibung = ITTeamSenden.beschreibung.replaceAll("\n","//");
     }
 
     @Override
@@ -123,7 +125,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                         });
                     }
                     else {
-                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=$username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
+                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
                         url = url.replaceAll(" ","%20");
                         URL oracle = new URL(url);
                         System.out.println(oracle);

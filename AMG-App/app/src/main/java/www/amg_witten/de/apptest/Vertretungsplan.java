@@ -92,8 +92,9 @@ public class Vertretungsplan extends AppCompatActivity
             boolean exit=false;
             String next = "001.htm";
             urlEndings.add(next);
+            String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
             while(!exit) {
-                URL mainUrl = new URL("https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/subst_"+next);
+                URL mainUrl = new URL(main+"subst_"+next);
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
                 StringBuilder full = new StringBuilder();
@@ -103,15 +104,20 @@ public class Vertretungsplan extends AppCompatActivity
                 }
                 in.close();
 
-                String head = onlyElement(full.toString(),"head");
-                String contentMeta = onlyArgumentOfElement(head,"meta http-equiv=\"refresh\"","content");
-                String nextURL = contentMeta.split("15; URL=subst_")[1];
-                next=nextURL;
-                if(next.equals("001.htm")) {
-                    exit=true;
+                if(full.toString().contains("<frame name=\"ticker\" src=\"")){
+                    main+="f1/";
                 }
                 else {
-                    urlEndings.add(nextURL);
+                    String head = onlyElement(full.toString(),"head");
+                    String contentMeta = onlyArgumentOfElement(head,"meta http-equiv=\"refresh\"","content");
+                    String nextURL = contentMeta.split("URL=subst_")[1];
+                    next=nextURL;
+                    if(next.equals("001.htm")) {
+                        exit=true;
+                    }
+                    else {
+                        urlEndings.add(nextURL);
+                    }
                 }
             }
 
@@ -124,7 +130,7 @@ public class Vertretungsplan extends AppCompatActivity
             });
 
             for (int i=0;i<urlEndings.size();i++) {
-                URL mainUrl = new URL("https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/subst_"+urlEndings.get(i));
+                URL mainUrl = new URL(main+"subst_"+urlEndings.get(i));
                 BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
                 StringBuilder full = new StringBuilder();
                 String str;
@@ -177,8 +183,6 @@ public class Vertretungsplan extends AppCompatActivity
                             realEintraege.add(eintraegeArrayUnfertigEin);
                         }
                     }
-                    else {
-                    }
                 }
                 pDialog.setProgress(i+1);
             }
@@ -204,7 +208,7 @@ public class Vertretungsplan extends AppCompatActivity
                 List<String> allMatches = new ArrayList<>();
                 while (matcher.find()) {
                     String match = matcher.group();
-                    allMatches.add(match.replace("<td class=\"list\" align=\"center\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","").replace("<td class=\"list\">","").replace("</td>","").replace("<b>","").replace("</b>","").replace("<span style=\"color: #800000\">","").replace("<span style=\"color: #0000FF\">","").replace("<span style=\"color: #010101\">","").replace("<span style=\"color: #008040\">","").replace("</span>","").replace("&nbsp;","").replaceFirst(">",""));
+                    allMatches.add(match.replace("<td class=\"list\" align=\"center\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","").replace("<td class=\"list\">","").replace("</td>","").replace("<b>","").replace("</b>","").replace("<span style=\"color: #800000\">","").replace("<span style=\"color: #0000FF\">","").replace("<span style=\"color: #010101\">","").replace("<span style=\"color: #008040\">","").replace("<span style=\"color: #008000\">","").replace("</span>","").replace("&nbsp;","").replaceFirst(">",""));
                 }
 
                 VertretungModel model = new VertretungModel(allMatches.get(0),allMatches.get(1),allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7));

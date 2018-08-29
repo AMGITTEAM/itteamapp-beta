@@ -20,6 +20,18 @@ public class ITTeamSenden2 extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        Methoden methoden = new Methoden();
+        methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden2);
+
         View u = findViewById(R.id.U);
         View z = findViewById(R.id.Z);
         switch (ITTeamSenden.gebaeude){
@@ -36,17 +48,6 @@ public class ITTeamSenden2 extends AppCompatActivity
                 Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();
                 System.exit(0);
         }
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden2);
     }
 
     @Override
