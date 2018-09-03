@@ -130,6 +130,7 @@ public class Vertretungsplan extends AppCompatActivity
             });
 
             for (int i=0;i<urlEndings.size();i++) {
+                System.out.println(main);
                 URL mainUrl = new URL(main+"subst_"+urlEndings.get(i));
                 BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
                 StringBuilder full = new StringBuilder();
@@ -139,8 +140,17 @@ public class Vertretungsplan extends AppCompatActivity
                 }
                 in.close();
 
-                String body = onlyElement(full.toString(),"body");
+                String body;
+                try {
+                    body = onlyElement(full.toString(),"body");
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    body = onlyElement(full.toString(),"body"," bgcolor=\"#F0F0F0\"");
+                }
                 String center = onlyElement(body,"center");
+                if(center.contains("http://www.untis.at")){
+                    center = onlyElement(body,"CENTER");
+                }
                 String table = onlyElement(center,"table"," class=\"mon_list\" ");
                 tables.add(table);
                 pDialog.setProgress(i+1);
@@ -1055,7 +1065,8 @@ public class Vertretungsplan extends AppCompatActivity
     }
 
     public static String onlyElement(String full, String element, String params) {
-        String partOne = full.split("<"+element+params+">")[1];
+        String partOne;
+        partOne = full.split("<"+element+params+">")[1];
         return partOne.split("</"+element+">")[0];
     }
 

@@ -60,6 +60,10 @@ public class ErstesServletKlasse extends HttpServlet {
 		}
 		catch (NumberFormatException ex) {
 			ausfuehrFehler = true;
+			ex.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 		try {
 			String returnString = Lite.transact(requestType, request, benutzername, passwort, datum, gebaeude, etage, raum, wichtigkeit, fehler, beschreibung, status, bearbeitetVon);

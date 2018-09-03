@@ -54,20 +54,16 @@ public class Lite {
 				    prep.setString(8, beschr);
 				    prep.setString(9, status);
 				    prep.setString(10, bearbVon);
-				    prep.addBatch();
 				    
-				    conn.setAutoCommit(false);
-				    int[] results = prep.executeBatch();
-				    Thread.sleep(300);
-				    conn.setAutoCommit(true);
+				    int result = prep.executeUpdate();
+				    prep.close();
+				    stat.close();
 				    conn.close();
 				    boolean success = true;
-				    for(int result:results) {
-				    	if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
-				    		success=false;
-				    	}
-				    	System.out.println(result);
+				    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
+				    	success=false;
 				    }
+				    System.out.println(result);
 				    returnString=success+"";
 				}
 				else {
@@ -98,6 +94,7 @@ public class Lite {
 				      returnString += "Datum: "+rs.getString("datum")+"//Zuletzt bearbeitet: "+rs.getString("zuletztBearbeitet")+"//Gebaeude: "+rs.getString("gebaeude")+"//Etage: "+rs.getString("etage")+"//Raum: "+rs.getString("raum")+"//Wichtigkeit: "+rs.getString("wichtigkeit")+"//Fehler: "+rs.getString("fehler")+"//Beschreibung: "+rs.getString("beschr")+"//Status: "+rs.getString("status")+"//Zuletzt bearbeitet von: "+rs.getString("bearbVon")+"/newthing/";
 				    }
 				    rs.close();
+				    rs2.close();
 				    stat.close();
 				    conn.close();
 				}
@@ -114,6 +111,8 @@ public class Lite {
 					stmt.executeUpdate(req);
 					c.commit();
 					returnString = "true";
+					stmt.close();
+					c.close();
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";
@@ -142,7 +141,11 @@ public class Lite {
 		    System.out.println(req);
 			ResultSet rs2 = stat.executeQuery(req);
 			System.out.println(rs2.getString("rechthoehe"));
-			return Integer.parseInt(rs2.getString("rechthoehe"));
+			int returns = Integer.parseInt(rs2.getString("rechthoehe"));
+			rs2.close();
+			stat.close();
+			conn.close();
+			return returns;
 		}
 		catch(NumberFormatException | SQLException | ClassNotFoundException e) {
 			e.printStackTrace();

@@ -24,8 +24,8 @@
     <ViewStub
         android:id="@+id/all_content"
         android:inflatedId="@+id/all_content_inflated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="?android:attr/actionBarSize"/>
 
 </android.support.design.widget.CoordinatorLayout>

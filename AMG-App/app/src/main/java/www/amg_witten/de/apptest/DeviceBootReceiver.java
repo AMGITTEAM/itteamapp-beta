@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import java.util.Calendar;
 
@@ -12,6 +13,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+            SharedPreferences prefs = context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
             // on device boot compelete, reset the alarm
             Intent alarmIntent = new Intent(context, NotifyVertretungsplan.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
@@ -20,8 +22,8 @@ public class DeviceBootReceiver extends BroadcastReceiver {
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 7);
-            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.HOUR_OF_DAY, prefs.getInt("notificationTimeHour",7));
+            calendar.set(Calendar.MINUTE, prefs.getInt("notificationTimeMinute",0));
             calendar.set(Calendar.SECOND, 1);
 
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
