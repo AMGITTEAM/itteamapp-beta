@@ -69,6 +69,8 @@ public class Vertretungsplan extends AppCompatActivity
 
     public static void action(final Activity thise){
         System.out.println(klasse);
+        String fuerDatum = null;
+        String stand = null;
         final List<String> urlEndings = new ArrayList<>();
         List<String> tables = new ArrayList<>();
         final List<String> klassen = new ArrayList<>();
@@ -153,6 +155,14 @@ public class Vertretungsplan extends AppCompatActivity
                 }
                 String table = onlyElement(center,"table"," class=\"mon_list\" ");
                 tables.add(table);
+                System.out.println(urlEndings.get(i));
+                if(urlEndings.get(i).equals("001.htm")){
+                    String headData = onlyElement(body,"td"," align=\"right\" valign=\"bottom\"");
+                    stand = (headData.split("Stand: ")[1]).split("</p>")[0].trim();
+                    String datum = onlyElement(center,"div"," class=\"mon_title\"");
+                    String[] datumParts = datum.split(" ");
+                    fuerDatum = datumParts[1]+", "+datumParts[0];
+                }
                 pDialog.setProgress(i+1);
             }
 
@@ -851,6 +861,8 @@ public class Vertretungsplan extends AppCompatActivity
                 pDialog.setProgress(i);
             }
 
+            final String finalstand = stand;
+            final String finalfuerDatum = fuerDatum;
             thise.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -1021,13 +1033,32 @@ public class Vertretungsplan extends AppCompatActivity
                                 "\n" +
                                 "   table, td, th {\n" +
                                 "    border: 1px solid black;\n" +
-                                "} \n" +
+                                "} \n");
+                        fw.flush();
+                        fw.write(".aktuell {\n" +
+                                "font-family: roboto, sans-serif; \n" +
+                                "padding-top: 10px;\n" +
+                                "font-size: 1.4em; \n" +
+                                "font-weight:bold;\n" +
+                                "text-align: center;\n" +
+                                "color: white;\n" +
+                                "text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;\n" +
+                                "}\n" +
+                                "\n" +
+                                ".stand {\n" +
+                                "font-family: verdana, sans-serif; \n" +
+                                "padding: 0 20px 10px 0;\n" +
+                                "font-size: 0.8em; \n" +
+                                "text-align: right;\n" +
+                                "color: #232323;\n" +
+                                "}\n" +
                                 "</style>");
                         fw.flush();
                         pDialog.setProgress(2);
                         fw.write("\t</head>\n" +
                                 "\t<body>\n" +
                                 "  <div class=\"container\">\n" +
+                                "  <div class=\"aktuell\">Für "+finalfuerDatum+"</div>\n" +
                                 "    <div id=\"accordion\">\n" +
                                 "      <ul class=\"panels\">\n");
                         fw.flush();
@@ -1039,6 +1070,7 @@ public class Vertretungsplan extends AppCompatActivity
                         fw.write("      </ul>\n" +
                                 "    </div>\n" +
                                 "   </div>\n" +
+                                "   <div class=\"stand\">Stand: "+finalstand+"</div>\n" +
                                 "  </body>\n" +
                                 "</html>");
                         fw.close();

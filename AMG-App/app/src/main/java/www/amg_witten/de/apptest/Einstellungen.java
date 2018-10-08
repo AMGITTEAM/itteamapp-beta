@@ -216,13 +216,13 @@ public class Einstellungen extends AppCompatActivity
                         showColorDialog(Color.parseColor(prefs.getString("vertretungUnterstufeFarbe","#4aa3df")),"vertretungUnterstufeFarbe",Color.parseColor("#4aa3df"));
                     }
                 });
-                findViewById(R.id.einstellungen_colorOwn_button).setOnClickListener(new View.OnClickListener() {
+                findViewById(R.id.einstellungen_colorMitte_button).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showColorDialog(Color.parseColor(prefs.getString("vertretungMittelstufeFarbe","#3498db")),"vertretungMittelstufeFarbe",Color.parseColor("#3498db"));
                     }
                 });
-                findViewById(R.id.einstellungen_colorOwn_button).setOnClickListener(new View.OnClickListener() {
+                findViewById(R.id.einstellungen_colorOber_button).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showColorDialog(Color.parseColor(prefs.getString("vertretungOberstufeFarbe","#258cd1")),"vertretungOberstufeFarbe",Color.parseColor("#258cd1"));

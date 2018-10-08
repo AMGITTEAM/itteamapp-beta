@@ -57,7 +57,8 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
 
                         String head = Vertretungsplan.onlyElement(full.toString(), "head");
                         String contentMeta = Vertretungsplan.onlyArgumentOfElement(head, "meta http-equiv=\"refresh\"", "content");
-                        String nextURL = contentMeta.split("15; URL=subst_")[1];
+                        System.out.println(contentMeta);
+                        String nextURL = contentMeta.split("URL=subst_")[1];
                         next = nextURL;
                         if (next.equals("001.htm")) {
                             exit = true;
