@@ -419,7 +419,7 @@ public class Vertretungsplan extends AppCompatActivity
                         }
                     }
                     if(!found){
-                        String match = matcherca.group();
+                        String match = matchercd.group();
                         String klassengang = match.replace("cd","");
                         vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
                         vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));

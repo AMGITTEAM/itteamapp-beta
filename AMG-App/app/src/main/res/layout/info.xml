@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/info_manager"
-        android:text="Diese App wird programmiert, verwaltet und gewartet von\nAdrian Kathagen" />
+        android:text="Diese App wird programmiert, verwaltet und gewartet von\nAdrian Kathagen\n\nVielen Dank für jegliche Belustigung an\nAlle Personen, die sich selbst gerne im Info-Bereich sehen wollen." />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

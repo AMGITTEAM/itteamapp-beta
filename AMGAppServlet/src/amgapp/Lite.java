@@ -118,6 +118,44 @@ public class Lite {
 					returnString="Du hast nicht genügend Rechte!";
 				}
 			}
+			else if(request.equals("Feedback")) {
+				if(getRechthoehe(benutzername,passwort)>=1) {
+					Class.forName("org.sqlite.JDBC");
+					
+					String type = args[0];
+					String description = args[1];
+					
+					for (String arg:args) {
+						System.out.println(arg);
+					}
+					
+					Class.forName("org.sqlite.JDBC");
+				    Connection conn = DriverManager.getConnection(path);
+				    Statement stat = conn.createStatement();
+				    stat.executeUpdate("CREATE TABLE IF NOT EXISTS feedback (type, description);");
+				    PreparedStatement prep = conn.prepareStatement("insert into feedback values (?, ?);");
+				    
+				    prep.setString(1, type);
+				    prep.setString(2, description);
+				    
+				    int result = prep.executeUpdate();
+				    prep.close();
+				    stat.close();
+				    conn.close();
+				    boolean success = true;
+				    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
+				    	success=false;
+				    }
+				    System.out.println(result);
+				    returnString=success+"";
+				}
+				else {
+					returnString="Du hast nicht genügend Rechte!";
+				}
+			}
+			else {
+				System.out.println("Request nicht gefunden: "+request);
+			}
 		}
 		catch (NullPointerException e){
 			System.out.println("Internet überprüfen");

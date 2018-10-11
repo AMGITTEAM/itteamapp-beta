@@ -41,6 +41,11 @@ public class Methoden {
                     currentActivity.startActivity(myIntent);
                 }
                 break;
+            case R.id.nav_stundenplan:
+                if (id != currentNavId) {
+                    currentActivity.startActivity(new Intent(currentActivity, Stundenplan.class));
+                }
+                break;
             case R.id.nav_it_team_senden:
                 if (id != currentNavId) {
                     currentActivity.startActivity(new Intent(currentActivity, ITTeamSenden.class));
@@ -61,6 +66,11 @@ public class Methoden {
                     currentActivity.startActivity(new Intent(currentActivity, Einstellungen.class));
                 }
                 break;
+            case R.id.nav_feedback:
+                if (id != currentNavId) {
+                    currentActivity.startActivity(new Intent(currentActivity, Feedback.class));
+                }
+                break;
             case R.id.nav_it_team_holen:
                 if (id != currentNavId) {
                     currentActivity.startActivity(new Intent(currentActivity, ITTeamHolen.class));
@@ -79,12 +89,15 @@ public class Methoden {
         if(navigationNr!=null){
             switch (navigationNr) {
                 case 900:
-                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 3).setChecked(true);
+                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 4).setChecked(true);
                     break;
                 case 901:
-                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 2).setChecked(true);
+                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 3).setChecked(true);
                     break;
                 case 902:
+                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 2).setChecked(true);
+                    break;
+                case 903:
                     navigationView.getMenu().getItem(navigationView.getMenu().size() - 1).setChecked(true);
                     break;
                 default:
@@ -94,20 +107,21 @@ public class Methoden {
         }
 
         if(Startseite.login>0){
-            navigationView.getMenu().getItem(navigationView.getMenu().size()-3).setTitle("Logout");
+            navigationView.getMenu().getItem(navigationView.getMenu().size()-4).setTitle("Logout");
         }
         if(Startseite.login<1){
             navigationView.getMenu().getItem(1).setVisible(false);
             navigationView.getMenu().getItem(2).setVisible(false);
             navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
+            navigationView.getMenu().getItem(5).setVisible(false);
         }
         if(Startseite.login==1){
-            navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
+            navigationView.getMenu().getItem(5).setVisible(false);
         }
         if(Startseite.login<=2){
-            navigationView.getMenu().getItem(4).setVisible(false);
+            navigationView.getMenu().getItem(5).setVisible(false);
         }
 
         ViewStub stub = currentActivity.findViewById(R.id.all_content);

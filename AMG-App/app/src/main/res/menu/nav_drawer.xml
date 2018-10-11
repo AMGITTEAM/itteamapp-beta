@@ -8,6 +8,9 @@
         android:id="@+id/nav_vertret_heute"/>
     <item android:title="Vertretungsplan morgen"
         android:id="@+id/nav_vertret_morgen"/>
+    <item android:title="Stundenplan"
+        android:visible="false"
+        android:id="@+id/nav_stundenplan"/>
 
     <item android:title="Meldung an IT-Team"
         android:id="@+id/nav_it_team_senden"/>
@@ -20,6 +23,8 @@
         android:id="@+id/nav_login"/>
     <item android:title="Einstellungen"
         android:id="@+id/nav_einstellungen"/>
+    <item android:title="Feedback"
+        android:id="@+id/nav_feedback"/>
     <item android:title="Info"
         android:id="@+id/nav_info"/>
 
