@@ -9,7 +9,6 @@
     <item android:title="Vertretungsplan morgen"
         android:id="@+id/nav_vertret_morgen"/>
     <item android:title="Stundenplan"
-        android:visible="false"
         android:id="@+id/nav_stundenplan"/>
 
     <item android:title="Meldung an IT-Team"
