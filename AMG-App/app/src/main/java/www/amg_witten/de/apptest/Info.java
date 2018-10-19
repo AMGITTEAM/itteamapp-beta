@@ -57,7 +57,7 @@ public class Info extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
-        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_startseite,this);
+        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_info,this);
         return true;
     }
 }

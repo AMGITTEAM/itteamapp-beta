@@ -448,6 +448,10 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
     }
 
     private static void saveStundenplanOrdered(LinkedHashSet<String> stundenplan,String wochentag){
+        if(stundenplan.isEmpty()){
+            Startseite.prefs.edit().remove("stundenplan"+wochentag).apply();
+            return;
+        }
         JSONArray array = new JSONArray(stundenplan);
         Startseite.prefs.edit().putString("stundenplan"+wochentag,array.toString()).apply();
     }
@@ -505,7 +509,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
-        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_login,this);
+        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_stundenplan,this);
         return true;
     }
 }

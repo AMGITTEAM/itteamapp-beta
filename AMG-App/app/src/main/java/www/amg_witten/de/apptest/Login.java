@@ -143,6 +143,15 @@ public class Login extends AppCompatActivity
                     System.out.println(intAnmeldungErfolgreich);
                     int rechthoehe = Integer.parseInt(intAnmeldungErfolgreich);
                     System.out.println("Gelesen");
+                    if(rechthoehe==0){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ac,"Login fehlgeschlagen, falsches Passwort?",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    }
                     Startseite.login = rechthoehe;
                     MyAuthenticator.password = passwordVertretungsplanSchueler;
 

@@ -34,6 +34,7 @@ public class Vertretungsplan extends AppCompatActivity
     private final Activity thise = this;
     private static String date = "";
     private static String klasse = "";
+    private int navID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,10 @@ public class Vertretungsplan extends AppCompatActivity
         toggle.syncState();
 
         Intent thisIntent = getIntent();
+        navID = thisIntent.getIntExtra("navID",0);
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,thisIntent.getIntExtra("navID",0),R.layout.vertretungsplan);
+        methoden.onCreateFillIn(this,this,navID,R.layout.vertretungsplan);
 
         date = thisIntent.getStringExtra("Date");
         setTitle(thisIntent.getStringExtra("Title"));
@@ -1132,7 +1134,14 @@ public class Vertretungsplan extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
-        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_login,this);
+        int newNavID = 0;
+        if(navID==1){
+            newNavID=R.id.nav_vertret_heute;
+        }
+        else if(navID==2){
+            newNavID=R.id.nav_vertret_morgen;
+        }
+        methoden.onNavigationItemSelectedFillIn(item,newNavID,this);
         return true;
     }
 }

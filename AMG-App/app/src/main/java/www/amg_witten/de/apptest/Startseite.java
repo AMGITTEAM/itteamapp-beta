@@ -69,7 +69,7 @@ public class Startseite extends AppCompatActivity
                 HTMLIcons.writeToFile(HTMLIcons.getBulletErrorPNGBase(),"bullet_error.png",this);
                 HTMLIcons.writeToFile(HTMLIcons.getDoorOpenPNGBase(),"door_open.png",this);
             }
-            if(currentVersionCode==6){
+            if(savedVersionCode<6){
                 startActivity(new Intent(this, Login.class));
             }
         }

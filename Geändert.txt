@@ -1,1 +1,4 @@
-Passwort wird ab jetzt extern gespeichert
+Fehlerbehebungen:
+ - Bei falschen Logindaten kommt ab jetzt eine Meldung
+ - Hinweis bei leerem Stundenplan wird nicht gelöscht
+ - Menü-Bugs behoben
