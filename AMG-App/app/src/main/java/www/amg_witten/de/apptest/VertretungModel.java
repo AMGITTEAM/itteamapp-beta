@@ -2,14 +2,14 @@ package www.amg_witten.de.apptest;
 
 class VertretungModel {
 
-    private String Stunde;
-    private String Klasse;
-    private String Art;
-    private String Fach;
-    private String ErsatzFach;
-    private String Vertretungslehrer;
-    private String Raum;
-    private String Hinweise;
+    private final String Stunde;
+    private final String Klasse;
+    private final String Art;
+    private final String Fach;
+    private final String ErsatzFach;
+    private final String Vertretungslehrer;
+    private final String Raum;
+    private final String Hinweise;
 
     VertretungModel(String Stunde, String Klasse, String Art, String Fach, String ErsatzFach, String Vertretungslehrer, String Raum, String Hinweise){
         this.Stunde = Stunde;

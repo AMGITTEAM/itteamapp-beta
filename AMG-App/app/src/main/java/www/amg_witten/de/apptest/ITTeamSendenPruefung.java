@@ -64,7 +64,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
         return true;
     }
 
-    private void Start(View view) {
+    public void Start(View view) {
         Intent intent = new Intent(this, Startseite.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

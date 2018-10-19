@@ -17,7 +17,28 @@ public class Lite {
 		try {
 			System.out.println(request);
 			if(request.equals("Login")){
-				returnString = ""+getRechthoehe(benutzername,passwort);
+				int rechthoehe = getRechthoehe(benutzername,passwort);
+				returnString = ""+rechthoehe;
+				if(rechthoehe>=1) {
+					String passwordVertretungsplanSchueler="";
+					try {
+						Class.forName("org.sqlite.JDBC");
+						Connection conn = DriverManager.getConnection(path);
+					    Statement stat = conn.createStatement();
+					    String req2 = "select * from passwords where benutzername=\"Schueler\"";
+					    System.out.println(req2);
+						ResultSet rs2 = stat.executeQuery(req2);
+						System.out.println(rs2.getString("password"));
+						passwordVertretungsplanSchueler = rs2.getString("password");
+						rs2.close();
+						stat.close();
+						conn.close();
+					}
+					catch(NumberFormatException | SQLException | ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+					returnString+="\n"+passwordVertretungsplanSchueler;
+				}
 			}
 			else if(request.equals("ITTeamMelden")){
 				if(getRechthoehe(benutzername,passwort)>=2) {

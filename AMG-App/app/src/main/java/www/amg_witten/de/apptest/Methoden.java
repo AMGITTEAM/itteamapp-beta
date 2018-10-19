@@ -11,7 +11,7 @@ import android.view.ViewStub;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
-public class Methoden {
+class Methoden {
     void onNavigationItemSelectedFillIn(MenuItem item, int currentNavId, Activity currentActivity){
         int id = item.getItemId();
 
@@ -133,9 +133,10 @@ public class Methoden {
 
 class MyAuthenticator extends Authenticator {
 
+    static String password;
+
     protected PasswordAuthentication getPasswordAuthentication() {
         String username = "Schueler";
-        String password = "WirsinddasAMG18";
         return new PasswordAuthentication(username, password.toCharArray());
     }
 }

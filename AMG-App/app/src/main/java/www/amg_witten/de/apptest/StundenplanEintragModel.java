@@ -1,14 +1,14 @@
 package www.amg_witten.de.apptest;
 
-public class StundenplanEintragModel {
+class StundenplanEintragModel {
 
-    public String stunde;
-    public String fach;
-    public String lehrer;
-    public String raum;
+    final String stunde;
+    final String fach;
+    final String lehrer;
+    final String raum;
 
 
-    public StundenplanEintragModel(String all){
+    StundenplanEintragModel(String all){
         stunde=all.split("\\|\\|")[0];
         fach=all.split("\\|\\|")[1];
         lehrer=all.split("\\|\\|")[2];

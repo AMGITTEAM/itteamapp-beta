@@ -1,8 +1,5 @@
 package www.amg_witten.de.apptest;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,12 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import java.util.Calendar;
-
 public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static int login;
-    public static String benutzername;
+    private static String benutzername;
     public static SharedPreferences prefs;
 
     @Override
@@ -39,6 +34,7 @@ public class Startseite extends AppCompatActivity
         prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
         login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
         benutzername = prefs.getString("loginUsername","");
+        MyAuthenticator.password = prefs.getString("passwordVertretungsplanSchueler","");
         System.out.println(login);
 
         Methoden methoden = new Methoden();
@@ -72,6 +68,9 @@ public class Startseite extends AppCompatActivity
                 HTMLIcons.writeToFile(HTMLIcons.getBookEditPNGBase(),"book_edit.png",this);
                 HTMLIcons.writeToFile(HTMLIcons.getBulletErrorPNGBase(),"bullet_error.png",this);
                 HTMLIcons.writeToFile(HTMLIcons.getDoorOpenPNGBase(),"door_open.png",this);
+            }
+            if(currentVersionCode==6){
+                startActivity(new Intent(this, Login.class));
             }
         }
     }

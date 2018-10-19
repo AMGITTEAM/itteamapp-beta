@@ -1,4 +1,1 @@
-Fehler im Vertretungsplan behoben
-Feedback hinzugefügt
-Grundgerüst für Stundenplan hinzugefügt
-Target-Version auf 27 angehoben
+Passwort wird ab jetzt extern gespeichert

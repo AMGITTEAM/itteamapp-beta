@@ -138,16 +138,19 @@ public class Login extends AppCompatActivity
                     }
                     in.readLine();
                     String intAnmeldungErfolgreich = in.readLine();
+                    String passwordVertretungsplanSchueler = in.readLine();
                     in.close();
                     System.out.println(intAnmeldungErfolgreich);
                     int rechthoehe = Integer.parseInt(intAnmeldungErfolgreich);
                     System.out.println("Gelesen");
                     Startseite.login = rechthoehe;
+                    MyAuthenticator.password = passwordVertretungsplanSchueler;
 
                     final SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
                     prefs.edit().putInt("login",rechthoehe).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
                     prefs.edit().putString("loginUsername",benutzername).apply();
                     prefs.edit().putString("loginPassword",passwort).apply();
+                    prefs.edit().putString("passwordVertretungsplanSchueler",passwordVertretungsplanSchueler).apply();
 
                     System.out.println(Startseite.login);
 

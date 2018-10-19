@@ -3,6 +3,7 @@ package yuku.ambilwarna.colorpicker;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -89,7 +90,7 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mParentView = inflater.inflate(R.layout.ambilwarna_dialog, container, false);
 
         initView();
@@ -100,7 +101,7 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt(KEY_COLOR_ORIGINAL, mColorOriginal);
         outState.putInt(KEY_COLOR, getColor());
         outState.putInt(KEY_ORIGINAL,mOriginal);
@@ -112,15 +113,15 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
         Color.colorToHSV(mColor, mСurrentColorHsv);
 
         mViewHue = mParentView.findViewById(R.id.ambilwarna_viewHue);
-        mViewSatVal = (AmbilWarnaKotak) mParentView.findViewById(R.id.ambilwarna_viewSatBri);
-        mViewCursor = (ImageView) mParentView.findViewById(R.id.ambilwarna_cursor);
+        mViewSatVal = mParentView.findViewById(R.id.ambilwarna_viewSatBri);
+        mViewCursor = mParentView.findViewById(R.id.ambilwarna_cursor);
         mViewOldColor = mParentView.findViewById(R.id.ambilwarna_warnaLama);
         mViewNewColor = mParentView.findViewById(R.id.ambilwarna_warnaBaru);
-        mViewTarget = (ImageView) mParentView.findViewById(R.id.ambilwarna_target);
-        mViewCancelButton = (Button) mParentView.findViewById(R.id.ambilwarna_btn_no);
-        mViewOkButton = (Button) mParentView.findViewById(R.id.ambilwarna_btn_yes);
-        mViewResetButton = (Button) mParentView.findViewById(R.id.ambilwarna_reset);
-        mViewContainer = (ViewGroup) mParentView.findViewById(R.id.ambilwarna_viewContainer);
+        mViewTarget = mParentView.findViewById(R.id.ambilwarna_target);
+        mViewCancelButton = mParentView.findViewById(R.id.ambilwarna_btn_no);
+        mViewOkButton = mParentView.findViewById(R.id.ambilwarna_btn_yes);
+        mViewResetButton = mParentView.findViewById(R.id.ambilwarna_reset);
+        mViewContainer = mParentView.findViewById(R.id.ambilwarna_viewContainer);
 
         mViewSatVal.setHue(getHue());
         mViewOldColor.setBackgroundColor(mColorOriginal);
@@ -160,7 +161,7 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
         mListener = listener;
     }
 
-    protected void moveCursor() {
+    private void moveCursor() {
         float y = mViewHue.getMeasuredHeight() - (getHue() * mViewHue.getMeasuredHeight() / 360.f);
         if (y == mViewHue.getMeasuredHeight()) y = 0.f;
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViewCursor.getLayoutParams();
@@ -169,7 +170,7 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
         mViewCursor.setLayoutParams(layoutParams);
     }
 
-    protected void moveTarget() {
+    private void moveTarget() {
         float x = getSat() * mViewSatVal.getMeasuredWidth();
         float y = (1.f - getVal()) * mViewSatVal.getMeasuredHeight();
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViewTarget.getLayoutParams();

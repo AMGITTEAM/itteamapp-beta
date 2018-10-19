@@ -20,16 +20,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -174,7 +171,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         showEditStunde(holder.fach.getText().toString(), holder.raum.getText().toString(), holder.lehrer.getText().toString());
     }
 
-    public void Loeschen(){
+    private void Loeschen(){
         Set<String> stundenplan = loadStundenplanOrdered(wochentagPicking);
         String[] array;
         int i=0;
@@ -208,7 +205,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
     }
 
-    public void showEditStunde(String stunde,String raum,String lehrer){
+    private void showEditStunde(String stunde,String raum,String lehrer){
         Bundle bundle = new Bundle();
         bundle.putString("fach",stunde);
         bundle.putString("raum",raum);
@@ -263,11 +260,11 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
     }
 
-    public static void saveStundenplan(String wochentag, LinkedHashSet<String> stundenplan){
+    private static void saveStundenplan(String wochentag, LinkedHashSet<String> stundenplan){
         saveStundenplanOrdered(stundenplan,wochentag);
     }
 
-    public static void saveStundenplan(String wochentag, String[] stundenplan){
+    private static void saveStundenplan(String wochentag, String[] stundenplan){
         Arrays.sort(stundenplan);
         LinkedHashSet<String> stundenplanSet = new LinkedHashSet<>();
         Collections.addAll(stundenplanSet, stundenplan);
@@ -279,7 +276,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
         public PlaceholderFragment() {}
 
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -359,16 +356,14 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    public static class CustomListAdapter extends BaseAdapter {
+    static class CustomListAdapter extends BaseAdapter {
 
-        List<StundenplanEintragModel> listData;
-        Context context;
-        List<View> borders;
+        final List<StundenplanEintragModel> listData;
+        final Context context;
 
         CustomListAdapter(List<StundenplanEintragModel> listData, Context context){
             this.listData = listData;
             this.context = context;
-            this.borders = new ArrayList<>();
         }
 
         @Override
@@ -452,12 +447,12 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    public static void saveStundenplanOrdered(LinkedHashSet<String> stundenplan,String wochentag){
+    private static void saveStundenplanOrdered(LinkedHashSet<String> stundenplan,String wochentag){
         JSONArray array = new JSONArray(stundenplan);
         Startseite.prefs.edit().putString("stundenplan"+wochentag,array.toString()).apply();
     }
 
-    public static  LinkedHashSet<String> loadStundenplanOrdered(String wochentag){
+    private static  LinkedHashSet<String> loadStundenplanOrdered(String wochentag){
         try {
             LinkedHashSet<String> list = new LinkedHashSet<>();
             JSONArray array = new JSONArray(Startseite.prefs.getString("stundenplan"+wochentag,null));
@@ -473,7 +468,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -490,7 +485,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    public static int getCountOfDays(){
+    private static int getCountOfDays(){
         return 5;
     }
 

@@ -14,9 +14,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class AmbilWarnaKotak extends View {
-    Paint paint;
-    Shader luar;
-    final float[] color = {1.f, 1.f, 1.f};
+    private Paint paint;
+    private Shader luar;
+    private final float[] color = {1.f, 1.f, 1.f};
 
     public AmbilWarnaKotak(Context context) {
         this(context, null);
@@ -58,7 +58,7 @@ public class AmbilWarnaKotak extends View {
     /**
      * For Android 3.0+ software layer type should be set for correct color blending.
      */
-    void setSoftwareLayerType() {
+    private void setSoftwareLayerType() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
             setLayerType(LAYER_TYPE_SOFTWARE, null);
         }

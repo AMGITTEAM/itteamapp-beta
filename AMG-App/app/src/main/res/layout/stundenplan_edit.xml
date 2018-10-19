@@ -14,7 +14,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.15"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/stundenplan_edit_lehrer"
@@ -26,6 +27,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:inputType="textPersonName"
         app:layout_constraintVertical_bias="0.35" />
 
     <EditText
@@ -38,6 +40,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:inputType="textPersonName"
         app:layout_constraintVertical_bias="0.55" />
 
     <Button

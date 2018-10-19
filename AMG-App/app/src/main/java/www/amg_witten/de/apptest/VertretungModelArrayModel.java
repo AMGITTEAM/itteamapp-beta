@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 
 class VertretungModelArrayModel {
 
-    private VertretungModel[] RightRows;
+    private final VertretungModel[] RightRows;
 
     VertretungModelArrayModel(VertretungModel[] rightRows) {
         this.RightRows = rightRows;

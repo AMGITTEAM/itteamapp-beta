@@ -34,7 +34,7 @@ import yuku.ambilwarna.colorpicker.OnAmbilWarnaListener;
 public class Einstellungen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Context context = this;
+    private final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,7 +262,7 @@ public class Einstellungen extends AppCompatActivity
         });
     }
 
-    public void showColorDialog(int color, String tag, int originalColor){
+    private void showColorDialog(int color, String tag, int originalColor){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         AmbilWarnaDialogFragment fragment = AmbilWarnaDialogFragment.newInstance(color, android.R.style.Theme_Dialog, originalColor);
         fragment.setOnAmbilWarnaListener(new onAmbilWarnaListener());

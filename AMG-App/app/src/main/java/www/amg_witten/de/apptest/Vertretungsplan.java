@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 public class Vertretungsplan extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Activity thise = this;
+    private final Activity thise = this;
     private static String date = "";
     private static String klasse = "";
 
@@ -67,7 +67,7 @@ public class Vertretungsplan extends AppCompatActivity
         }).start();
     }
 
-    public static void action(final Activity thise){
+    private static void action(final Activity thise){
         System.out.println(klasse);
         String fuerDatum = null;
         String stand = null;
@@ -223,641 +223,7 @@ public class Vertretungsplan extends AppCompatActivity
 
             for(String s : realEintraege){
                 i++;
-                Matcher matcher = Pattern.compile("<td class=\"list\"(?s)(.*?)</td>").matcher(s);
-
-                List<String> allMatches = new ArrayList<>();
-                while (matcher.find()) {
-                    String match = matcher.group();
-                    allMatches.add(match.replace("<td class=\"list\" align=\"center\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","").replace("<td class=\"list\">","").replace("</td>","").replace("<b>","").replace("</b>","").replace("<span style=\"color: #800000\">","").replace("<span style=\"color: #0000FF\">","").replace("<span style=\"color: #010101\">","").replace("<span style=\"color: #008040\">","").replace("<span style=\"color: #008000\">","").replace("</span>","").replace("&nbsp;","").replaceFirst(">",""));
-                }
-
-                VertretungModel model = new VertretungModel(allMatches.get(0),allMatches.get(1),allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7));
-
-
-                Matcher matcherabcd = Pattern.compile("0\\dabcd").matcher(allMatches.get(1));
-                Matcher matcherab = Pattern.compile("0\\dab").matcher(allMatches.get(1));
-                Matcher matcherac = Pattern.compile("0\\dac").matcher(allMatches.get(1));
-                Matcher matcherad = Pattern.compile("0\\dad").matcher(allMatches.get(1));
-                Matcher matcherba = Pattern.compile("0\\dba").matcher(allMatches.get(1));
-                Matcher matcherbc = Pattern.compile("0\\dbc").matcher(allMatches.get(1));
-                Matcher matcherbd = Pattern.compile("0\\dbd").matcher(allMatches.get(1));
-                Matcher matcherca = Pattern.compile("0\\dca").matcher(allMatches.get(1));
-                Matcher matchercb = Pattern.compile("0\\dcb").matcher(allMatches.get(1));
-                Matcher matchercd = Pattern.compile("0\\dcd").matcher(allMatches.get(1));
-                Matcher matcherda = Pattern.compile("0\\dda").matcher(allMatches.get(1));
-                Matcher matcherdb = Pattern.compile("0\\ddb").matcher(allMatches.get(1));
-                Matcher matcherdc = Pattern.compile("0\\ddc").matcher(allMatches.get(1));
-                Matcher matcherabc = Pattern.compile("0\\dabc").matcher(allMatches.get(1));
-                Matcher matcherabd = Pattern.compile("0\\dabd").matcher(allMatches.get(1));
-                Matcher matcheracb = Pattern.compile("0\\dacb").matcher(allMatches.get(1));
-                Matcher matcheracd = Pattern.compile("0\\dacd").matcher(allMatches.get(1));
-                Matcher matcheradb = Pattern.compile("0\\dadb").matcher(allMatches.get(1));
-                Matcher matcheradc = Pattern.compile("0\\dadc").matcher(allMatches.get(1));
-                Matcher matcherbac = Pattern.compile("0\\dbac").matcher(allMatches.get(1));
-                Matcher matcherbad = Pattern.compile("0\\dbad").matcher(allMatches.get(1));
-                Matcher matcherbca = Pattern.compile("0\\dbca").matcher(allMatches.get(1));
-                Matcher matcherbcd = Pattern.compile("0\\dbcd").matcher(allMatches.get(1));
-                Matcher matcherbda = Pattern.compile("0\\dbda").matcher(allMatches.get(1));
-                Matcher matcherbdc = Pattern.compile("0\\dbcd").matcher(allMatches.get(1));
-                Matcher matchercab = Pattern.compile("0\\dcab").matcher(allMatches.get(1));
-                Matcher matchercad = Pattern.compile("0\\dcad").matcher(allMatches.get(1));
-                Matcher matchercba = Pattern.compile("0\\dcba").matcher(allMatches.get(1));
-                Matcher matchercbd = Pattern.compile("0\\dcbd").matcher(allMatches.get(1));
-                Matcher matchercda = Pattern.compile("0\\dcda").matcher(allMatches.get(1));
-                Matcher matchercdb = Pattern.compile("0\\dcdb").matcher(allMatches.get(1));
-                Matcher matcherdab = Pattern.compile("0\\ddab").matcher(allMatches.get(1));
-                Matcher matcherdac = Pattern.compile("0\\ddac").matcher(allMatches.get(1));
-                Matcher matcherdba = Pattern.compile("0\\ddba").matcher(allMatches.get(1));
-                Matcher matcherdbc = Pattern.compile("0\\ddbc").matcher(allMatches.get(1));
-                Matcher matcherdca = Pattern.compile("0\\ddca").matcher(allMatches.get(1));
-                Matcher matcherdcb = Pattern.compile("0\\ddcb").matcher(allMatches.get(1));
-
-                if(matcherabcd.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherabcd.group();
-                        String klassengang = match.replace("abcd","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherab.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherab.group();
-                        String klassengang = match.replace("ab","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherac.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherac.group();
-                        String klassengang = match.replace("ac","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherad.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherad.group();
-                        String klassengang = match.replace("ad","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherba.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherba.group();
-                        String klassengang = match.replace("ba","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherbc.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherbc.group();
-                        String klassengang = match.replace("bc","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherbd.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherbd.group();
-                        String klassengang = match.replace("bd","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherca.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherca.group();
-                        String klassengang = match.replace("ca","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-
-                else if(matchercb.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matchercb.group();
-                        String klassengang = match.replace("cb","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-
-                else if(matchercd.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matchercd.group();
-                        String klassengang = match.replace("cd","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherda.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherda.group();
-                        String klassengang = match.replace("da","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherdb.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherdb.group();
-                        String klassengang = match.replace("db","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherdc.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherdc.group();
-                        String klassengang = match.replace("dc","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherabc.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherabc.group();
-                        String klassengang = match.replace("abc","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherabd.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcherabd.group();
-                        String klassengang = match.replace("abd","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcheracb.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcheracb.group();
-                        String klassengang = match.replace("acb","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcheracd.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcheracd.group();
-                        String klassengang = match.replace("acd","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcheradb.matches()){
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti){
-                        if(existModel.toString().equals(model.toString())){
-                            found=true;
-                        }
-                    }
-                    if(!found){
-                        String match = matcheradb.group();
-                        String klassengang = match.replace("adb","");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcheradc.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcheradc.group();
-                        String klassengang = match.replace("adc", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherbac.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherbac.group();
-                        String klassengang = match.replace("bac", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherbad.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherbad.group();
-                        String klassengang = match.replace("bad", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherbca.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherbca.group();
-                        String klassengang = match.replace("bca", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherbcd.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherbcd.group();
-                        String klassengang = match.replace("bcd", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherbda.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherbda.group();
-                        String klassengang = match.replace("bda", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherbdc.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherbdc.group();
-                        String klassengang = match.replace("bdc", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matchercab.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matchercab.group();
-                        String klassengang = match.replace("cab", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matchercad.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matchercad.group();
-                        String klassengang = match.replace("cad", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matchercba.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matchercba.group();
-                        String klassengang = match.replace("cba", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matchercbd.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matchercbd.group();
-                        String klassengang = match.replace("cbd", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matchercda.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matchercda.group();
-                        String klassengang = match.replace("cda", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matchercdb.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matchercdb.group();
-                        String klassengang = match.replace("cdb", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherdab.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherdab.group();
-                        String klassengang = match.replace("dab", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherdac.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherdac.group();
-                        String klassengang = match.replace("dac", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherdba.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherdba.group();
-                        String klassengang = match.replace("dba", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherdbc.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherdbc.group();
-                        String klassengang = match.replace("dbc", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherdca.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherdca.group();
-                        String klassengang = match.replace("dca", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else if(matcherdcb.matches()) {
-                    boolean found = false;
-                    for (VertretungModel existModel : fertigeMulti) {
-                        if (existModel.toString().equals(model.toString())) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        String match = matcherdcb.group();
-                        String klassengang = match.replace("dcb", "");
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
-                        fertigeMulti.add(model);
-                    }
-                }
-                else {
-                    vertretungModels.add(model);
-                }
+                tryMatcher(s,fertigeMulti,vertretungModels);
                 pDialog.setProgress(i);
             }
 
@@ -1093,6 +459,645 @@ public class Vertretungsplan extends AppCompatActivity
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void tryMatcher(String s, List<VertretungModel> fertigeMulti, List<VertretungModel> vertretungModels){
+
+        Matcher matcher = Pattern.compile("<td class=\"list\"(?s)(.*?)</td>").matcher(s);
+
+        List<String> allMatches = new ArrayList<>();
+        while (matcher.find()) {
+            String match = matcher.group();
+            allMatches.add(match.replace("<td class=\"list\" align=\"center\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","").replace("<td class=\"list\">","").replace("</td>","").replace("<b>","").replace("</b>","").replace("<span style=\"color: #800000\">","").replace("<span style=\"color: #0000FF\">","").replace("<span style=\"color: #010101\">","").replace("<span style=\"color: #008040\">","").replace("<span style=\"color: #008000\">","").replace("</span>","").replace("&nbsp;","").replaceFirst(">",""));
+        }
+
+        VertretungModel model = new VertretungModel(allMatches.get(0),allMatches.get(1),allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7));
+
+
+        Matcher matcherabcd = Pattern.compile("0\\dabcd").matcher(allMatches.get(1));
+        Matcher matcherab = Pattern.compile("0\\dab").matcher(allMatches.get(1));
+        Matcher matcherac = Pattern.compile("0\\dac").matcher(allMatches.get(1));
+        Matcher matcherad = Pattern.compile("0\\dad").matcher(allMatches.get(1));
+        Matcher matcherba = Pattern.compile("0\\dba").matcher(allMatches.get(1));
+        Matcher matcherbc = Pattern.compile("0\\dbc").matcher(allMatches.get(1));
+        Matcher matcherbd = Pattern.compile("0\\dbd").matcher(allMatches.get(1));
+        Matcher matcherca = Pattern.compile("0\\dca").matcher(allMatches.get(1));
+        Matcher matchercb = Pattern.compile("0\\dcb").matcher(allMatches.get(1));
+        Matcher matchercd = Pattern.compile("0\\dcd").matcher(allMatches.get(1));
+        Matcher matcherda = Pattern.compile("0\\dda").matcher(allMatches.get(1));
+        Matcher matcherdb = Pattern.compile("0\\ddb").matcher(allMatches.get(1));
+        Matcher matcherdc = Pattern.compile("0\\ddc").matcher(allMatches.get(1));
+        Matcher matcherabc = Pattern.compile("0\\dabc").matcher(allMatches.get(1));
+        Matcher matcherabd = Pattern.compile("0\\dabd").matcher(allMatches.get(1));
+        Matcher matcheracb = Pattern.compile("0\\dacb").matcher(allMatches.get(1));
+        Matcher matcheracd = Pattern.compile("0\\dacd").matcher(allMatches.get(1));
+        Matcher matcheradb = Pattern.compile("0\\dadb").matcher(allMatches.get(1));
+        Matcher matcheradc = Pattern.compile("0\\dadc").matcher(allMatches.get(1));
+        Matcher matcherbac = Pattern.compile("0\\dbac").matcher(allMatches.get(1));
+        Matcher matcherbad = Pattern.compile("0\\dbad").matcher(allMatches.get(1));
+        Matcher matcherbca = Pattern.compile("0\\dbca").matcher(allMatches.get(1));
+        Matcher matcherbcd = Pattern.compile("0\\dbcd").matcher(allMatches.get(1));
+        Matcher matcherbda = Pattern.compile("0\\dbda").matcher(allMatches.get(1));
+        Matcher matcherbdc = Pattern.compile("0\\dbcd").matcher(allMatches.get(1));
+        Matcher matchercab = Pattern.compile("0\\dcab").matcher(allMatches.get(1));
+        Matcher matchercad = Pattern.compile("0\\dcad").matcher(allMatches.get(1));
+        Matcher matchercba = Pattern.compile("0\\dcba").matcher(allMatches.get(1));
+        Matcher matchercbd = Pattern.compile("0\\dcbd").matcher(allMatches.get(1));
+        Matcher matchercda = Pattern.compile("0\\dcda").matcher(allMatches.get(1));
+        Matcher matchercdb = Pattern.compile("0\\dcdb").matcher(allMatches.get(1));
+        Matcher matcherdab = Pattern.compile("0\\ddab").matcher(allMatches.get(1));
+        Matcher matcherdac = Pattern.compile("0\\ddac").matcher(allMatches.get(1));
+        Matcher matcherdba = Pattern.compile("0\\ddba").matcher(allMatches.get(1));
+        Matcher matcherdbc = Pattern.compile("0\\ddbc").matcher(allMatches.get(1));
+        Matcher matcherdca = Pattern.compile("0\\ddca").matcher(allMatches.get(1));
+        Matcher matcherdcb = Pattern.compile("0\\ddcb").matcher(allMatches.get(1));
+
+        if(matcherabcd.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherabcd.group();
+                String klassengang = match.replace("abcd","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherab.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherab.group();
+                String klassengang = match.replace("ab","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherac.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherac.group();
+                String klassengang = match.replace("ac","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherad.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherad.group();
+                String klassengang = match.replace("ad","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherba.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherba.group();
+                String klassengang = match.replace("ba","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherbc.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherbc.group();
+                String klassengang = match.replace("bc","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherbd.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherbd.group();
+                String klassengang = match.replace("bd","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherca.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherca.group();
+                String klassengang = match.replace("ca","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+
+        else if(matchercb.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matchercb.group();
+                String klassengang = match.replace("cb","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+
+        else if(matchercd.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matchercd.group();
+                String klassengang = match.replace("cd","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherda.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherda.group();
+                String klassengang = match.replace("da","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherdb.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherdb.group();
+                String klassengang = match.replace("db","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherdc.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherdc.group();
+                String klassengang = match.replace("dc","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherabc.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherabc.group();
+                String klassengang = match.replace("abc","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherabd.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcherabd.group();
+                String klassengang = match.replace("abd","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcheracb.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcheracb.group();
+                String klassengang = match.replace("acb","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcheracd.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcheracd.group();
+                String klassengang = match.replace("acd","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"c",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcheradb.matches()){
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti){
+                if(existModel.toString().equals(model.toString())){
+                    found=true;
+                }
+            }
+            if(!found){
+                String match = matcheradb.group();
+                String klassengang = match.replace("adb","");
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"a",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"d",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0),klassengang+"b",allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcheradc.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcheradc.group();
+                String klassengang = match.replace("adc", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherbac.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherbac.group();
+                String klassengang = match.replace("bac", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherbad.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherbad.group();
+                String klassengang = match.replace("bad", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherbca.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherbca.group();
+                String klassengang = match.replace("bca", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherbcd.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherbcd.group();
+                String klassengang = match.replace("bcd", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherbda.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherbda.group();
+                String klassengang = match.replace("bda", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherbdc.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherbdc.group();
+                String klassengang = match.replace("bdc", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matchercab.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matchercab.group();
+                String klassengang = match.replace("cab", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matchercad.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matchercad.group();
+                String klassengang = match.replace("cad", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matchercba.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matchercba.group();
+                String klassengang = match.replace("cba", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matchercbd.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matchercbd.group();
+                String klassengang = match.replace("cbd", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matchercda.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matchercda.group();
+                String klassengang = match.replace("cda", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matchercdb.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matchercdb.group();
+                String klassengang = match.replace("cdb", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherdab.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherdab.group();
+                String klassengang = match.replace("dab", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherdac.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherdac.group();
+                String klassengang = match.replace("dac", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherdba.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherdba.group();
+                String klassengang = match.replace("dba", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherdbc.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherdbc.group();
+                String klassengang = match.replace("dbc", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherdca.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherdca.group();
+                String klassengang = match.replace("dca", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "a", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else if(matcherdcb.matches()) {
+            boolean found = false;
+            for (VertretungModel existModel : fertigeMulti) {
+                if (existModel.toString().equals(model.toString())) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                String match = matcherdcb.group();
+                String klassengang = match.replace("dcb", "");
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "d", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "c", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                vertretungModels.add(new VertretungModel(allMatches.get(0), klassengang + "b", allMatches.get(2), allMatches.get(3), allMatches.get(4), allMatches.get(5), allMatches.get(6), allMatches.get(7)));
+                fertigeMulti.add(model);
+            }
+        }
+        else {
+            vertretungModels.add(model);
         }
     }
 

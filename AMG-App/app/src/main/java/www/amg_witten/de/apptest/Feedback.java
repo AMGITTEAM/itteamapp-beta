@@ -20,17 +20,15 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Feedback extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String type = "";
-    String description = "";
-    EditText descriptionText = null;
-    Spinner typeSpinner = null;
-    String[] types = new String[]{"Typ","Bug/Fehler","Idee/Anregung","Anderes"};
+    private String type = "";
+    private String description = "";
+    private EditText descriptionText = null;
+    private Spinner typeSpinner = null;
+    private final String[] types = new String[]{"Typ","Bug/Fehler","Idee/Anregung","Anderes"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,7 @@ public class Feedback extends AppCompatActivity
 
         descriptionText = findViewById(R.id.feedback_description);
         typeSpinner = findViewById(R.id.feedback_type);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, types);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(adapter);
     }
