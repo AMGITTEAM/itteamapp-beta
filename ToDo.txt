@@ -1,8 +1,7 @@
-Kontakt der Schule unter Info
-Stundenplan -> Vertretungsplan
-Startseite
+﻿Startseite
 Schwarzes Brett
  -> Klausurtermine im Stundenplan
 Kurssprecher im Stundenplan
-Einstellung: Icons ausblenden (Vertretungsplan)
 Raumunabhängige Fehlermeldungen (IT-Team)
+Einstellung: Hilfe -> Vertretungsplan-Icons neu generieren
+Feedback: Versionsnummer mitschicken

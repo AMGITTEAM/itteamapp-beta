@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -252,6 +258,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/einstellungen_colorOber_layout"
+        android:id="@+id/einstellungen_vertretungsplan_icons_layout">
+
+
+        <TextView
+            android:id="@+id/einstellungen_vertretungsplan_icons_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:text="Icons im Vertretungsplan an/aus:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true" />
+
+        <Switch
+            android:id="@+id/einstellungen_vertretungsplan_icons_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="end" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/einstellungen_vertretungsplan_icons_layout"
         android:id="@+id/einstellungen_all_settings_layout">
 
 
@@ -281,3 +319,5 @@
     </RelativeLayout>
 
 </RelativeLayout>
+
+</ScrollView>

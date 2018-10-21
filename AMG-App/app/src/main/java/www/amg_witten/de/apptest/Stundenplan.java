@@ -1,7 +1,13 @@
 package www.amg_witten.de.apptest;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Build;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
@@ -17,12 +23,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,9 +40,16 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.File;
+import java.net.Authenticator;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,6 +66,10 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
     private static int lastSelected=0;
     private static TabLayout.Tab lastTab = null;
+
+    private static VertretungModelArrayModel eigeneKlasseHeute = null;
+    private static VertretungModelArrayModel eigeneKlasseFolgetag = null;
+    private static int noOfDayOfTheWeek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +155,234 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         toggle.syncState();
         transistioning=false;
         bearbeiten=false;
+
+        final Activity thise = this;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("u");
+        Date d = new Date();
+        noOfDayOfTheWeek = Integer.parseInt(sdf.format(d));
+        System.out.println(noOfDayOfTheWeek);
+
+        if (noOfDayOfTheWeek > 5) {
+            noOfDayOfTheWeek=1;
+        }
+        tabLayout.getTabAt(noOfDayOfTheWeek-1).select();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String fuerDatum;
+                String stand;
+                final List<String> urlEndings = new ArrayList<>();
+                List<String> tables = new ArrayList<>();
+                final List<String> klassen = new ArrayList<>();
+                final List<String> realEintraege = new ArrayList<>();
+                final List<VertretungModel> vertretungModels = new ArrayList<>();
+                List<VertretungModel> fertigeMulti = new ArrayList<>();
+                final List<VertretungModelArrayModel> data = new ArrayList<>();
+                final List<String> fertigeKlassen = new ArrayList<>();
+                try {
+                    Looper.prepare();
+                    final ProgressDialog pDialog = new ProgressDialog(thise);
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setTitle("Lädt den Vertretungsplan...");
+                            pDialog.setMessage("Dateien werden gezählt...");
+                            pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                            pDialog.setProgress(0);
+                            pDialog.show();
+                        }
+                    });
+
+                    Authenticator.setDefault(new MyAuthenticator());
+                    urlEndings.add("001.htm");
+                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/";
+
+                    Vertretungsplan.getAllEndings(main,urlEndings);
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(urlEndings.size());
+                            pDialog.setMessage("Dateien werden heruntergeladen...");
+                        }
+                    });
+
+                    String[] stands = Vertretungsplan.getTablesWithProcess(main,urlEndings,tables,pDialog);
+                    stand=stands[0];
+                    fuerDatum=stands[1];
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(urlEndings.size());
+                            pDialog.setMessage("Dateien werden eingelesen...");
+                        }
+                    });
+
+                    Vertretungsplan.getKlassenListWithProcess(tables,klassen,pDialog);
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(klassen.size());
+                            pDialog.setMessage("Einträge werden überprüft...");
+                        }
+                    });
+
+                    Vertretungsplan.getOnlyRealKlassenListWithProcess(tables,realEintraege,pDialog);
+
+                    int i=0;
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(realEintraege.size());
+                            pDialog.setMessage("Einträge werden extrahiert...");
+                        }
+                    });
+
+                    for(String s : realEintraege){
+                        i++;
+                        Vertretungsplan.tryMatcher(s,fertigeMulti,vertretungModels);
+                        pDialog.setProgress(i);
+                    }
+
+                    final String finalstand = stand;
+                    final String finalfuerDatum = fuerDatum;
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(klassen.size());
+                            pDialog.setMessage("Einträge werden zusammengestellt...");
+
+                            Vertretungsplan.parseKlassenWithProcess(klassen,fertigeKlassen,vertretungModels,data,pDialog);
+
+                            includeVertretungsplanHeuteInViews(data);
+
+                            pDialog.hide();
+                        }
+                    });
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String fuerDatumFolgetag;
+                String standFolgetag;
+                final List<String> urlEndingsFolgetag = new ArrayList<>();
+                List<String> tablesFolgetag = new ArrayList<>();
+                final List<String> klassenFolgetag = new ArrayList<>();
+                final List<String> realEintraegeFolgetag = new ArrayList<>();
+                final List<VertretungModel> vertretungModelsFolgetag = new ArrayList<>();
+                List<VertretungModel> fertigeMultiFolgetag = new ArrayList<>();
+                final List<VertretungModelArrayModel> dataFolgetag = new ArrayList<>();
+                final List<String> fertigeKlassenFolgetag = new ArrayList<>();
+                try {
+                    Looper.prepare();
+                    final ProgressDialog pDialog = new ProgressDialog(thise);
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setTitle("Lädt den Vertretungsplan...");
+                            pDialog.setMessage("Dateien werden gezählt...");
+                            pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                            pDialog.setProgress(0);
+                            pDialog.show();
+                        }
+                    });
+
+                    Authenticator.setDefault(new MyAuthenticator());
+                    urlEndingsFolgetag.add("001.htm");
+                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/";
+
+                    Vertretungsplan.getAllEndings(main,urlEndingsFolgetag);
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(urlEndingsFolgetag.size());
+                            pDialog.setMessage("Dateien werden heruntergeladen...");
+                        }
+                    });
+
+                    String[] stands = Vertretungsplan.getTablesWithProcess(main,urlEndingsFolgetag,tablesFolgetag,pDialog);
+                    standFolgetag=stands[0];
+                    fuerDatumFolgetag=stands[1];
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(urlEndingsFolgetag.size());
+                            pDialog.setMessage("Dateien werden eingelesen...");
+                        }
+                    });
+
+                    Vertretungsplan.getKlassenListWithProcess(tablesFolgetag,klassenFolgetag,pDialog);
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(klassenFolgetag.size());
+                            pDialog.setMessage("Einträge werden überprüft...");
+                        }
+                    });
+
+                    Vertretungsplan.getOnlyRealKlassenListWithProcess(tablesFolgetag,realEintraegeFolgetag,pDialog);
+
+                    int i=0;
+
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(realEintraegeFolgetag.size());
+                            pDialog.setMessage("Einträge werden extrahiert...");
+                        }
+                    });
+
+                    for(String s : realEintraegeFolgetag){
+                        i++;
+                        Vertretungsplan.tryMatcher(s,fertigeMultiFolgetag,vertretungModelsFolgetag);
+                        pDialog.setProgress(i);
+                    }
+
+                    final String finalstand = standFolgetag;
+                    final String finalfuerDatum = fuerDatumFolgetag;
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.setMax(klassenFolgetag.size());
+                            pDialog.setMessage("Einträge werden zusammengestellt...");
+
+                            Vertretungsplan.parseKlassenWithProcess(klassenFolgetag,fertigeKlassenFolgetag,vertretungModelsFolgetag,dataFolgetag,pDialog);
+
+                            includeVertretungsplanHeuteInViews(dataFolgetag);
+
+                            pDialog.hide();
+                        }
+                    });
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void includeVertretungsplanHeuteInViews(List<VertretungModelArrayModel> data) {
+        for(VertretungModelArrayModel model : data){
+            if(model.getKlasse().equals(Startseite.prefs.getString("klasse",""))){
+                eigeneKlasseHeute=model;
+            }
+        }
+        if(eigeneKlasseHeute!=null){
+            mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+            mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
+        }
     }
 
 
@@ -288,7 +535,8 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
             View rootView = inflater.inflate(R.layout.stundenplan_fragment, container, false);
             ListView listView = rootView.findViewById(R.id.stundenplan_listView);
-            String wochentag = getWochentag(getArguments().getInt(ARG_SECTION_NUMBER));
+            int wochentagNo = getArguments().getInt(ARG_SECTION_NUMBER);
+            String wochentag = getWochentag(wochentagNo);
             Set<String> stundenplanGeneral = loadStundenplanOrdered(wochentag);
             LinkedHashSet<String> stundenplan = null;
             try {
@@ -316,8 +564,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 i++;
             }
             saveStundenplan(wochentag,Arrays.copyOf(stundenplan.toArray(), stundenplan.toArray().length, String[].class));
-            System.out.println(Arrays.toString(array.toArray()));
-            listView.setAdapter(new CustomListAdapter(array, getContext()));
+            listView.setAdapter(new CustomListAdapter(array, getContext(),wochentagNo));
             return rootView;
         }
     }
@@ -360,10 +607,13 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
         final List<StundenplanEintragModel> listData;
         final Context context;
+        final int noOfDayOfWeek;
 
-        CustomListAdapter(List<StundenplanEintragModel> listData, Context context){
+
+        CustomListAdapter(List<StundenplanEintragModel> listData, Context context, int noOfDayOfWeek){
             this.listData = listData;
             this.context = context;
+            this.noOfDayOfWeek = noOfDayOfWeek;
         }
 
         @Override
@@ -409,7 +659,74 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             }
             holder.bearbeiten.setTag(stunde.stunde);
 
+            if(noOfDayOfTheWeek==noOfDayOfWeek) {
+                if (eigeneKlasseHeute != null) {
+                    VertretungModel[] rightRows = eigeneKlasseHeute.getRightRows();
+                    for (VertretungModel row : rightRows) {
+                        if (Integer.parseInt(row.getStunde()) == Integer.parseInt(stunde.stunde)) {
+                            if (row.getFach().equals(stunde.fach)) {
+                                vertretung(row, holder);
+                            }
+                        }
+                    }
+                }
+            }
+            else if(noOfDayOfTheWeek==noOfDayOfWeek+1){
+                if (eigeneKlasseFolgetag != null) {
+                    VertretungModel[] rightRows = eigeneKlasseFolgetag.getRightRows();
+                    for (VertretungModel row : rightRows) {
+                        if (Integer.parseInt(row.getStunde()) == Integer.parseInt(stunde.stunde)) {
+                            if (row.getFach().equals(stunde.fach)) {
+                                vertretung(row, holder);
+                            }
+                        }
+                    }
+                }
+            }
+
             return convertView;
+        }
+
+        private void vertretung(VertretungModel row,ViewHolder holder){
+            if(!(row.getErsatzFach().contentEquals(holder.fach.getText()))){
+                if(!(row.getErsatzFach().equals("---"))){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        holder.fach.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.fach.getText()+"</del></font><font color=\"#04B404\"> "+row.getErsatzFach()+"</font>", Html.FROM_HTML_MODE_COMPACT));
+                    } else {
+                        holder.fach.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.fach.getText()+"</del></font><font color=\"#04B404\"> "+row.getErsatzFach()));
+                    }
+                }
+                else {
+                    holder.fach.setPaintFlags(holder.fach.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.fach.setTextColor(Color.parseColor("#FE2E2E"));
+                }
+            }
+            if(!(row.getVertretungslehrer().contentEquals(holder.lehrer.getText()))){
+                if(!(row.getVertretungslehrer().equals("---"))){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        holder.lehrer.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.lehrer.getText()+"</del></font><font color=\"#04B404\"> "+row.getVertretungslehrer()+"</font>", Html.FROM_HTML_MODE_COMPACT));
+                    } else {
+                        holder.lehrer.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.lehrer.getText()+"</del></font><font color=\"#04B404\"> "+row.getVertretungslehrer()+"</font>"));
+                    }
+                }
+                else {
+                    holder.lehrer.setPaintFlags(holder.lehrer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.lehrer.setTextColor(Color.parseColor("#FE2E2E"));
+                }
+            }
+            if(!(row.getRaum().contentEquals(holder.raum.getText()))){
+                if(!(row.getRaum().equals("---"))){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        holder.raum.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.raum.getText()+"</del></font><font color=\"#04B404\"> "+row.getRaum()+"</font>", Html.FROM_HTML_MODE_COMPACT));
+                    } else {
+                        holder.raum.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.raum.getText()+"</del></font><font color=\"#04B404\"> "+row.getRaum()+"</font>"));
+                    }
+                }
+                else {
+                    holder.raum.setPaintFlags(holder.raum.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.raum.setTextColor(Color.parseColor("#FE2E2E"));
+                }
+            }
         }
 
         class ViewHolder{

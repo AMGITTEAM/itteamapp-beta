@@ -72,6 +72,9 @@ public class Startseite extends AppCompatActivity
             if(savedVersionCode<6){
                 startActivity(new Intent(this, Login.class));
             }
+            if(savedVersionCode<8){
+                prefs.edit().putBoolean("vertretungsplanIconsEnabled",true).apply();
+            }
         }
     }
 

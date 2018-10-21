@@ -101,7 +101,7 @@ public class Feedback extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Gemeldet!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(ac,"Nachricht gesendet.\nVielen Dank für deine Hilfe!",Toast.LENGTH_LONG).show();
                         }
                     });
                 } catch (final Exception e){

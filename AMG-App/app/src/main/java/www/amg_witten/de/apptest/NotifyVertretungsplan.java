@@ -727,7 +727,7 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                                     rightRowsCount++;
                                 }
                             }
-                            data = (new VertretungModelArrayModel(rightRows));
+                            data = (new VertretungModelArrayModel(rightRows,klasse));
                         }
                         System.out.println(vertretungModels.get(ie).getKlasse());
                     }

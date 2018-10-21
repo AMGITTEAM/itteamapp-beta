@@ -1,4 +1,4 @@
-Fehlerbehebungen:
- - Bei falschen Logindaten kommt ab jetzt eine Meldung
- - Hinweis bei leerem Stundenplan wird nicht gelöscht
- - Menü-Bugs behoben
+﻿Vertretungsplan-Code überarbeitet
+Vertretungsplan im Stundenplan integriert
+Einstellung für die Icons des Vertretungsplans hinzugefügt
+Infos der Schule in den Infos hinzugefügt

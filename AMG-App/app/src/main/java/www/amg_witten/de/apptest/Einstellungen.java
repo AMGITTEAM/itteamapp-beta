@@ -136,6 +136,7 @@ public class Einstellungen extends AppCompatActivity
         RelativeLayout colorUnter = findViewById(R.id.einstellungen_colorUnter_layout);
         RelativeLayout colorMitte = findViewById(R.id.einstellungen_colorMitte_layout);
         RelativeLayout colorOber = findViewById(R.id.einstellungen_colorOber_layout);
+        RelativeLayout iconsVertretungsplanLayout = findViewById(R.id.einstellungen_vertretungsplan_icons_layout);
         if(Startseite.login>0){
             Switch notificationSwitch = findViewById(R.id.einstellungen_notification_switch);
             notificationLayout.setVisibility(RelativeLayout.VISIBLE);
@@ -228,12 +229,22 @@ public class Einstellungen extends AppCompatActivity
                         showColorDialog(Color.parseColor(prefs.getString("vertretungOberstufeFarbe","#258cd1")),"vertretungOberstufeFarbe",Color.parseColor("#258cd1"));
                     }
                 });
+                Switch iconsVertretungsplanSwitch = findViewById(R.id.einstellungen_vertretungsplan_icons_switch);
+                iconsVertretungsplanLayout.setVisibility(RelativeLayout.VISIBLE);
+                iconsVertretungsplanSwitch.setChecked(prefs.getBoolean("vertretungsplanIconsEnabled",false));
+                iconsVertretungsplanSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        prefs.edit().putBoolean("vertretungsplanIconsEnabled",isChecked).apply();
+                    }
+                });
             }
             else {
                 colorOwn.setVisibility(RelativeLayout.GONE);
                 colorUnter.setVisibility(RelativeLayout.GONE);
                 colorMitte.setVisibility(RelativeLayout.GONE);
                 colorOber.setVisibility(RelativeLayout.GONE);
+                iconsVertretungsplanLayout.setVisibility(RelativeLayout.GONE);
             }
         }
         else {

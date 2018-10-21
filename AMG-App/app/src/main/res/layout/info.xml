@@ -33,4 +33,19 @@
         android:autoLink="web"
         android:id="@+id/info_credits"
         android:text="Credits werden geladen..." />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/info_credits"
+        android:id="@+id/info_schule"
+        android:text="Diese App wurde programmiert für das\n
+Albert-Martmöller-Gymnasium\n
+Oberdorf 9\n
+58452 Witten\n
+\n
+Tel: +49 02302 189172\n
+Fax: +49 02302 189059\n
+\n
+ amg@schule-witten.de"/>
 </RelativeLayout>
