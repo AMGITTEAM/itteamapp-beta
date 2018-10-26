@@ -1,5 +1,6 @@
 package www.amg_witten.de.apptest;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -75,6 +77,12 @@ public class Startseite extends AppCompatActivity
             if(savedVersionCode<8){
                 prefs.edit().putBoolean("vertretungsplanIconsEnabled",true).apply();
             }
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.changelog)
+                    .setPositiveButton("OK", null)
+                    .setTitle("Changelog");
+            builder.create().show();
         }
     }
 

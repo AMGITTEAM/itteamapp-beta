@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -130,6 +132,7 @@ public class Einstellungen extends AppCompatActivity
         onValueChangeListenerNr.onValueChange(klasseNr,0,position);
 
 
+        RelativeLayout changelogLayout = findViewById(R.id.einstellungen_changelog_layout);
         RelativeLayout notificationLayout = findViewById(R.id.einstellungen_notification_layout);
         RelativeLayout notificationTimeLayout = findViewById(R.id.einstellungen_notificationtime_layout);
         RelativeLayout colorOwn = findViewById(R.id.einstellungen_colorOwn_layout);
@@ -255,6 +258,18 @@ public class Einstellungen extends AppCompatActivity
             colorMitte.setVisibility(RelativeLayout.GONE);
             colorOber.setVisibility(RelativeLayout.GONE);
         }
+
+        Button changelogButton = findViewById(R.id.einstellungen_changelog_button);
+        changelogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage(R.string.changelog_all)
+                        .setPositiveButton("OK", null)
+                        .setTitle("Changelog");
+                builder.create().show();
+            }
+        });
 
         CheckBox allSettingsCheckbox = findViewById(R.id.einstellungen_all_settings_checkbox);
         allSettingsCheckbox.setChecked(prefs.getBoolean("all_settings",false));

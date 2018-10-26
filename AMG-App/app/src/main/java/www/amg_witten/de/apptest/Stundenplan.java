@@ -408,14 +408,14 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
     public void NewStunde(View view) {
         wochentagPicking = (String)view.getTag();
         stundePicking=0;
-        showEditStunde("","","");
+        showEditStunde("","","","");
     }
 
     public void EditStunde(View view){
         wochentagPicking = getWochentag(tabLayout.getSelectedTabPosition()+1);
         stundePicking = Integer.parseInt((String) view.getTag());
         CustomListAdapter.ViewHolder holder = (CustomListAdapter.ViewHolder)((ConstraintLayout)view.getParent()).getTag();
-        showEditStunde(holder.fach.getText().toString(), holder.raum.getText().toString(), holder.lehrer.getText().toString());
+        showEditStunde(holder.fachID, holder.raumText, holder.lehrerText, holder.fachNameText);
     }
 
     private void Loeschen(){
@@ -452,11 +452,13 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
     }
 
-    private void showEditStunde(String stunde,String raum,String lehrer){
+    private void showEditStunde(String stunde,String raum,String lehrer, String fachName){
+        System.out.println("stunde:"+stunde+", raum:"+raum+", lehrer:"+lehrer+", fachName:"+fachName);
         Bundle bundle = new Bundle();
         bundle.putString("fach",stunde);
         bundle.putString("raum",raum);
         bundle.putString("lehrer",lehrer);
+        bundle.putString("fachName",fachName);
         Intent intent = new Intent(this,StundenplanEdit.class);
         intent.putExtras(bundle);
         startActivityForResult(intent,0,bundle);
@@ -474,6 +476,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         String fach = data.getStringExtra("fach");
         String lehrer = data.getStringExtra("lehrer");
         String raum = data.getStringExtra("raum");
+        String fachName = data.getStringExtra("fachName");
 
         Set<String> stundenplan = loadStundenplanOrdered(wochentagPicking);
         String[] array;
@@ -496,10 +499,10 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             }
         }
         if(stundePicking==0){
-            array[array.length-1]=array.length+"||"+fach+"||"+lehrer+"||"+raum;
+            array[array.length-1]=array.length+"||"+fach+"||"+lehrer+"||"+raum+"||"+fachName;
         }
         else {
-            array[stundePicking-1]=stundePicking+"||"+fach+"||"+lehrer+"||"+raum;
+            array[stundePicking-1]=stundePicking+"||"+fach+"||"+lehrer+"||"+raum+"||"+fachName;
         }
         saveStundenplan(wochentagPicking,array);
         wochentagPicking=null;
@@ -560,6 +563,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             List<StundenplanEintragModel> array = new ArrayList<>();
             int i=0;
             for(String stunde:stundenplan){
+                System.out.println(stunde);
                 array.add(new StundenplanEintragModel(stunde));
                 i++;
             }
@@ -635,29 +639,36 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.stundenplan_eintrag, null);
                 holder = new ViewHolder();
-                holder.bearbeiten = convertView.findViewById(R.id.stundenplan_eintrag_stift);
-                holder.stunde = convertView.findViewById(R.id.stundenplan_eintrag_stunde);
-                holder.stundenzeit = convertView.findViewById(R.id.stundenplan_eintrag_stundenzeit);
-                holder.fach = convertView.findViewById(R.id.stundenplan_eintrag_fach);
-                holder.lehrer = convertView.findViewById(R.id.stundenplan_eintrag_lehrer);
-                holder.raum = convertView.findViewById(R.id.stundenplan_eintrag_raum);
+                holder.bearbeitenView = convertView.findViewById(R.id.stundenplan_eintrag_stift);
+                holder.stundeView = convertView.findViewById(R.id.stundenplan_eintrag_stunde);
+                holder.stundenzeitView = convertView.findViewById(R.id.stundenplan_eintrag_stundenzeit);
+                holder.fachNameView = convertView.findViewById(R.id.stundenplan_eintrag_fach);
+                holder.lehrerView = convertView.findViewById(R.id.stundenplan_eintrag_lehrer);
+                holder.raumView = convertView.findViewById(R.id.stundenplan_eintrag_raum);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
             StundenplanEintragModel stunde = this.listData.get(position);
-            holder.stunde.setText(stunde.stunde);
-            holder.stundenzeit.setText(zuZeit(stunde.stunde));
-            holder.fach.setText(stunde.fach);
-            holder.lehrer.setText(stunde.lehrer);
-            holder.raum.setText(stunde.raum);
+            holder.stundeView.setText(stunde.stunde);
+            holder.stundenzeitView.setText(zuZeit(stunde.stunde));
+            holder.fachNameView.setText(stunde.fachName);
+            holder.lehrerView.setText(stunde.lehrer);
+            holder.raumView.setText(stunde.raum);
+            holder.stundeText = stunde.stunde;
+            holder.stundenzeitText = zuZeit(stunde.stunde);
+            holder.fachNameText = stunde.fachName;
+            holder.lehrerText = stunde.lehrer;
+            holder.raumText = stunde.raum;
+            holder.fachID = stunde.fach;
+            System.out.println(holder.fachNameView.getText());
 
-            holder.bearbeiten.setImageResource(R.drawable.table_edit);
+            holder.bearbeitenView.setImageResource(R.drawable.table_edit);
             if(bearbeiten){
-                holder.bearbeiten.setVisibility(View.VISIBLE);
+                holder.bearbeitenView.setVisibility(View.VISIBLE);
             }
-            holder.bearbeiten.setTag(stunde.stunde);
+            holder.bearbeitenView.setTag(stunde.stunde);
 
             if(noOfDayOfTheWeek==noOfDayOfWeek) {
                 if (eigeneKlasseHeute != null) {
@@ -688,54 +699,61 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         }
 
         private void vertretung(VertretungModel row,ViewHolder holder){
-            if(!(row.getErsatzFach().contentEquals(holder.fach.getText()))){
+            if(!(row.getErsatzFach().contentEquals(holder.fachID))){
                 if(!(row.getErsatzFach().equals("---"))){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        holder.fach.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.fach.getText()+"</del></font><font color=\"#04B404\"> "+row.getErsatzFach()+"</font>", Html.FROM_HTML_MODE_COMPACT));
+                        holder.fachNameView.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.fachNameView.getText()+"</del></font><font color=\"#04B404\"> "+row.getErsatzFach()+"</font>", Html.FROM_HTML_MODE_COMPACT));
                     } else {
-                        holder.fach.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.fach.getText()+"</del></font><font color=\"#04B404\"> "+row.getErsatzFach()));
+                        holder.fachNameView.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.fachNameView.getText()+"</del></font><font color=\"#04B404\"> "+row.getErsatzFach()));
                     }
                 }
                 else {
-                    holder.fach.setPaintFlags(holder.fach.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.fach.setTextColor(Color.parseColor("#FE2E2E"));
+                    holder.fachNameView.setPaintFlags(holder.fachNameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.fachNameView.setTextColor(Color.parseColor("#FE2E2E"));
                 }
             }
-            if(!(row.getVertretungslehrer().contentEquals(holder.lehrer.getText()))){
+            if(!(row.getVertretungslehrer().contentEquals(holder.lehrerView.getText()))){
                 if(!(row.getVertretungslehrer().equals("---"))){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        holder.lehrer.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.lehrer.getText()+"</del></font><font color=\"#04B404\"> "+row.getVertretungslehrer()+"</font>", Html.FROM_HTML_MODE_COMPACT));
+                        holder.lehrerView.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.lehrerView.getText()+"</del></font><font color=\"#04B404\"> "+row.getVertretungslehrer()+"</font>", Html.FROM_HTML_MODE_COMPACT));
                     } else {
-                        holder.lehrer.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.lehrer.getText()+"</del></font><font color=\"#04B404\"> "+row.getVertretungslehrer()+"</font>"));
+                        holder.lehrerView.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.lehrerView.getText()+"</del></font><font color=\"#04B404\"> "+row.getVertretungslehrer()+"</font>"));
                     }
                 }
                 else {
-                    holder.lehrer.setPaintFlags(holder.lehrer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.lehrer.setTextColor(Color.parseColor("#FE2E2E"));
+                    holder.lehrerView.setPaintFlags(holder.lehrerView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.lehrerView.setTextColor(Color.parseColor("#FE2E2E"));
                 }
             }
-            if(!(row.getRaum().contentEquals(holder.raum.getText()))){
+            if(!(row.getRaum().contentEquals(holder.raumView.getText()))){
                 if(!(row.getRaum().equals("---"))){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        holder.raum.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.raum.getText()+"</del></font><font color=\"#04B404\"> "+row.getRaum()+"</font>", Html.FROM_HTML_MODE_COMPACT));
+                        holder.raumView.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.raumView.getText()+"</del></font><font color=\"#04B404\"> "+row.getRaum()+"</font>", Html.FROM_HTML_MODE_COMPACT));
                     } else {
-                        holder.raum.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.raum.getText()+"</del></font><font color=\"#04B404\"> "+row.getRaum()+"</font>"));
+                        holder.raumView.setText(Html.fromHtml("<font color=\"#FE2E2E\"><del>"+holder.raumView.getText()+"</del></font><font color=\"#04B404\"> "+row.getRaum()+"</font>"));
                     }
                 }
                 else {
-                    holder.raum.setPaintFlags(holder.raum.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.raum.setTextColor(Color.parseColor("#FE2E2E"));
+                    holder.raumView.setPaintFlags(holder.raumView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.raumView.setTextColor(Color.parseColor("#FE2E2E"));
                 }
             }
         }
 
         class ViewHolder{
-            TextView stunde;
-            TextView stundenzeit;
-            TextView fach;
-            TextView lehrer;
-            TextView raum;
-            ImageView bearbeiten;
+            TextView stundeView;
+            TextView stundenzeitView;
+            TextView fachNameView;
+            TextView lehrerView;
+            TextView raumView;
+            ImageView bearbeitenView;
+
+            String stundeText;
+            String stundenzeitText;
+            String fachNameText;
+            String lehrerText;
+            String raumText;
+            String fachID;
         }
 
         String zuZeit(String stunde){

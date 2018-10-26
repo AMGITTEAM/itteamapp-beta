@@ -1,4 +1,4 @@
-﻿Vertretungsplan-Code überarbeitet
-Vertretungsplan im Stundenplan integriert
-Einstellung für die Icons des Vertretungsplans hinzugefügt
-Infos der Schule in den Infos hinzugefügt
+﻿• Stundenplan überarbeitet
+   → Name der Stunden wird nicht mehr angezeigt, bitte alle fehlerhaften Stunden bearbeiten und den Namen und das Kürzel des Fachs richtig eintragen.
+• Fehler im Stundenplan behoben
+• Changelog hinzugefügt

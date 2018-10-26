@@ -37,5 +37,54 @@
     <string name="hue_cursor_content_desc">Hue image cursor</string>
     <string name="color_picker_content_desc">Color picker image</string>
     <string name="arrow_content_desc">Arrow image</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="changelog">• Stundenplan überarbeitet\n\n
+    → Name der Stunden wird nicht mehr angezeigt, bitte alle fehlerhaften Stunden bearbeiten und den Namen und das Kürzel des Fachs richtig eintragen.\n
+        • Fehler im Stundenplan behoben\n
+        • Changelog hinzugefügt</string>
+
+    <string name="changelog_all">
+        <b>0.3.1-PRE</b>\n
+        • Stundenplan überarbeitet\n\n
+    → Name der Stunden wird nicht mehr angezeigt, bitte alle fehlerhaften Stunden bearbeiten und den Namen und das Kürzel des Fachs richtig eintragen.\n
+        • Fehler im Stundenplan behoben\n
+        • Changelog hinzugefügt\n
+        \n
+        <b>0.3.0-PRE - 21.10.2018</b>\n
+        • Vertretungsplan im Stundenplan integriert\n
+        • Vertretungsplan-Icons jetzt ausblendbar\n
+        • Rückmelde-Nachricht bei Feedback verbessert\n
+        • Kontaktdaten der Schule unter \"Info\" hinzugefügt\n
+        • Stundenplan verbessert\n
+        \n
+        <b>0.2.2-PRE - 19.10.2018</b>\n
+        • Menü-Fehler behoben\n
+        • Login-Fehlermeldung besser betitelt\n
+        \n
+        <b>0.2.1-PRE - 19.10.2018</b>\n
+        • Vertretungsplan-Passwort-Sicherheit erhöht\n
+        • Quellcode optimiert\n
+        • Test-Bereich entfernt\n
+        \n
+        <b>0.2.0-PRE - 18.10.2018</b>\n
+        • Stundenplan hinzugefügt\n
+        • Startseite mit (provisorischen) Infos gefüllt\n
+        • Navigations-Header verbessert\n
+        • Menü-Fehler behoben\n
+        \n
+        <b>0.1.2-PRE - 11.10.2018</b>\n
+        • Feedback-Bereich hinzugefügt\n
+        • Vertretungsplan-Fehler behoben\n
+        • Grundgerüst für \"Stundenplan\" hinzugefügt\n
+        \n
+        <b>0.1.1-PRE - 08.10.2018</b>\n
+        • Fehler in den Einstellungen behoben\n
+        • Fehler in der Benachrichtigung des Vertretungsplan behoben\n
+        • Im Vertretungsplan \"Stand\" und \"Für Datum\" hinzugefügt\n
+        • App-Icon hinzugefügt\n
+        • Navigations-Header verbessert\n
+        \n
+        <b>0.1-PRE - 03.10.2018</b>\n
+        • Erstveröffentlichung\n
+    </string>
 </resources>
