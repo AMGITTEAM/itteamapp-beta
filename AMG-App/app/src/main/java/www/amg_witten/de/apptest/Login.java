@@ -48,6 +48,7 @@ public class Login extends AppCompatActivity
             prefs.edit().putInt("login",0).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
             prefs.edit().putString("loginUsername","").apply();
             prefs.edit().putString("loginPassword","").apply();
+            prefs.edit().putString("passwordVertretungsplanSchueler","").apply();
             Toast.makeText(this,"Logout erfolgreich",Toast.LENGTH_LONG).show();
             Startseite.login=0;
             Intent alarmIntent = new Intent(this, NotifyVertretungsplan.class);
@@ -153,7 +154,6 @@ public class Login extends AppCompatActivity
                         return;
                     }
                     Startseite.login = rechthoehe;
-                    MyAuthenticator.password = passwordVertretungsplanSchueler;
 
                     final SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
                     prefs.edit().putInt("login",rechthoehe).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team

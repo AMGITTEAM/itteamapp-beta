@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="www.amg_witten.de.apptest.Stundenplan">
+    <item android:id="@+id/action_complete_debug"
+        android:title="Kompletter Debug" />
+</menu>

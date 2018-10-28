@@ -98,7 +98,7 @@ public class Vertretungsplan extends AppCompatActivity
                 }
             });
 
-            Authenticator.setDefault(new MyAuthenticator());
+            Authenticator.setDefault(new MyAuthenticator(thise));
             urlEndings.add("001.htm");
             String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
 

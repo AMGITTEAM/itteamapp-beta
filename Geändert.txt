@@ -1,4 +1,3 @@
-﻿• Stundenplan überarbeitet
-   → Name der Stunden wird nicht mehr angezeigt, bitte alle fehlerhaften Stunden bearbeiten und den Namen und das Kürzel des Fachs richtig eintragen.
-• Fehler im Stundenplan behoben
-• Changelog hinzugefügt
+﻿Komplett-Debug hinzugefügt
+Fehler im Stundenplan behoben
+Einstellungs-Ansicht angepasst

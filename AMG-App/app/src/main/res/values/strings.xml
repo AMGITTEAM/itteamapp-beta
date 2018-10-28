@@ -38,13 +38,16 @@
     <string name="color_picker_content_desc">Color picker image</string>
     <string name="arrow_content_desc">Arrow image</string>
 
-    <string name="changelog">• Stundenplan überarbeitet\n\n
-    → Name der Stunden wird nicht mehr angezeigt, bitte alle fehlerhaften Stunden bearbeiten und den Namen und das Kürzel des Fachs richtig eintragen.\n
-        • Fehler im Stundenplan behoben\n
-        • Changelog hinzugefügt</string>
+    <string name="changelog">• Erweiterte Fehlerbeschreibung beim Melden im Feedback-Bereich</string>
 
     <string name="changelog_all">
-        <b>0.3.1-PRE</b>\n
+        <b>0.3.3-PRE - 28.10.2018</b>\n
+        • Komplett-Debug hinzugefügt\n
+        • Fehler im Stundenplan behoben\n
+        • Einstellungs-Ansicht angepasst\n\n
+        <b>0.3.2-PRE - 28.10.2018</b>\n
+        • Fehler in der Benachrichtigung behoben (Wurde nicht angezeigt/verursachte Abstürze)\n\n
+        <b>0.3.1-PRE - 26.10.2018</b>\n
         • Stundenplan überarbeitet\n\n
     → Name der Stunden wird nicht mehr angezeigt, bitte alle fehlerhaften Stunden bearbeiten und den Namen und das Kürzel des Fachs richtig eintragen.\n
         • Fehler im Stundenplan behoben\n

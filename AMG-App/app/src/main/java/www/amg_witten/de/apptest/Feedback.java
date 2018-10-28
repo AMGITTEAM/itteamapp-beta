@@ -1,25 +1,34 @@
 package www.amg_witten.de.apptest;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Feedback extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,6 +90,8 @@ public class Feedback extends AppCompatActivity
 
     public void Senden(View view){
         description = descriptionText.getText().toString();
+        description+="\nVersion: "+BuildConfig.VERSION_NAME;
+        description+="\nAndroidApi: "+Build.VERSION.SDK_INT;
         type = types[typeSpinner.getSelectedItemPosition()];
         final Activity ac = this;
         new Thread(new Runnable() {
@@ -108,7 +119,7 @@ public class Feedback extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Fehler beim Melden des Fehlers",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ac,"Fehler beim Melden des Fehlers: "+e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
                     e.printStackTrace();
@@ -116,5 +127,91 @@ public class Feedback extends AppCompatActivity
             }
         }).start();
         Start();
+    }
+
+    void askCompleteDebug(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Diese Funktion sollte nur auf Anfrage des Entwicklers genutzt werden.\nDer komplette Debug-Bericht enthält Login-Daten, den Stundenplan, alle Einstellungen, die Android-Version und eine ID zur Identifizierung, welche eine zufällig generierte Zahl ist. Diese sollte im Anschluss dem Entwickler zugesendet werden.\nMöchtest du wirklich alle diese Daten an den Entwickler senden?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        doCompleteDebug();
+                    }
+                })
+                .setNegativeButton("Abbrechen",null)
+                .setTitle("Kompletter Debug");
+        builder.create().show();
+    }
+
+    void doCompleteDebug(){
+        final Context context = this;
+        description = "KOMPLETT-DEBUG";
+        description+="\nVersion: "+BuildConfig.VERSION_NAME;
+        description+="\nAndroidApi: "+Build.VERSION.SDK_INT;
+        Map<String, ?> map = Startseite.prefs.getAll();
+        for(Map.Entry<String, ?> entry : map.entrySet()){
+            description+="\n"+entry.getKey()+": "+entry.getValue();
+        }
+        final String id = UUID.randomUUID().toString();
+        description+="\nID: "+id;
+        type = types[typeSpinner.getSelectedItemPosition()];
+        final Activity ac = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("WORKING");
+                try {String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    url = url.replaceAll(" ","%20");
+                    URL oracle = new URL(url);
+                    System.out.println(oracle);
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
+
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    System.out.println(in.readLine());
+                    in.close();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ac,"Nachricht gesendet.\nVielen Dank für deine Hilfe!",Toast.LENGTH_LONG).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            TextView tv = new TextView(context);
+                            tv.setText("Deine einmalige ID: \""+id+"\"\nBitte leite diese ID an den Entwickler weiter.");
+                            tv.setTextIsSelectable(true);
+                            builder.setView(tv)
+                                    .setPositiveButton("OK", null)
+                                    .setTitle("Kompletter Debug");
+                            builder.create().show();
+                        }
+                    });
+                } catch (final Exception e){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ac,"Fehler beim Senden der Daten",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_feedback, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_complete_debug) {
+            askCompleteDebug();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

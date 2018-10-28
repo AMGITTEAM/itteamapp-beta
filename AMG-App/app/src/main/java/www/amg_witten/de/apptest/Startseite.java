@@ -36,7 +36,6 @@ public class Startseite extends AppCompatActivity
         prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
         login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
         benutzername = prefs.getString("loginUsername","");
-        MyAuthenticator.password = prefs.getString("passwordVertretungsplanSchueler","");
         System.out.println(login);
 
         Methoden methoden = new Methoden();

@@ -1,7 +1,9 @@
 package www.amg_witten.de.apptest;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -133,7 +135,11 @@ class Methoden {
 
 class MyAuthenticator extends Authenticator {
 
-    static String password;
+    private String password;
+
+    MyAuthenticator(Context context){
+        password = context.getSharedPreferences("Prefs",Context.MODE_PRIVATE).getString("passwordVertretungsplanSchueler",null);
+    }
 
     protected PasswordAuthentication getPasswordAuthentication() {
         String username = "Schueler";

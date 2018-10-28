@@ -1,10 +1,13 @@
 package www.amg_witten.de.apptest;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -40,7 +43,7 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                 final List<String> klassen = new ArrayList<>();
                 try {
 
-                    Authenticator.setDefault(new MyAuthenticator());
+                    Authenticator.setDefault(new MyAuthenticator(context));
                     boolean exit = false;
                     String next = "001.htm";
                     urlEndings.add(next);
@@ -745,10 +748,27 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                 onOpenIntent.putExtra("Title","Heutiger Vertretungsplan");
                 onOpenIntent.putExtra("navID",1);
                 PendingIntent onOpen = PendingIntent.getActivity(context,0,onOpenIntent,0);
+                if(android.os.Build.VERSION.SDK_INT>=26){
+                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    NotificationChannel mChannel = new NotificationChannel("vertretung_notification_amgapp", "AMGApp-Vertretungsplan-Benachrichtigung", NotificationManager.IMPORTANCE_LOW);
+
+                    mChannel.setDescription("Benachrichtigungs-Kanal für die Benachrichtigung des Vertretungsplans für Heute der AMGApp");
+
+                    mChannel.enableLights(true);
+                    mChannel.setLightColor(Color.RED);
+
+                    mChannel.enableVibration(true);
+                    mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+                    mNotificationManager.createNotificationChannel(mChannel);
+                }
+
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context,NotificationCompat.CATEGORY_REMINDER).setSmallIcon(R.mipmap.ic_launcher);
 
                 mBuilder.setContentTitle("Vertretung für Klasse "+prefs.getString("klasse",""));
                 mBuilder.setContentText(text);
+                mBuilder.setChannelId("vertretung_notification_amgapp");
 
                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
                 mBuilder.setContentIntent(onOpen).setAutoCancel(true).setCategory(NotificationCompat.CATEGORY_REMINDER).setVisibility(NotificationCompat.VISIBILITY_PUBLIC);

@@ -12,6 +12,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:id="@+id/einstellungen_changelog_layout">
 
 
@@ -24,7 +25,7 @@
             android:layout_marginStart="10dp"
             android:text="Changelog:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -44,6 +45,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_changelog_layout"
         android:id="@+id/einstellungen_klasse_layout">
 
@@ -56,7 +58,7 @@
             android:layout_marginStart="10dp"
             android:text="Aktuelle Klasse:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -85,6 +87,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_klasse_layout"
         android:id="@+id/einstellungen_notification_layout">
 
@@ -98,7 +101,7 @@
             android:layout_marginStart="10dp"
             android:text="Benachrichtigung an/aus:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -117,6 +120,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_notification_layout"
         android:id="@+id/einstellungen_notificationtime_layout">
 
@@ -130,7 +134,7 @@
             android:layout_marginStart="10dp"
             android:text="Benachrichtigungszeit:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -147,11 +151,10 @@
 
     </RelativeLayout>
 
-
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_notificationtime_layout"
         android:id="@+id/einstellungen_colorOwn_layout">
 
@@ -165,7 +168,7 @@
             android:layout_marginStart="10dp"
             android:text="Farbe eigene Klasse:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -182,11 +185,10 @@
 
     </RelativeLayout>
 
-
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_colorOwn_layout"
         android:id="@+id/einstellungen_colorUnter_layout">
 
@@ -200,7 +202,7 @@
             android:layout_marginStart="10dp"
             android:text="Farbe Unterstufe:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -217,11 +219,10 @@
 
     </RelativeLayout>
 
-
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_colorUnter_layout"
         android:id="@+id/einstellungen_colorMitte_layout">
 
@@ -235,7 +236,7 @@
             android:layout_marginStart="10dp"
             android:text="Farbe Mittelstufe:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -252,11 +253,10 @@
 
     </RelativeLayout>
 
-
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_colorMitte_layout"
         android:id="@+id/einstellungen_colorOber_layout">
 
@@ -270,7 +270,7 @@
             android:layout_marginStart="10dp"
             android:text="Farbe Oberstufe:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -290,6 +290,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_colorOber_layout"
         android:id="@+id/einstellungen_vertretungsplan_icons_layout">
 
@@ -303,7 +304,7 @@
             android:layout_marginStart="10dp"
             android:text="Icons im Vertretungsplan an/aus:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 
@@ -322,6 +323,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_vertretungsplan_icons_layout"
         android:id="@+id/einstellungen_all_settings_layout">
 
@@ -335,7 +337,7 @@
             android:layout_marginStart="10dp"
             android:text="Alle Einstellungen anzeigen:"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
 

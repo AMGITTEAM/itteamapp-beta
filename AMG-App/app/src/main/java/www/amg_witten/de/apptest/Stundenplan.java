@@ -158,9 +158,13 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
         final Activity thise = this;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("u");
-        Date d = new Date();
-        noOfDayOfTheWeek = Integer.parseInt(sdf.format(d));
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if(day==1){
+            noOfDayOfTheWeek=7;
+        }
+        else {
+            noOfDayOfTheWeek=day-1;
+        }
         System.out.println(noOfDayOfTheWeek);
 
         if (noOfDayOfTheWeek > 5) {
@@ -196,7 +200,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         }
                     });
 
-                    Authenticator.setDefault(new MyAuthenticator());
+                    Authenticator.setDefault(new MyAuthenticator(thise));
                     urlEndings.add("001.htm");
                     String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/";
 
@@ -295,7 +299,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         }
                     });
 
-                    Authenticator.setDefault(new MyAuthenticator());
+                    Authenticator.setDefault(new MyAuthenticator(thise));
                     urlEndingsFolgetag.add("001.htm");
                     String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/";
 
@@ -467,7 +471,9 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode==1){
-            Loeschen();
+            if(stundePicking!=0){
+                Loeschen();
+            }
             return;
         }
         if(data==null){

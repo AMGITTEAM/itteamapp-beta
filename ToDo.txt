@@ -4,6 +4,5 @@ Schwarzes Brett
 Kurssprecher im Stundenplan
 Raumunabhängige Fehlermeldungen (IT-Team)
 Einstellung: Hilfe -> Vertretungsplan-Icons neu generieren
-Feedback: Versionsnummer mitschicken
 
 Stundenplan->Vertretungsplan: Bei Typ "Verlegung" (oder so) -> Fach auch ändern
