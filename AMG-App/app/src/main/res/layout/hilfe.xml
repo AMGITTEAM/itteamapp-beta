@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/help_vertretungsplan_icons_layout">
+
+
+        <TextView
+            android:id="@+id/help_vertretungsplan_icons_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:text="@string/help_vertretungsplan_icons"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:layout_below="@+id/help_vertretungsplan_icons_title"
+            android:id="@+id/help_vertretungsplan_icons_solution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text="In den Einstellungen die &quot;Icons im Vertretungsplan&quot; einschalten."
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_alignParentLeft="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_below="@id/help_vertretungsplan_icons_layout"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/help_vertretungsplan_icons_error_layout">
+
+
+        <TextView
+            android:id="@+id/help_vertretungsplan_icons_error_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:text="@string/help_vertretungsplan_icons_error"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/help_vertretungsplan_icons_error_solution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/help_vertretungsplan_icons_error_title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text="Den folgenden Knopf drücken, um die Icons neu zu generieren:"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/help_vertretungsplan_icons_error_solution"
+            android:layout_centerHorizontal="true"
+            android:text="Fix"
+            android:onClick="regenerateVertretungsplanIcons"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/help_vertretungsplan_icons_error_layout"
+        android:id="@+id/help_stundenplan_vertretungsplan_layout">
+
+
+        <TextView
+            android:id="@+id/help_stundenplan_vertretungsplan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:text="@string/help_stundenplan_vertretungsplan"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:layout_below="@+id/help_stundenplan_vertretungsplan_title"
+            android:id="@+id/help_stundenplan_vertretungsplan_solution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text="Kurzform des Fachs in folgendem Format eintragen:\n
+ - Unterstufe/Mittelstufe: Normales Kürzel des Fachs wie &quot;M&quot; oder &quot;E5&quot;\n
+ - Oberstufe: Kürzel des Fachs mit Kursnummer wie im Vertretungsplan, Beispiele: &quot;M G4&quot; oder &quot;E5 G2&quot;"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_alignParentLeft="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_below="@id/help_stundenplan_vertretungsplan_layout"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/help_feedback_layout">
+
+
+        <TextView
+            android:id="@+id/help_feedback_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:text="@string/help_feedback"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/help_feedback_solution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/help_feedback_title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:text="Über folgenden Knopf das Feedback-Formular öffnen und Fehler melden:"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/help_feedback_solution"
+            android:layout_centerHorizontal="true"
+            android:text="Feedback"
+            android:onClick="startFeedback"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
+</ScrollView>

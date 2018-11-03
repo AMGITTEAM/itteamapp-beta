@@ -1,3 +1,2 @@
-﻿Komplett-Debug hinzugefügt
-Fehler im Stundenplan behoben
-Einstellungs-Ansicht angepasst
+﻿Hilfe-Bereich hinzugefügt
+Anzeigefehler im Stundenplan behoben

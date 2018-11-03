@@ -3,6 +3,5 @@ Schwarzes Brett
  -> Klausurtermine im Stundenplan
 Kurssprecher im Stundenplan
 Raumunabhängige Fehlermeldungen (IT-Team)
-Einstellung: Hilfe -> Vertretungsplan-Icons neu generieren
 
 Stundenplan->Vertretungsplan: Bei Typ "Verlegung" (oder so) -> Fach auch ändern

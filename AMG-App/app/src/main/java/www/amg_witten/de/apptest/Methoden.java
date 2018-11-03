@@ -70,7 +70,7 @@ class Methoden {
                 break;
             case R.id.nav_feedback:
                 if (id != currentNavId) {
-                    currentActivity.startActivity(new Intent(currentActivity, Feedback.class));
+                    currentActivity.startActivity(new Intent(currentActivity, Hilfe.class));
                 }
                 break;
             case R.id.nav_it_team_holen:

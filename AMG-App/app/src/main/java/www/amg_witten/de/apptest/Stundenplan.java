@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -165,7 +166,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         else {
             noOfDayOfTheWeek=day-1;
         }
-        System.out.println(noOfDayOfTheWeek);
 
         if (noOfDayOfTheWeek > 5) {
             noOfDayOfTheWeek=1;
@@ -457,7 +457,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
     }
 
     private void showEditStunde(String stunde,String raum,String lehrer, String fachName){
-        System.out.println("stunde:"+stunde+", raum:"+raum+", lehrer:"+lehrer+", fachName:"+fachName);
         Bundle bundle = new Bundle();
         bundle.putString("fach",stunde);
         bundle.putString("raum",raum);
@@ -560,6 +559,10 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
                 rootView.findViewById(R.id.stundenplan_new).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.stundenplan_new).setTag(wochentag);
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone((ConstraintLayout) rootView.findViewById(R.id.constraintLayout));
+                constraintSet.setMargin(R.id.stundenplan_listView,ConstraintSet.BOTTOM,100);
+                constraintSet.applyTo((ConstraintLayout) rootView.findViewById(R.id.constraintLayout));
             }
             if(stundenplan==null){
                 TextView textView = rootView.findViewById(R.id.section_label);
@@ -569,7 +572,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             List<StundenplanEintragModel> array = new ArrayList<>();
             int i=0;
             for(String stunde:stundenplan){
-                System.out.println(stunde);
                 array.add(new StundenplanEintragModel(stunde));
                 i++;
             }
@@ -668,7 +670,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             holder.lehrerText = stunde.lehrer;
             holder.raumText = stunde.raum;
             holder.fachID = stunde.fach;
-            System.out.println(holder.fachNameView.getText());
 
             holder.bearbeitenView.setImageResource(R.drawable.table_edit);
             if(bearbeiten){
@@ -680,9 +681,20 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 if (eigeneKlasseHeute != null) {
                     VertretungModel[] rightRows = eigeneKlasseHeute.getRightRows();
                     for (VertretungModel row : rightRows) {
-                        if (Integer.parseInt(row.getStunde()) == Integer.parseInt(stunde.stunde)) {
-                            if (row.getFach().equals(stunde.fach)) {
-                                vertretung(row, holder);
+                        try {
+                            if (Integer.parseInt(row.getStunde()) == Integer.parseInt(stunde.stunde)) {
+                                if (row.getFach().equals(stunde.fach)) {
+                                    vertretung(row, holder);
+                                }
+                            }
+                        }
+                        catch(NumberFormatException e){
+                            for(String stundeNr : row.getStunde().split(" - ")){
+                                if (Integer.parseInt(stundeNr) == Integer.parseInt(stunde.stunde)) {
+                                    if (row.getFach().equals(stunde.fach)) {
+                                        vertretung(row, holder);
+                                    }
+                                }
                             }
                         }
                     }

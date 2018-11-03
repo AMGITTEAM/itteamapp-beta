@@ -38,9 +38,18 @@
     <string name="color_picker_content_desc">Color picker image</string>
     <string name="arrow_content_desc">Arrow image</string>
 
-    <string name="changelog">• Erweiterte Fehlerbeschreibung beim Melden im Feedback-Bereich</string>
+    <string name="help_vertretungsplan_icons">Es werden keine Icons mehr im Vertretungsplan angezeigt</string>
+    <string name="help_vertretungsplan_icons_error">Die Icons im Vertretungsplan wurden durch Text/Platzhalter ersetzt</string>
+    <string name="help_stundenplan_vertretungsplan">Im Stundenplan werden die Stunden aus dem Vertretungsplan nicht angezeigt</string>
+    <string name="help_feedback">Problem wurde nicht behoben/ist hier nicht gelistet</string>
+
+    <string name="changelog">• Hilfe-Bereich hinzugefügt\n
+        • Anzeigefehler im Stundenplan behoben</string>
 
     <string name="changelog_all">
+        <b>1.0.0 - 3.11.2018</b>\n
+        • Hilfe-Bereich hinzugefügt\n
+        • Anzeigefehler im Stundenplan behoben\n\n
         <b>0.3.3-PRE - 28.10.2018</b>\n
         • Komplett-Debug hinzugefügt\n
         • Fehler im Stundenplan behoben\n

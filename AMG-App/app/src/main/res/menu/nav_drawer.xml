@@ -22,7 +22,7 @@
         android:id="@+id/nav_login"/>
     <item android:title="Einstellungen"
         android:id="@+id/nav_einstellungen"/>
-    <item android:title="Feedback"
+    <item android:title="Hilfe und Feedback"
         android:id="@+id/nav_feedback"/>
     <item android:title="Info"
         android:id="@+id/nav_info"/>

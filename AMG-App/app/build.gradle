@@ -8,8 +8,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
 
-        versionCode=11
-        versionName="0.3.3-PRE"
+        versionCode=12
+        versionName="1.0.0"
     }
     buildTypes {
         release {

@@ -91,6 +91,10 @@
             android:name=".Feedback"
             android:label="Feedback"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Hilfe"
+            android:label="Hilfe"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".DeviceBootReceiver">
             <intent-filter>
