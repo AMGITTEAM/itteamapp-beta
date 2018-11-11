@@ -1,6 +1,5 @@
 package www.amg_witten.de.apptest;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;

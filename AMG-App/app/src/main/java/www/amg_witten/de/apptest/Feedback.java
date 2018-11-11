@@ -26,7 +26,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.HashMap;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.UUID;
 
@@ -98,6 +98,7 @@ public class Feedback extends AppCompatActivity
                 System.out.println("WORKING");
                 try {String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
+                    url = url.replaceAll("\n","%30");
                     URL oracle = new URL(url);
                     System.out.println(oracle);
                     BufferedReader in = new BufferedReader(
@@ -127,7 +128,7 @@ public class Feedback extends AppCompatActivity
         Start();
     }
 
-    void askCompleteDebug(){
+    private void askCompleteDebug(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Diese Funktion sollte nur auf Anfrage des Entwicklers genutzt werden.\nDer komplette Debug-Bericht enthält Login-Daten, den Stundenplan, alle Einstellungen, die Android-Version und eine ID zur Identifizierung, welche eine zufällig generierte Zahl ist. Diese sollte im Anschluss dem Entwickler zugesendet werden.\nMöchtest du wirklich alle diese Daten an den Entwickler senden?")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -141,7 +142,7 @@ public class Feedback extends AppCompatActivity
         builder.create().show();
     }
 
-    void doCompleteDebug(){
+    private void doCompleteDebug(){
         final Context context = this;
         description = "KOMPLETT-DEBUG";
         description+="\nVersion: "+BuildConfig.VERSION_NAME;
@@ -158,8 +159,11 @@ public class Feedback extends AppCompatActivity
             @Override
             public void run() {
                 System.out.println("WORKING");
-                try {String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                try {
+                    description = URLEncoder.encode(description,"utf-8");
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
+                    url = url.replaceAll("\n","%30");
                     URL oracle = new URL(url);
                     System.out.println(oracle);
                     BufferedReader in = new BufferedReader(
@@ -175,7 +179,7 @@ public class Feedback extends AppCompatActivity
                             Toast.makeText(ac,"Nachricht gesendet.\nVielen Dank für deine Hilfe!",Toast.LENGTH_LONG).show();
                             AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             TextView tv = new TextView(context);
-                            tv.setText("Deine einmalige ID: \""+id+"\"\nBitte leite diese ID an den Entwickler weiter.");
+                            tv.setText(getString(R.string.feedback_full_id,id));
                             tv.setTextIsSelectable(true);
                             builder.setView(tv)
                                     .setPositiveButton("OK", null)

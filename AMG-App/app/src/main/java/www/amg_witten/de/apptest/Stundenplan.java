@@ -31,7 +31,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,16 +40,11 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.File;
 import java.net.Authenticator;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -91,7 +85,10 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         tabLayout.addTab(tabLayout.newTab().setText("Do."));
         tabLayout.addTab(tabLayout.newTab().setText("Fr."));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.getTabAt(0).select();
+        TabLayout.Tab tab = tabLayout.getTabAt(0);
+        if(tab!=null){
+            tab.select();
+        }
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -140,7 +137,10 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             public void onPageSelected(int i) {
                 if(!transistioning){
                     transistioning=true;
-                    tabLayout.getTabAt(i).select();
+                    TabLayout.Tab tab = tabLayout.getTabAt(i);
+                    if(tab!=null){
+                        tab.select();
+                    }
                     transistioning=false;
                 }
             }
@@ -170,13 +170,14 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         if (noOfDayOfTheWeek > 5) {
             noOfDayOfTheWeek=1;
         }
-        tabLayout.getTabAt(noOfDayOfTheWeek-1).select();
+        TabLayout.Tab newTab = tabLayout.getTabAt(noOfDayOfTheWeek-1);
+        if(newTab!=null){
+            newTab.select();
+        }
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String fuerDatum;
-                String stand;
                 final List<String> urlEndings = new ArrayList<>();
                 List<String> tables = new ArrayList<>();
                 final List<String> klassen = new ArrayList<>();
@@ -214,9 +215,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         }
                     });
 
-                    String[] stands = Vertretungsplan.getTablesWithProcess(main,urlEndings,tables,pDialog);
-                    stand=stands[0];
-                    fuerDatum=stands[1];
+                    Vertretungsplan.getTablesWithProcess(main,urlEndings,tables,pDialog);
 
                     thise.runOnUiThread(new Runnable() {
                         @Override
@@ -253,9 +252,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         Vertretungsplan.tryMatcher(s,fertigeMulti,vertretungModels);
                         pDialog.setProgress(i);
                     }
-
-                    final String finalstand = stand;
-                    final String finalfuerDatum = fuerDatum;
                     thise.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -274,8 +270,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-                String fuerDatumFolgetag;
-                String standFolgetag;
                 final List<String> urlEndingsFolgetag = new ArrayList<>();
                 List<String> tablesFolgetag = new ArrayList<>();
                 final List<String> klassenFolgetag = new ArrayList<>();
@@ -285,7 +279,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 final List<VertretungModelArrayModel> dataFolgetag = new ArrayList<>();
                 final List<String> fertigeKlassenFolgetag = new ArrayList<>();
                 try {
-                    Looper.prepare();
                     final ProgressDialog pDialog = new ProgressDialog(thise);
 
                     thise.runOnUiThread(new Runnable() {
@@ -301,7 +294,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
                     Authenticator.setDefault(new MyAuthenticator(thise));
                     urlEndingsFolgetag.add("001.htm");
-                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/";
+                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Folgetag/";
 
                     Vertretungsplan.getAllEndings(main,urlEndingsFolgetag);
 
@@ -313,9 +306,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         }
                     });
 
-                    String[] stands = Vertretungsplan.getTablesWithProcess(main,urlEndingsFolgetag,tablesFolgetag,pDialog);
-                    standFolgetag=stands[0];
-                    fuerDatumFolgetag=stands[1];
+                    Vertretungsplan.getTablesWithProcess(main,urlEndingsFolgetag,tablesFolgetag,pDialog);
 
                     thise.runOnUiThread(new Runnable() {
                         @Override
@@ -352,9 +343,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         Vertretungsplan.tryMatcher(s,fertigeMultiFolgetag,vertretungModelsFolgetag);
                         pDialog.setProgress(i);
                     }
-
-                    final String finalstand = standFolgetag;
-                    final String finalfuerDatum = fuerDatumFolgetag;
                     thise.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -363,7 +351,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
                             Vertretungsplan.parseKlassenWithProcess(klassenFolgetag,fertigeKlassenFolgetag,vertretungModelsFolgetag,dataFolgetag,pDialog);
 
-                            includeVertretungsplanHeuteInViews(dataFolgetag);
+                            includeVertretungsplanFolgetagInViews(dataFolgetag);
 
                             pDialog.hide();
                         }
@@ -384,6 +372,18 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             }
         }
         if(eigeneKlasseHeute!=null){
+            mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+            mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
+        }
+    }
+
+    private void includeVertretungsplanFolgetagInViews(List<VertretungModelArrayModel> data) {
+        for(VertretungModelArrayModel model : data){
+            if(model.getKlasse().equals(Startseite.prefs.getString("klasse",""))){
+                eigeneKlasseFolgetag=model;
+            }
+        }
+        if(eigeneKlasseFolgetag!=null){
             mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
             mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
         }
@@ -426,6 +426,9 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         Set<String> stundenplan = loadStundenplanOrdered(wochentagPicking);
         String[] array;
         int i=0;
+        if(stundenplan==null){
+            return;
+        }
         if(stundenplan.size()==stundePicking){
             array = new String[stundenplan.size()-1];
             for(String stunde:stundenplan){
@@ -543,11 +546,17 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
             View rootView = inflater.inflate(R.layout.stundenplan_fragment, container, false);
             ListView listView = rootView.findViewById(R.id.stundenplan_listView);
+            if(getArguments()==null){
+                return null;
+            }
             int wochentagNo = getArguments().getInt(ARG_SECTION_NUMBER);
             String wochentag = getWochentag(wochentagNo);
             Set<String> stundenplanGeneral = loadStundenplanOrdered(wochentag);
             LinkedHashSet<String> stundenplan = null;
             try {
+                if(stundenplanGeneral==null){
+                    throw new NullPointerException();
+                }
                 String[] stundenplanGeneralArray = Arrays.copyOf(stundenplanGeneral.toArray(), stundenplanGeneral.toArray().length, String[].class);
                 Arrays.sort(stundenplanGeneralArray);
                 stundenplan = new LinkedHashSet<>(Arrays.asList(stundenplanGeneralArray));
@@ -566,14 +575,12 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             }
             if(stundenplan==null){
                 TextView textView = rootView.findViewById(R.id.section_label);
-                textView.setText("Du musst zuerst einen Stundenplan für "+wochentag+" eingeben!");
+                textView.setText(getString(R.string.stundenplan_nothing,wochentag));
                 return rootView;
             }
             List<StundenplanEintragModel> array = new ArrayList<>();
-            int i=0;
             for(String stunde:stundenplan){
                 array.add(new StundenplanEintragModel(stunde));
-                i++;
             }
             saveStundenplan(wochentag,Arrays.copyOf(stundenplan.toArray(), stundenplan.toArray().length, String[].class));
             listView.setAdapter(new CustomListAdapter(array, getContext(),wochentagNo));
@@ -681,6 +688,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 if (eigeneKlasseHeute != null) {
                     VertretungModel[] rightRows = eigeneKlasseHeute.getRightRows();
                     for (VertretungModel row : rightRows) {
+                        System.out.println(row);
                         try {
                             if (Integer.parseInt(row.getStunde()) == Integer.parseInt(stunde.stunde)) {
                                 if (row.getFach().equals(stunde.fach)) {
@@ -700,13 +708,24 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                     }
                 }
             }
-            else if(noOfDayOfTheWeek==noOfDayOfWeek+1){
+            else if(noOfDayOfTheWeek==noOfDayOfWeek-1){
                 if (eigeneKlasseFolgetag != null) {
                     VertretungModel[] rightRows = eigeneKlasseFolgetag.getRightRows();
                     for (VertretungModel row : rightRows) {
-                        if (Integer.parseInt(row.getStunde()) == Integer.parseInt(stunde.stunde)) {
-                            if (row.getFach().equals(stunde.fach)) {
-                                vertretung(row, holder);
+                        try {
+                            if (Integer.parseInt(row.getStunde()) == Integer.parseInt(stunde.stunde)) {
+                                if (row.getFach().equals(stunde.fach)) {
+                                    vertretung(row, holder);
+                                }
+                            }
+                        }
+                        catch(NumberFormatException e){
+                            for(String stundeNr : row.getStunde().split(" - ")){
+                                if (Integer.parseInt(stundeNr) == Integer.parseInt(stunde.stunde)) {
+                                    if (row.getFach().equals(stunde.fach)) {
+                                        vertretung(row, holder);
+                                    }
+                                }
                             }
                         }
                     }

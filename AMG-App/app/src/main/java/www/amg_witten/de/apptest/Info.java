@@ -37,7 +37,7 @@ public class Info extends AppCompatActivity
         version.setText(currentVersionCode);
 
         TextView credits = findViewById(R.id.info_credits);
-        credits.setText("Icons: http://www.famfamfam.com/lab/icons/silk/");
+        credits.setText(getText(R.string.info_credits));
 
     }
 

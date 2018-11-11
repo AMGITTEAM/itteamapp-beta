@@ -377,7 +377,7 @@ public class ITTeamHolen extends AppCompatActivity
                         params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
                         params.setMargins(0,25,10,0);
-                        button.setText("Status");
+                        button.setText(getString(R.string.it_team_holen_change_status));
                         switch (status){
                             case "Offen":
                                 button.setTextColor(0xffff0000);
@@ -475,7 +475,7 @@ public class ITTeamHolen extends AppCompatActivity
                             @Override
                             public void run() {
                                 TextView tv = new TextView(ac);
-                                tv.setText("Keine Einträge vorhanden");
+                                tv.setText(getString(R.string.it_team_holen_nothing));
                                 vg.addView(tv);
                             }
                         });

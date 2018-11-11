@@ -1,7 +1,6 @@
 package yuku.ambilwarna.colorpicker;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -34,7 +33,7 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
     private Button mViewResetButton;
     private ViewGroup mViewContainer;
 
-    private final float[] mСurrentColorHsv = new float[3];
+    private final float[] mCurrentColorHsv = new float[3];
 
     private static final String KEY_COLOR_ORIGINAL = "key_color_original";
     private static final String KEY_COLOR = "key_color";
@@ -110,7 +109,7 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
     }
 
     private void initView() {
-        Color.colorToHSV(mColor, mСurrentColorHsv);
+        Color.colorToHSV(mColor, mCurrentColorHsv);
 
         mViewHue = mParentView.findViewById(R.id.ambilwarna_viewHue);
         mViewSatVal = mParentView.findViewById(R.id.ambilwarna_viewSatBri);
@@ -141,10 +140,7 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
                 moveCursor();
                 moveTarget();
 
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-                    mParentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                else
-                    mParentView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                mParentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
     }
@@ -180,31 +176,31 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
     }
 
     private int getColor() {
-        return Color.HSVToColor(mСurrentColorHsv);
+        return Color.HSVToColor(mCurrentColorHsv);
     }
 
     private float getHue() {
-        return mСurrentColorHsv[0];
+        return mCurrentColorHsv[0];
     }
 
     private float getSat() {
-        return mСurrentColorHsv[1];
+        return mCurrentColorHsv[1];
     }
 
     private float getVal() {
-        return mСurrentColorHsv[2];
+        return mCurrentColorHsv[2];
     }
 
     private void setHue(float hue) {
-        mСurrentColorHsv[0] = hue;
+        mCurrentColorHsv[0] = hue;
     }
 
     private void setSat(float sat) {
-        mСurrentColorHsv[1] = sat;
+        mCurrentColorHsv[1] = sat;
     }
 
     private void setVal(float val) {
-        mСurrentColorHsv[2] = val;
+        mCurrentColorHsv[2] = val;
     }
 
     @Override

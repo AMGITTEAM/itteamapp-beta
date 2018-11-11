@@ -1,6 +1,5 @@
 package www.amg_witten.de.apptest;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +19,7 @@ import android.widget.LinearLayout;
 public class StundenplanEdit extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    final Context context = this;
+    private final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +94,7 @@ public class StundenplanEdit extends AppCompatActivity
         }
     }
 
-    public void blink(final EditText view){
+    private void blink(final EditText view){
         new Thread(new Runnable() {
             @Override
             public void run() {

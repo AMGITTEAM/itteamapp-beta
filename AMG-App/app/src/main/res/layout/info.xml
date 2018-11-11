@@ -17,14 +17,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/info_manager"
-        android:text="Diese App wird programmiert, verwaltet und gewartet von\nAdrian Kathagen" />
+        android:text="@string/info_manager" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/info_manager"
         android:id="@+id/info_version"
-        android:text="Version wird geladen..." />
+        android:text="@string/info_version_placeholder" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,20 +32,12 @@
         android:layout_below="@+id/info_version"
         android:autoLink="web"
         android:id="@+id/info_credits"
-        android:text="Credits werden geladen..." />
+        android:text="@string/info_credits_placeholder" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_below="@id/info_credits"
         android:id="@+id/info_schule"
-        android:text="Diese App wurde programmiert für das\n
-Albert-Martmöller-Gymnasium\n
-Oberdorf 9\n
-58452 Witten\n
-\n
-Tel: +49 02302 189172\n
-Fax: +49 02302 189059\n
-\n
- amg@schule-witten.de"/>
+        android:text="@string/info_schule"/>
 </RelativeLayout>

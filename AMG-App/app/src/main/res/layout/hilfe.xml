@@ -7,7 +7,7 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
-            android:text="In den Einstellungen die &quot;Icons im Vertretungsplan&quot; einschalten."
+            android:text="@string/help_vertretungsplan_icons_solution"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:layout_alignParentLeft="true" />
@@ -74,7 +74,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
-            android:text="Den folgenden Knopf drücken, um die Icons neu zu generieren:"
+            android:text="@string/help_vertretungsplan_icons_error_solution"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/help_vertretungsplan_icons_error_solution"
             android:layout_centerHorizontal="true"
-            android:text="Fix"
+            android:text="@string/help_vertretungsplan_icons_error_fix"
             android:onClick="regenerateVertretungsplanIcons"/>
 
     </RelativeLayout>
@@ -117,9 +117,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
-            android:text="Kurzform des Fachs in folgendem Format eintragen:\n
- - Unterstufe/Mittelstufe: Normales Kürzel des Fachs wie &quot;M&quot; oder &quot;E5&quot;\n
- - Oberstufe: Kürzel des Fachs mit Kursnummer wie im Vertretungsplan, Beispiele: &quot;M G4&quot; oder &quot;E5 G2&quot;"
+            android:text="@string/help_stundenplan_vertretungsplan_solution"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:layout_alignParentLeft="true" />
@@ -156,7 +154,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
-            android:text="Über folgenden Knopf das Feedback-Formular öffnen und Fehler melden:"
+            android:text="@string/help_feedback_solution"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
@@ -165,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/help_feedback_solution"
             android:layout_centerHorizontal="true"
-            android:text="Feedback"
+            android:text="@string/help_feedback_feedback"
             android:onClick="startFeedback"/>
 
     </RelativeLayout>

@@ -13,13 +13,13 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Bitte wähle den Raum mit dem zu meldendem Fehler aus!"
+            android:text="@string/it_team_melden_raum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Hilfe"/>
 
         <Button
-            android:text="01"
+            android:text="@string/it_team_melden_raum_01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/Hilfe"
@@ -29,7 +29,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="02"
+            android:text="@string/it_team_melden_raum_02"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R01"
@@ -39,7 +39,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="03"
+            android:text="@string/it_team_melden_raum_03"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R02"
@@ -49,7 +49,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="04"
+            android:text="@string/it_team_melden_raum_04"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R03"
@@ -59,7 +59,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="05"
+            android:text="@string/it_team_melden_raum_05"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R04"
@@ -69,7 +69,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="06"
+            android:text="@string/it_team_melden_raum_06"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R05"
@@ -79,7 +79,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="07"
+            android:text="@string/it_team_melden_raum_07"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R06"
@@ -89,7 +89,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="08"
+            android:text="@string/it_team_melden_raum_08"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R07"
@@ -99,7 +99,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="09"
+            android:text="@string/it_team_melden_raum_09"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R08"
@@ -109,7 +109,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="10"
+            android:text="@string/it_team_melden_raum_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R09"
@@ -119,7 +119,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="11"
+            android:text="@string/it_team_melden_raum_11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R10"
@@ -129,7 +129,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="12"
+            android:text="@string/it_team_melden_raum_12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R11"
@@ -139,7 +139,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="13"
+            android:text="@string/it_team_melden_raum_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R12"
@@ -149,7 +149,7 @@
             android:onClick="raum"/>
 
         <Button
-            android:text="14"
+            android:text="@string/it_team_melden_raum_14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/R13"

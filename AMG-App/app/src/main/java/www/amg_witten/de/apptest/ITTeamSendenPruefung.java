@@ -42,7 +42,9 @@ public class ITTeamSendenPruefung extends AppCompatActivity
         methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden_pruefung);
 
         TextView raumPr = findViewById(R.id.pruefen);
-        raumPr.setText("Raum: "+ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum+"\n\n\nFehler: "+ITTeamSenden.fehler+"\n\n\nWichtigkeit: "+ITTeamSenden.wichtigkeit+"\n\n\nBeschreibung: "+ITTeamSenden.beschreibung);
+        raumPr.setText(getString(R.string.it_team_melden_pruefung_daten, ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum, ITTeamSenden.fehler, ITTeamSenden.wichtigkeit, ITTeamSenden.beschreibung));
+
+        //getString(R.string., ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum, ITTeamSenden.fehler, ITTeamSenden.wichtigkeit, ITTeamSenden.beschreibung)
 
         ITTeamSenden.beschreibung = ITTeamSenden.beschreibung.replaceAll("\n","//");
     }
@@ -64,7 +66,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
         return true;
     }
 
-    public void Start(View view) {
+    public void Abbrechen(View view) {
         Intent intent = new Intent(this, Startseite.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -120,7 +122,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ac,"Gemeldet!",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ac,getString(R.string.it_team_melden_erfolgreich),Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -139,7 +141,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ac,"Gemeldet!",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ac,getString(R.string.it_team_melden_erfolgreich),Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -147,13 +149,15 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Fehler beim Melden des Fehlers",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ac,getString(R.string.it_team_melden_nicht_erfolgreich),Toast.LENGTH_SHORT).show();
                         }
                     });
                     e.printStackTrace();
                 }
             }
         }).start();
-        Start(new View(ac));
+        Intent intent = new Intent(this, Startseite.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

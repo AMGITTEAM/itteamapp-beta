@@ -11,7 +11,7 @@
 
     <string name="fehlersonstige">Sonstige</string>
 
-    <!--Normales-->
+    <!--Titel-->
 
     <string name="app_name">AMGApp</string>
 
@@ -32,21 +32,245 @@
     <string name="title_activity_info">Info</string>
     <string name="title_activity_einstellungen">Einstellungen</string>
 
+    <!--ColorPicker-->
 
     <string name="hue_view_content_desc">Hue image</string>
     <string name="hue_cursor_content_desc">Hue image cursor</string>
     <string name="color_picker_content_desc">Color picker image</string>
     <string name="arrow_content_desc">Arrow image</string>
 
-    <string name="help_vertretungsplan_icons">Es werden keine Icons mehr im Vertretungsplan angezeigt</string>
-    <string name="help_vertretungsplan_icons_error">Die Icons im Vertretungsplan wurden durch Text/Platzhalter ersetzt</string>
-    <string name="help_stundenplan_vertretungsplan">Im Stundenplan werden die Stunden aus dem Vertretungsplan nicht angezeigt</string>
-    <string name="help_feedback">Problem wurde nicht behoben/ist hier nicht gelistet</string>
+    <!--NavHeader-->
 
-    <string name="changelog">• Hilfe-Bereich hinzugefügt\n
-        • Anzeigefehler im Stundenplan behoben</string>
+    <string name="nav_header_app">AMG-App</string>
+    <string name="nav_header_desc">AMG – Für unterwegs</string>
+
+    <!--NavDrawer-->
+
+    <string name="nav_drawer_startseite">Startseite</string>
+    <string name="nav_drawer_vplanheute">Vertretungsplan heute</string>
+    <string name="nav_drawer_vplanmorgen">Vertretungsplan morgen</string>
+    <string name="nav_drawer_stundenplan">Stundenplan</string>
+    <string name="nav_drawer_it_team_senden">Meldung an IT-Team</string>
+    <string name="nav_drawer_it_team_holen">Meldungen abrufen</string>
+    <string name="nav_drawer_login">Login</string>
+    <string name="nav_drawer_einstellungen">Einstellungen</string>
+    <string name="nav_drawer_feedback">Hilfe und Feedback</string>
+    <string name="nav_drawer_info">Info</string>
+
+    <!--Startseite-->
+
+    <string name="startseite_text">Das 4-zügige AMG ist das jüngste Gymnasium Wittens. 74 Lehrer/innen unterrichten ca. 1050 Schüler/innen (SuS). Im Leistungskursbereich kooperieren wir mit den beiden anderen Wittener Gymnasien. In der Stufe EF werden SuS der benachbarten Realschulen aufgenommen.
+        \n\nDie individuelle Förderung von SuS besitzt einen hohen Stellenwert. So sind in der Erprobungsstufe Bläserklassen eingerichtet, und für die Stufen 5 bis 7 wird je eine naturwissenschaftliche Profilklasse angeboten.
+        \n\nFür den Einsatz moderner Medien ist die Schule komplett vernetzt. Wichtige Bausteine unseres Schulprogramms sind: die Vermittlung von Arbeits- und Lernformen, ein Selbstlernzentrum für die Sek. II,  eine Kultur des Hinschauens (d.h. Präventivmaßnahmen im Bereich Mobbing, Gewalt, Sucht), die Ausbildung von Streitschlichtern, Theater- und Roboter-AGs, Sportwettkämpfe in den Stufen 5/6, eine umfassende Studien- und Berufswahlorientierung sowie die Teilnahme an den Sprachprüfungen DELF, DELE und ESOL und der Schüleruniversität.
+        \n\nWir unterrichten weitgehend in Doppelstunden. Lehrerarbeits- und Kommunikationsräume ergänzen das Angebot, um den Arbeitsplatz Schule für alle Beteiligten als Lebensraum Schule zu definieren.</string>
+    <string name="startseite_logo_description">AMG-Logo</string>
+
+    <!--Stundenplan-->
+
+    <string name="stundenplan_bearbeiten">Bearbeiten</string>
+
+    <string name="stundenplan_new">+</string>
+
+    <string name="stundenplan_nothing">Du musst zuerst einen Stundenplan für %1$s eingeben!</string>
+
+    <!--Stundenplan-Edit-->
+
+    <string name="stundenplan_edit_fachname">Fachname</string>
+    <string name="stundenplan_edit_fachAbk">Fach Abkürzung (Mit Kursnummer)</string>
+    <string name="stundenplan_edit_lehrer">Lehrer</string>
+    <string name="stundenplan_edit_raum">Raum</string>
+    <string name="stundenplan_edit_ready">Speichern</string>
+    <string name="stundenplan_edit_delete">Löschen</string>
+
+    <!--IT-Team-Melden-->
+
+    <string name="it_team_melden_gebaeude">Bitte wähle das Gebäude mit dem zu meldendem Fehler aus!</string>
+    <string name="it_team_melden_gebaeude_hauptbau">H</string>
+    <string name="it_team_melden_gebaeude_altbau">A</string>
+    <string name="it_team_melden_gebaeude_neubau">N</string>
+
+    <string name="it_team_melden_etage">Bitte wähle die Etage mit dem zu meldendem Fehler aus!</string>
+    <string name="it_team_melden_etage_2">2</string>
+    <string name="it_team_melden_etage_1">1</string>
+    <string name="it_team_melden_etage_0">0</string>
+    <string name="it_team_melden_etage_Z">Z</string>
+    <string name="it_team_melden_etage_U">U</string>
+
+    <string name="it_team_melden_raum">Bitte wähle den Raum mit dem zu meldendem Fehler aus!</string>
+    <string name="it_team_melden_raum_01">01</string>
+    <string name="it_team_melden_raum_02">02</string>
+    <string name="it_team_melden_raum_03">03</string>
+    <string name="it_team_melden_raum_04">04</string>
+    <string name="it_team_melden_raum_05">05</string>
+    <string name="it_team_melden_raum_06">06</string>
+    <string name="it_team_melden_raum_07">07</string>
+    <string name="it_team_melden_raum_08">08</string>
+    <string name="it_team_melden_raum_09">09</string>
+    <string name="it_team_melden_raum_10">10</string>
+    <string name="it_team_melden_raum_11">11</string>
+    <string name="it_team_melden_raum_12">12</string>
+    <string name="it_team_melden_raum_13">13</string>
+    <string name="it_team_melden_raum_14">14</string>
+
+    <string name="it_team_melden_fehler">Bitte wähle den Fehler für den Raum %1$s aus!</string>
+
+    <string name="it_team_melden_beschr">Beschreibung des Fehlers</string>
+    <string name="it_team_melden_beschr_ready">Fertig</string>
+
+    <string name="it_team_melden_vorhanden">Dieser Fehler wurde bereits eingetragen.</string>
+    <string name="it_team_melden_vorhanden_mehrBeschr">Beschreibung hinzufügen</string>
+    <string name="it_team_melden_vorhanden_cancel">Abbrechen</string>
+
+    <string name="it_team_melden_wichtigk">Bitte wähle die Wichtigkeit des Fehlers aus!</string>
+    <string name="it_team_melden_wichtigk_unwichtig">Unwichtig</string>
+    <string name="it_team_melden_wichtigk_normal">Normal</string>
+    <string name="it_team_melden_wichtigk_wichtig">Wichtig</string>
+
+    <string name="it_team_melden_mehr_beschr">Beschreibung</string>
+    <string name="it_team_melden_mehr_beschr_ready">Fertig</string>
+
+    <string name="it_team_melden_pruefung">Sind alle Daten richtig?</string>
+    <string name="it_team_melden_pruefung_daten">Raum: %1$s\n\n\nFehler: %2$s\n\n\nWichtigkeit: %3$s\n\n\nBeschreibung: %4$s</string>
+    <string name="it_team_melden_pruefung_send">Senden</string>
+    <string name="it_team_melden_pruefung_cancel">Abbrechen</string>
+
+    <string name="it_team_melden_erfolgreich">Gemeldet!</string>
+    <string name="it_team_melden_nicht_erfolgreich">Fehler beim Melden des Fehlers</string>
+
+    <!--IT-Team-Holden-Filter-->
+
+    <string name="it_team_holen_filter_status">Status</string>
+    <string name="it_team_holen_filter_status_offen">Offen</string>
+    <string name="it_team_holen_filter_status_bearbeitend">In Bearbeitung</string>
+    <string name="it_team_holen_filter_status_fertig">Fertig</string>
+
+    <string name="it_team_holen_filter_gebaeude">Gebäude</string>
+    <string name="it_team_holen_filter_gebaeude_hauptbau">Hauptbau</string>
+    <string name="it_team_holen_filter_gebaeude_altbau">Altbau</string>
+    <string name="it_team_holen_filter_gebaeude_neubau">Neubau</string>
+
+    <string name="it_team_holen_filter_etage">Etage</string>
+    <string name="it_team_holen_filter_etage_2">2</string>
+    <string name="it_team_holen_filter_etage_1">1</string>
+    <string name="it_team_holen_filter_etage_0">0</string>
+    <string name="it_team_holen_filter_etage_Z">Z</string>
+    <string name="it_team_holen_filter_etage_U">U</string>
+
+    <string name="it_team_holen_filter_raum">Raum</string>
+    <string name="it_team_holen_filter_raum_01">01</string>
+    <string name="it_team_holen_filter_raum_02">02</string>
+    <string name="it_team_holen_filter_raum_03">03</string>
+    <string name="it_team_holen_filter_raum_04">04</string>
+    <string name="it_team_holen_filter_raum_05">05</string>
+    <string name="it_team_holen_filter_raum_06">06</string>
+    <string name="it_team_holen_filter_raum_07">07</string>
+    <string name="it_team_holen_filter_raum_08">08</string>
+    <string name="it_team_holen_filter_raum_09">09</string>
+    <string name="it_team_holen_filter_raum_10">10</string>
+    <string name="it_team_holen_filter_raum_11">11</string>
+    <string name="it_team_holen_filter_raum_12">12</string>
+    <string name="it_team_holen_filter_raum_13">13</string>
+    <string name="it_team_holen_filter_raum_14">14</string>
+    
+    <!--IT-Team-Holen-->
+
+    <string name="it_team_holen_change_status">Status</string>
+    <string name="it_team_holen_nothing">Keine Einträge vorhanden</string>
+    
+    <!--Login-->
+
+    <string name="login_username">Benutzername</string>
+    <string name="login_password">Passwort</string>
+    <string name="login_ready">Fertig</string>
+
+    <!--Hilfe-->
+
+    <string name="help_vertretungsplan_icons">Es werden keine Icons mehr im Vertretungsplan angezeigt</string>
+    <string name="help_vertretungsplan_icons_solution">In den Einstellungen die &quot;Icons im Vertretungsplan&quot; einschalten.</string>
+
+    <string name="help_vertretungsplan_icons_error">Die Icons im Vertretungsplan wurden durch Text/Platzhalter ersetzt</string>
+    <string name="help_vertretungsplan_icons_error_solution">Den folgenden Knopf drücken, um die Icons neu zu generieren:</string>
+    <string name="help_vertretungsplan_icons_error_fix">Fix</string>
+
+    <string name="help_stundenplan_vertretungsplan">Im Stundenplan werden die Stunden aus dem Vertretungsplan nicht angezeigt</string>
+    <string name="help_stundenplan_vertretungsplan_solution">Kurzform des Fachs in folgendem Format eintragen:\n
+ - Unterstufe/Mittelstufe: Normales Kürzel des Fachs wie &quot;M&quot; oder &quot;E5&quot;\n
+ - Oberstufe: Kürzel des Fachs mit Kursnummer wie im Vertretungsplan, Beispiele: &quot;M G4&quot; oder &quot;E5 G2&quot;</string>
+
+    <string name="help_feedback">Problem wurde nicht behoben/ist hier nicht gelistet</string>
+    <string name="help_feedback_solution">Über folgenden Knopf das Feedback-Formular öffnen und Fehler melden:</string>
+    <string name="help_feedback_feedback">Feedback</string>
+
+    <!--Einstellungen-->
+
+    <string name="einstellungen_changelog">Changelog:</string>
+    <string name="einstellungen_changelog_show">Anzeigen</string>
+
+    <string name="einstellungen_klasse">Aktuelle Klasse:</string>
+
+    <string name="einstellungen_notification">Benachrichtigung an/aus:</string>
+
+    <string name="einstellungen_notificationtime">Benachrichtigungszeit:</string>
+    <string name="einstellungen_notificationtime_edit">Bearbeiten</string>
+
+    <string name="einstellungen_colorOwn">Farbe eigene Klasse:</string>
+    <string name="einstellungen_colorUnter">Farbe Unterstufe:</string>
+    <string name="einstellungen_colorMitte">Farbe Mittelstufe:</string>
+    <string name="einstellungen_colorOber">Farbe Oberstufe:</string>
+    <string name="einstellungen_color_edit">Bearbeiten</string>
+
+    <string name="einstellungen_vertretungsplan_icons">Icons im Vertretungsplan an/aus:</string>
+
+
+    <string name="einstellungen_all_settings">Alle Einstellungen anzeigen:</string>
+
+    <!--Feedback-->
+
+    <string name="feedback_description">Beschreibung</string>
+    <string name="feedback_ready">Fertig</string>
+    <string name="feedback_full_id">Deine einmalige ID: &quot;%1$s&quot;\nBitte leite diese ID an den Entwickler weiter.</string>
+
+    <!--Info-->
+
+    <string name="info_manager">Diese App wird programmiert, verwaltet und gewartet von\nAdrian Kathagen</string>
+    <string name="info_version_placeholder">Version wird geladen…</string>
+    <string name="info_credits_placeholder">Credits werden geladen…</string>
+    <string name="info_credits">Icons: http://www.famfamfam.com/lab/icons/silk/</string>
+    <string name="info_schule">Diese App wurde programmiert für das\n
+Albert-Martmöller-Gymnasium\n
+Oberdorf 9\n
+58452 Witten\n
+\n
+Tel: +49 02302 189172\n
+Fax: +49 02302 189059\n
+\n
+ amg@schule-witten.de</string>
+
+    <!--Menu-Feedback-->
+
+    <string name="menu_feedback_complete_debug">Kompletter Debug</string>
+
+    <!--Menu-Stundenplan-->
+
+    <string name="menu_stundenplan_bearbeiten">Bearbeiten</string>
+
+    <!--Sonstiges-->
+
+
+
+    <!--Changelogs-->
+
+    <string name="changelog">• Code aufgeräumt\n
+        • Fehler in der Benachrichtigung des Vertretungsplans behoben\n
+        • Fehler im Feedback behoben\n
+        • Fehler im Stundenplan behoben</string>
 
     <string name="changelog_all">
+        <b>1.0.1 - 11.11.2018</b>\n
+        • Code aufgeräumt\n
+        • Fehler in der Benachrichtigung des Vertretungsplans behoben\n
+        • Fehler im Feedback behoben\n
+        • Fehler im Stundenplan behoben\n\n
         <b>1.0.0 - 3.11.2018</b>\n
         • Hilfe-Bereich hinzugefügt\n
         • Anzeigefehler im Stundenplan behoben\n\n

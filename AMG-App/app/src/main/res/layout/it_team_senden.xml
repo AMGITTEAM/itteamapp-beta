@@ -9,13 +9,13 @@
     tools:context="www.amg_witten.de.apptest.ITTeamSenden">
 
     <TextView
-        android:text="Bitte wähle das Gebäude mit dem zu meldendem Fehler aus!"
+        android:text="@string/it_team_melden_gebaeude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Hilfe"/>
 
     <Button
-        android:text="H"
+        android:text="@string/it_team_melden_gebaeude_hauptbau"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Hilfe"
@@ -25,7 +25,7 @@
         android:onClick="gebaeude"/>
 
     <Button
-        android:text="A"
+        android:text="@string/it_team_melden_gebaeude_altbau"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/H"
@@ -35,7 +35,7 @@
         android:onClick="gebaeude" />
 
     <Button
-        android:text="N"
+        android:text="@string/it_team_melden_gebaeude_neubau"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/A"

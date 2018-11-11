@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:text="Abbrechen"
+        android:text="@string/it_team_melden_vorhanden_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/it_team_abbr"
@@ -27,7 +27,7 @@
         app:layout_constraintVertical_bias="0.6" />
 
     <Button
-        android:text="Beschreibung hinzufügen"
+        android:text="@string/it_team_melden_vorhanden_mehrBeschr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/it_team_senden"
@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.39" />
 
     <TextView
-        android:text="Dieser Fehler wurde bereits eingetragen."
+        android:text="@string/it_team_melden_vorhanden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"

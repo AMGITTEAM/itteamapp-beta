@@ -7,7 +7,7 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Changelog:"
+            android:text="@string/einstellungen_changelog"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -37,7 +37,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:descendantFocusability="blocksDescendants"
-            android:text="Anzeigen"
+            android:text="@string/einstellungen_changelog_show"
             android:gravity="end" />
 
     </RelativeLayout>
@@ -56,7 +56,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Aktuelle Klasse:"
+            android:text="@string/einstellungen_klasse"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -99,7 +99,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Benachrichtigung an/aus:"
+            android:text="@string/einstellungen_notification"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -132,7 +132,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Benachrichtigungszeit:"
+            android:text="@string/einstellungen_notificationtime"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -146,7 +146,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:descendantFocusability="blocksDescendants"
-            android:text="Bearbeiten"
+            android:text="@string/einstellungen_notificationtime_edit"
             android:gravity="end" />
 
     </RelativeLayout>
@@ -166,7 +166,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Farbe eigene Klasse:"
+            android:text="@string/einstellungen_colorOwn"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -180,7 +180,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:descendantFocusability="blocksDescendants"
-            android:text="Bearbeiten"
+            android:text="@string/einstellungen_color_edit"
             android:gravity="end" />
 
     </RelativeLayout>
@@ -200,7 +200,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Farbe Unterstufe:"
+            android:text="@string/einstellungen_colorUnter"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -214,7 +214,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:descendantFocusability="blocksDescendants"
-            android:text="Bearbeiten"
+            android:text="@string/einstellungen_color_edit"
             android:gravity="end" />
 
     </RelativeLayout>
@@ -234,7 +234,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Farbe Mittelstufe:"
+            android:text="@string/einstellungen_colorMitte"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -248,7 +248,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:descendantFocusability="blocksDescendants"
-            android:text="Bearbeiten"
+            android:text="@string/einstellungen_color_edit"
             android:gravity="end" />
 
     </RelativeLayout>
@@ -268,7 +268,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Farbe Oberstufe:"
+            android:text="@string/einstellungen_colorOber"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -282,7 +282,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:descendantFocusability="blocksDescendants"
-            android:text="Bearbeiten"
+            android:text="@string/einstellungen_color_edit"
             android:gravity="end" />
 
     </RelativeLayout>
@@ -302,7 +302,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Icons im Vertretungsplan an/aus:"
+            android:text="@string/einstellungen_vertretungsplan_icons"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
@@ -335,7 +335,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="Alle Einstellungen anzeigen:"
+            android:text="@string/einstellungen_all_settings"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"

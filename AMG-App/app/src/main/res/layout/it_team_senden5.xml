@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Hilfe"
-        android:text="Bitte wähle die Wichtigkeit des Fehlers aus!"/>
+        android:text="@string/it_team_melden_wichtigk"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/W1"
         android:layout_below="@id/Hilfe"
-        android:text="Unwichtig"
+        android:text="@string/it_team_melden_wichtigk_unwichtig"
         android:onClick="Wichtigkeit"/>
 
     <Button
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/W2"
         android:layout_below="@id/W1"
-        android:text="Normal"
+        android:text="@string/it_team_melden_wichtigk_normal"
         android:onClick="Wichtigkeit"/>
 
     <Button
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/W3"
         android:layout_below="@id/W2"
-        android:text="Wichtig"
+        android:text="@string/it_team_melden_wichtigk_wichtig"
         android:onClick="Wichtigkeit"/>
 
 </RelativeLayout>

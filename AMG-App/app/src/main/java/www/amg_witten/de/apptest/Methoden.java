@@ -135,10 +135,11 @@ class Methoden {
 
 class MyAuthenticator extends Authenticator {
 
-    private String password;
+    final private String password;
 
     MyAuthenticator(Context context){
-        password = context.getSharedPreferences("Prefs",Context.MODE_PRIVATE).getString("passwordVertretungsplanSchueler",null);
+        SharedPreferences prefs = context.getSharedPreferences("Prefs",Context.MODE_PRIVATE);
+        password = prefs.getString("passwordVertretungsplanSchueler","");
     }
 
     protected PasswordAuthentication getPasswordAuthentication() {

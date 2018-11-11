@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Startseite"
+    <item android:title="@string/nav_drawer_startseite"
         android:id="@+id/nav_startseite"/>
 
-    <item android:title="Vertretungsplan-heute"
+    <item android:title="@string/nav_drawer_vplanheute"
         android:id="@+id/nav_vertret_heute"/>
-    <item android:title="Vertretungsplan morgen"
+    <item android:title="@string/nav_drawer_vplanmorgen"
         android:id="@+id/nav_vertret_morgen"/>
-    <item android:title="Stundenplan"
+    <item android:title="@string/nav_drawer_stundenplan"
         android:id="@+id/nav_stundenplan"/>
 
-    <item android:title="Meldung an IT-Team"
+    <item android:title="@string/nav_drawer_it_team_senden"
         android:id="@+id/nav_it_team_senden"/>
-    <item android:title="Meldungen abrufen"
+    <item android:title="@string/nav_drawer_it_team_holen"
         android:id="@+id/nav_it_team_holen"/>
 
 
 
-    <item android:title="Login"
+    <item android:title="@string/nav_drawer_login"
         android:id="@+id/nav_login"/>
-    <item android:title="Einstellungen"
+    <item android:title="@string/nav_drawer_einstellungen"
         android:id="@+id/nav_einstellungen"/>
-    <item android:title="Hilfe und Feedback"
+    <item android:title="@string/nav_drawer_feedback"
         android:id="@+id/nav_feedback"/>
-    <item android:title="Info"
+    <item android:title="@string/nav_drawer_info"
         android:id="@+id/nav_info"/>
 
 </menu>

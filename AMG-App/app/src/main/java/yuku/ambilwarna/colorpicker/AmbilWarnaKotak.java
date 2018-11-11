@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -59,8 +58,6 @@ public class AmbilWarnaKotak extends View {
      * For Android 3.0+ software layer type should be set for correct color blending.
      */
     private void setSoftwareLayerType() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
-            setLayerType(LAYER_TYPE_SOFTWARE, null);
-        }
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
 }

@@ -40,7 +40,7 @@ public class ITTeamSenden4 extends AppCompatActivity
         methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden4);
 
         TextView raumPr = findViewById(R.id.raumPruefen);
-        raumPr.setText("Bitte wähle den Fehler für den Raum "+ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum+" aus!");
+        raumPr.setText(getString(R.string.it_team_melden_fehler,ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum));
     }
 
     @Override

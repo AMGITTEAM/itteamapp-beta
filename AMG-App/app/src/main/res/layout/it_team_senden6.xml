@@ -13,7 +13,8 @@
     tools:context="www.amg_witten.de.apptest.ITTeamSenden6">
 
     <EditText
-        android:hint="Beschreibung"
+        android:hint="@string/it_team_melden_mehr_beschr"
+        android:importantForAutofill="no"
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +24,7 @@
         android:inputType="textAutoCorrect" />
 
     <Button
-        android:text="Fertig"
+        android:text="@string/it_team_melden_mehr_beschr_ready"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/it_team_pruefenStart"

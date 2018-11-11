@@ -11,20 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <!--<ImageView
-        android:id="@+id/imageViewNavHeader"
-        android:src="@drawable/amg2"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing" />-->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="22sp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="AMG-App"
+        android:text="@string/nav_header_app"
         android:shadowColor="#FFFFFF"
         android:shadowRadius="15"
         android:textColor="#660000"
@@ -39,6 +32,6 @@
         android:textColor="#660000"
         android:shadowColor="#FFFFFF"
         android:shadowRadius="15"
-        android:text="AMG – Für unterwegs" />
+        android:text="@string/nav_header_desc" />
 
 </LinearLayout>

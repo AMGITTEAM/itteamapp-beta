@@ -2,7 +2,7 @@ package www.amg_witten.de.apptest;
 
 class StundenplanEintragModel {
 
-    String stunde;
+    final String stunde;
     String fach;
     String lehrer;
     String raum;

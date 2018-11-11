@@ -3,6 +3,6 @@
     tools:context="www.amg_witten.de.apptest.Stundenplan">
     <group android:checkableBehavior="all">
         <item android:id="@+id/action_settings"
-            android:title="Bearbeiten" />
+            android:title="@string/menu_stundenplan_bearbeiten" />
     </group>
 </menu>

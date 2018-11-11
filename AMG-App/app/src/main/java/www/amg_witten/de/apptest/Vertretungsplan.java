@@ -896,6 +896,45 @@ public class Vertretungsplan extends AppCompatActivity
         return new String[] {stand,fuerDatum};
     }
 
+    static String[] getTables(String main, List<String> urlEndings, List<String> tables) throws IOException {
+        String stand = "";
+        String fuerDatum = "";
+        for (int i=0;i<urlEndings.size();i++) {
+            System.out.println(main);
+            URL mainUrl = new URL(main+"subst_"+urlEndings.get(i));
+            BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
+            StringBuilder full = new StringBuilder();
+            String str;
+            while ((str = in.readLine()) != null) {
+                full.append(str);
+            }
+            in.close();
+
+            String body;
+            try {
+                body = onlyElement(full.toString(),"body");
+            }
+            catch (ArrayIndexOutOfBoundsException e){
+                body = onlyElement(full.toString(),"body"," bgcolor=\"#F0F0F0\"");
+            }
+            String center = onlyElement(body,"center");
+            if(center.contains("http://www.untis.at")){
+                center = onlyElement(body,"CENTER");
+            }
+            String table = onlyElement(center,"table"," class=\"mon_list\" ");
+            tables.add(table);
+            System.out.println(urlEndings.get(i));
+            if(urlEndings.get(i).equals("001.htm")){
+                String headData = onlyElement(body,"td"," align=\"right\" valign=\"bottom\"");
+                stand = (headData.split("Stand: ")[1]).split("</p>")[0].trim();
+                String datum = onlyElement(center,"div"," class=\"mon_title\"");
+                String[] datumParts = datum.split(" ");
+                fuerDatum = datumParts[1]+", "+datumParts[0];
+            }
+        }
+        return new String[] {stand,fuerDatum};
+    }
+
     static void getKlassenListWithProcess(List<String> tables, List<String> klassen, ProgressDialog pDialog) {
         for(int i=0; i<tables.size(); i++){
             String[] klassenArrayUnfertig = tables.get(i).split("td class=\"list inline_header\" colspan=\"8\"");
@@ -906,6 +945,18 @@ public class Vertretungsplan extends AppCompatActivity
                 klassen.add(klassenArrayUnfertig[ie].split("</td>")[0].trim());
             }
             pDialog.setProgress(i+1);
+        }
+    }
+
+    static void getKlassenList(List<String> tables, List<String> klassen) {
+        for(int i=0; i<tables.size(); i++){
+            String[] klassenArrayUnfertig = tables.get(i).split("td class=\"list inline_header\" colspan=\"8\"");
+            for(int ie = 0; ie<klassenArrayUnfertig.length; ie++){
+                klassenArrayUnfertig[ie] = klassenArrayUnfertig[ie].replaceFirst(">","");
+            }
+            for (int ie = 1; ie<klassenArrayUnfertig.length; ie++){
+                klassen.add(klassenArrayUnfertig[ie].split("</td>")[0].trim());
+            }
         }
     }
 
@@ -920,6 +971,19 @@ public class Vertretungsplan extends AppCompatActivity
                 }
             }
             pDialog.setProgress(i+1);
+        }
+    }
+
+    static void getOnlyRealKlassenList(List<String> tables, List<String> realEintraege) {
+        for(int i=0; i<tables.size(); i++){
+            String[] eintraegeArrayUnfertigZwei = tables.get(i).split("tr ");
+            for (String eintraegeArrayUnfertigEin : eintraegeArrayUnfertigZwei) {
+                if (!(eintraegeArrayUnfertigEin.contains("class=\"list inline_header\"")||eintraegeArrayUnfertigEin.contains("class='list inline_header'")||eintraegeArrayUnfertigEin.contains("(Fach)"))) {
+                    if(eintraegeArrayUnfertigEin.length()!=1){
+                        realEintraege.add(eintraegeArrayUnfertigEin);
+                    }
+                }
+            }
         }
     }
 
@@ -948,7 +1012,7 @@ public class Vertretungsplan extends AppCompatActivity
         }
     }
 
-    static void writeToFileWithProcess(ProgressDialog pDialog, File lFile, String finalfuerDatum, String finalstand, Context thise, List<VertretungModelArrayModel> data, List<String> fertigeKlassen){
+    private static void writeToFileWithProcess(ProgressDialog pDialog, File lFile, String finalfuerDatum, String finalstand, Context thise, List<VertretungModelArrayModel> data, List<String> fertigeKlassen){
         try {
             FileWriter fw = new FileWriter(lFile);
             fw.write("<!DOCTYPE html>\n" +

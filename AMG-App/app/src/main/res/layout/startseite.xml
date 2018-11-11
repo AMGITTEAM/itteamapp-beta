@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_startseite"
@@ -12,37 +13,29 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="www.amg_witten.de.apptest.Startseite">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/startseite_logo_description"
+            android:id="@+id/startseite_logo"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo_amg"/>
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/startseite_logo"
-                android:scaleType="fitStart"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo_amg"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/startseite_text"
-                android:layout_marginTop="20dp"
-                android:layout_below="@id/startseite_logo"
-                android:text="Das 4-zügige AMG ist das jüngste Gymnasium Wittens. 74 Lehrer/innen unterrichten ca. 1050 Schüler/innen (SuS). Im Leistungskursbereich kooperieren wir mit den beiden anderen Wittener Gymnasien. In der Stufe EF werden SuS der benachbarten Realschulen aufgenommen.
-\n\nDie individuelle Förderung von SuS besitzt einen hohen Stellenwert. So sind in der Erprobungsstufe Bläserklassen eingerichtet, und für die Stufen 5 bis 7 wird je eine naturwissenschaftliche Profilklasse angeboten.
-\n\nFür den Einsatz moderner Medien ist die Schule komplett vernetzt. Wichtige Bausteine unseres Schulprogramms sind: die Vermittlung von Arbeits- und Lernformen, ein Selbstlernzentrum für die Sek. II,  eine Kultur des Hinschauens (d.h. Präventivmaßnahmen im Bereich Mobbing, Gewalt, Sucht), die Ausbildung von Streitschlichtern, Theater- und Roboter-AGs, Sportwettkämpfe in den Stufen 5/6, eine umfassende Studien- und Berufswahlorientierung sowie die Teilnahme an den Sprachprüfungen DELF, DELE und ESOL und der Schüleruniversität.
-\n\nWir unterrichten weitgehend in Doppelstunden. Lehrerarbeits- und Kommunikationsräume ergänzen das Angebot, um den Arbeitsplatz Schule für alle Beteiligten als Lebensraum Schule zu definieren."
-                />
-
-        </RelativeLayout>
-
-
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:id="@+id/startseite_text"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/startseite_logo"
+            android:text="@string/startseite_text"
+            />
 
     </RelativeLayout>
+
+
+</ScrollView>

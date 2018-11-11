@@ -1,2 +1,4 @@
-﻿Hilfe-Bereich hinzugefügt
-Anzeigefehler im Stundenplan behoben
+﻿Code aufgeräumt
+Fehler in der Benachrichtigung des Vertretungsplans behoben
+Fehler im Feedback behoben
+Fehler im Stundenplan behoben

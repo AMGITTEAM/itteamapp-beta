@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="+"
+        android:text="@string/stundenplan_new"
         android:visibility="gone"
         android:onClick="NewStunde"/>
 

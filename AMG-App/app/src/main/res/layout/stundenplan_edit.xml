@@ -16,9 +16,11 @@
 
         <EditText
             android:id="@+id/stundenplan_edit_fachName"
+            android:importantForAccessibility="no"
+            android:importantForAutofill="no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Fachname"
+            android:hint="@string/stundenplan_edit_fachname"
             android:inputType="textPersonName" />
 
     </LinearLayout>
@@ -35,8 +37,9 @@
 
         <EditText
             android:id="@+id/stundenplan_edit_fach"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:hint="Fach Abkürzung (Mit Kursnummer)"
+            android:hint="@string/stundenplan_edit_fachAbk"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content" />
 
@@ -56,7 +59,8 @@
             android:id="@+id/stundenplan_edit_lehrer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Lehrer"
+            android:importantForAutofill="no"
+            android:hint="@string/stundenplan_edit_lehrer"
             android:inputType="textPersonName" />
 
     </LinearLayout>
@@ -72,7 +76,8 @@
         app:layout_constraintVertical_bias="0.7" >
 
         <EditText
-            android:hint="Raum"
+            android:hint="@string/stundenplan_edit_raum"
+            android:importantForAutofill="no"
             android:id="@+id/stundenplan_edit_raum"
             android:inputType="textPersonName"
             android:layout_width="wrap_content"
@@ -84,7 +89,7 @@
         android:id="@+id/stundenplan_edit_fertig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Speichern"
+        android:text="@string/stundenplan_edit_ready"
         android:onClick="Fertig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +102,7 @@
         android:id="@+id/stundenplan_edit_loeschen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Löschen"
+        android:text="@string/stundenplan_edit_delete"
         android:onClick="Loeschen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

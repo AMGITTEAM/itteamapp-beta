@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -132,7 +131,6 @@ public class Einstellungen extends AppCompatActivity
         onValueChangeListenerNr.onValueChange(klasseNr,0,position);
 
 
-        RelativeLayout changelogLayout = findViewById(R.id.einstellungen_changelog_layout);
         RelativeLayout notificationLayout = findViewById(R.id.einstellungen_notification_layout);
         RelativeLayout notificationTimeLayout = findViewById(R.id.einstellungen_notificationtime_layout);
         RelativeLayout colorOwn = findViewById(R.id.einstellungen_colorOwn_layout);

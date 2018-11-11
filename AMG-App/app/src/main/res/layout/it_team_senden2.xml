@@ -9,12 +9,12 @@
     tools:context="www.amg_witten.de.apptest.ITTeamSenden2">
 
     <TextView
-        android:text="Bitte wähle die Etage mit dem zu meldendem Fehler aus!"
+        android:text="@string/it_team_melden_etage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Hilfe"/>
     <Button
-        android:text="2"
+        android:text="@string/it_team_melden_etage_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Hilfe"
@@ -24,7 +24,7 @@
         android:onClick="Etage"/>
 
     <Button
-        android:text="1"
+        android:text="@string/it_team_melden_etage_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/E2"
@@ -34,7 +34,7 @@
         android:onClick="Etage"/>
 
     <Button
-        android:text="0"
+        android:text="@string/it_team_melden_etage_0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/E1"
@@ -44,7 +44,7 @@
         android:onClick="Etage" />
 
     <Button
-        android:text="U"
+        android:text="@string/it_team_melden_etage_U"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/E0"
@@ -54,7 +54,7 @@
         android:onClick="Etage" />
 
     <Button
-        android:text="Z"
+        android:text="@string/it_team_melden_etage_Z"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/U"
