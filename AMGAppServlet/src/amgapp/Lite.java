@@ -42,50 +42,55 @@ public class Lite {
 			}
 			else if(request.equals("ITTeamMelden")){
 				if(getRechthoehe(benutzername,passwort)>=2) {
-					Class.forName("org.sqlite.JDBC");
-					String zulBearb=new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
-					
-					String datum = args[0];
-					String gebaeude=args[1];
-					String etage=args[2];
-					String raum=args[3];
-					String wichtigk=args[4];
-					String fehler=args[5];
-					String beschr=args[6].replaceAll("//", "\n");
-					String status=args[7];
-					String bearbVon=args[8];
-					
-					for (String arg:args) {
-						System.out.println(arg);
+					if(getRechthoehe(benutzername,passwort)==100) {
+						returnString=true+"";
 					}
-					
-					Class.forName("org.sqlite.JDBC");
-				    Connection conn = DriverManager.getConnection(path);
-				    Statement stat = conn.createStatement();
-				    stat.executeUpdate("CREATE TABLE IF NOT EXISTS fehlermeldungen (datum, zuletztBearbeitet, gebaeude, etage, raum, wichtigkeit, fehler, beschr, status, bearbVon);");
-				    PreparedStatement prep = conn.prepareStatement("insert into fehlermeldungen values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-				    
-				    prep.setString(1, datum);
-				    prep.setString(2, zulBearb);
-				    prep.setString(3, gebaeude);
-				    prep.setString(4, etage);
-				    prep.setString(5, raum);
-				    prep.setString(6, wichtigk);
-				    prep.setString(7, fehler);
-				    prep.setString(8, beschr);
-				    prep.setString(9, status);
-				    prep.setString(10, bearbVon);
-				    
-				    int result = prep.executeUpdate();
-				    prep.close();
-				    stat.close();
-				    conn.close();
-				    boolean success = true;
-				    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
-				    	success=false;
-				    }
-				    System.out.println(result);
-				    returnString=success+"";
+					else {
+						Class.forName("org.sqlite.JDBC");
+						String zulBearb=new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
+						
+						String datum = args[0];
+						String gebaeude=args[1];
+						String etage=args[2];
+						String raum=args[3];
+						String wichtigk=args[4];
+						String fehler=args[5];
+						String beschr=args[6].replaceAll("//", "\n");
+						String status=args[7];
+						String bearbVon=args[8];
+						
+						for (String arg:args) {
+							System.out.println(arg);
+						}
+						
+						Class.forName("org.sqlite.JDBC");
+					    Connection conn = DriverManager.getConnection(path);
+					    Statement stat = conn.createStatement();
+					    stat.executeUpdate("CREATE TABLE IF NOT EXISTS fehlermeldungen (datum, zuletztBearbeitet, gebaeude, etage, raum, wichtigkeit, fehler, beschr, status, bearbVon);");
+					    PreparedStatement prep = conn.prepareStatement("insert into fehlermeldungen values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+					    
+					    prep.setString(1, datum);
+					    prep.setString(2, zulBearb);
+					    prep.setString(3, gebaeude);
+					    prep.setString(4, etage);
+					    prep.setString(5, raum);
+					    prep.setString(6, wichtigk);
+					    prep.setString(7, fehler);
+					    prep.setString(8, beschr);
+					    prep.setString(9, status);
+					    prep.setString(10, bearbVon);
+					    
+					    int result = prep.executeUpdate();
+					    prep.close();
+					    stat.close();
+					    conn.close();
+					    boolean success = true;
+					    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
+					    	success=false;
+					    }
+					    System.out.println(result);
+					    returnString=success+"";
+					}
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";
@@ -125,15 +130,20 @@ public class Lite {
 			}
 			else if(request.equals("ITTeamLoeschen")){
 				if(getRechthoehe(benutzername,passwort)>=3) {
-					Class.forName("org.sqlite.JDBC");
-					Connection c = DriverManager.getConnection(path);
-					c.setAutoCommit(false);
-					Statement stmt = c.createStatement();
-					stmt.executeUpdate(req);
-					c.commit();
-					returnString = "true";
-					stmt.close();
-					c.close();
+					if(getRechthoehe(benutzername,passwort)==100) {
+						returnString=true+"";
+					}
+					else {
+						Class.forName("org.sqlite.JDBC");
+						Connection c = DriverManager.getConnection(path);
+						c.setAutoCommit(false);
+						Statement stmt = c.createStatement();
+						stmt.executeUpdate(req);
+						c.commit();
+						returnString = "true";
+						stmt.close();
+						c.close();
+					}
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";
@@ -141,34 +151,39 @@ public class Lite {
 			}
 			else if(request.equals("Feedback")) {
 				if(getRechthoehe(benutzername,passwort)>=1) {
-					Class.forName("org.sqlite.JDBC");
-					
-					String type = args[0];
-					String description = args[1];
-					
-					for (String arg:args) {
-						System.out.println(arg);
+					if(getRechthoehe(benutzername,passwort)==100) {
+						returnString=true+"";
 					}
-					
-					Class.forName("org.sqlite.JDBC");
-				    Connection conn = DriverManager.getConnection(path);
-				    Statement stat = conn.createStatement();
-				    stat.executeUpdate("CREATE TABLE IF NOT EXISTS feedback (type, description);");
-				    PreparedStatement prep = conn.prepareStatement("insert into feedback values (?, ?);");
-				    
-				    prep.setString(1, type);
-				    prep.setString(2, description);
-				    
-				    int result = prep.executeUpdate();
-				    prep.close();
-				    stat.close();
-				    conn.close();
-				    boolean success = true;
-				    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
-				    	success=false;
-				    }
-				    System.out.println(result);
-				    returnString=success+"";
+					else {
+						Class.forName("org.sqlite.JDBC");
+						
+						String type = args[0];
+						String description = args[1];
+						
+						for (String arg:args) {
+							System.out.println(arg);
+						}
+						
+						Class.forName("org.sqlite.JDBC");
+					    Connection conn = DriverManager.getConnection(path);
+					    Statement stat = conn.createStatement();
+					    stat.executeUpdate("CREATE TABLE IF NOT EXISTS feedback (type, description);");
+					    PreparedStatement prep = conn.prepareStatement("insert into feedback values (?, ?);");
+					    
+					    prep.setString(1, type);
+					    prep.setString(2, description);
+					    
+					    int result = prep.executeUpdate();
+					    prep.close();
+					    stat.close();
+					    conn.close();
+					    boolean success = true;
+					    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
+					    	success=false;
+					    }
+					    System.out.println(result);
+					    returnString=success+"";
+					}
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";

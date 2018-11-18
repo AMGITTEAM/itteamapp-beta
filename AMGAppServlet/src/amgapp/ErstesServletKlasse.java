@@ -1,6 +1,8 @@
 package amgapp;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,31 +33,31 @@ public class ErstesServletKlasse extends HttpServlet {
 		String bearbeitetVon = "";
 		boolean ausfuehrFehler = false;
 		try {
-			requestType = HttpRequest.getParameter("requestType").replaceAll("%20", " ");
+			requestType = URLDecoder.decode(HttpRequest.getParameter("requestType").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(requestType);
-			request = HttpRequest.getParameter("request").replaceAll("%20", " ");
+			request = URLDecoder.decode(HttpRequest.getParameter("request").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(request);
-			benutzername = HttpRequest.getParameter("username").replaceAll("%20", " ");
+			benutzername = URLDecoder.decode(HttpRequest.getParameter("username").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(request);
-			passwort = HttpRequest.getParameter("password").replaceAll("%20", " ");
+			passwort = URLDecoder.decode(HttpRequest.getParameter("password").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(request);
-			datum = HttpRequest.getParameter("datum").replaceAll("%20", " ");
+			datum = URLDecoder.decode(HttpRequest.getParameter("datum").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(datum);
-			gebaeude = HttpRequest.getParameter("gebaeude").replaceAll("%20", " ");
+			gebaeude = URLDecoder.decode(HttpRequest.getParameter("gebaeude").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(gebaeude);
-			etage = HttpRequest.getParameter("etage").replaceAll("%20", " ");
+			etage = URLDecoder.decode(HttpRequest.getParameter("etage").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(etage);
-			raum = HttpRequest.getParameter("raum").replaceAll("%20", " ");
+			raum = URLDecoder.decode(HttpRequest.getParameter("raum").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(raum);
-			wichtigkeit = HttpRequest.getParameter("wichtigkeit").replaceAll("%20", " ");
+			wichtigkeit = URLDecoder.decode(HttpRequest.getParameter("wichtigkeit").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(wichtigkeit);
-			fehler = HttpRequest.getParameter("fehler").replaceAll("%20", " ");
+			fehler = URLDecoder.decode(HttpRequest.getParameter("fehler").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(fehler);
-			beschreibung = HttpRequest.getParameter("beschreibung").replaceAll("%20", " ");
+			beschreibung = URLDecoder.decode(HttpRequest.getParameter("beschreibung").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(beschreibung);
-			status = HttpRequest.getParameter("status").replaceAll("%20", " ");
+			status = URLDecoder.decode(HttpRequest.getParameter("status").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(status);
-			bearbeitetVon = HttpRequest.getParameter("bearbeitetVon").replaceAll("%20", " ");
+			bearbeitetVon = URLDecoder.decode(HttpRequest.getParameter("bearbeitetVon").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(bearbeitetVon);
 		}
 		catch (NumberFormatException ex) {
