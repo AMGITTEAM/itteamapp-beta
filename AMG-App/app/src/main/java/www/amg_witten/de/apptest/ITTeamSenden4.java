@@ -40,7 +40,12 @@ public class ITTeamSenden4 extends AppCompatActivity
         methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden4);
 
         TextView raumPr = findViewById(R.id.raumPruefen);
-        raumPr.setText(getString(R.string.it_team_melden_fehler,ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum));
+        if(ITTeamSenden.raum.equals("Ohne")){
+            raumPr.setText(getString(R.string.it_team_melden_fehler_ohneRaum));
+        }
+        else {
+            raumPr.setText(getString(R.string.it_team_melden_fehler,ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum));
+        }
     }
 
     @Override

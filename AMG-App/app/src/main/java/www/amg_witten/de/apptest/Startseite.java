@@ -16,7 +16,7 @@ import android.view.MenuItem;
 public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static int login;
-    private static String benutzername;
+    public static String benutzername;
     public static SharedPreferences prefs;
 
     @Override
@@ -33,7 +33,7 @@ public class Startseite extends AppCompatActivity
         toggle.syncState();
 
         prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
-        login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
+        login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team, 100=Google-Tester
         benutzername = prefs.getString("loginUsername","");
         System.out.println(login);
 
@@ -78,8 +78,8 @@ public class Startseite extends AppCompatActivity
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.changelog)
-                    .setPositiveButton("OK", null)
-                    .setTitle("Changelog");
+                    .setPositiveButton(getString(R.string.startseite_changelog_positive), null)
+                    .setTitle(getString(R.string.startseite_changelog_title));
             builder.create().show();
         }
     }

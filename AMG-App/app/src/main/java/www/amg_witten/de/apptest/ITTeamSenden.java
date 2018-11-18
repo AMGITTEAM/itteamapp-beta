@@ -61,24 +61,24 @@ public class ITTeamSenden extends AppCompatActivity
     }
 
     public void gebaeude(View view) {
-        startActivity(new Intent(this,ITTeamSenden2.class));
         switch (view.getId()){
             case R.id.H:
-                System.out.println("H");
                 gebaeude="H";
+                startActivity(new Intent(this,ITTeamSenden2.class));
                 return;
             case R.id.A:
-                System.out.println("A");
                 gebaeude="A";
+                startActivity(new Intent(this,ITTeamSenden2.class));
                 return;
             case R.id.N:
-                System.out.println("N");
                 gebaeude="N";
+                startActivity(new Intent(this,ITTeamSenden2.class));
                 return;
-            default:
-                System.out.println("Nicht gefunden: "+view.getId());
-                Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();
-                System.exit(0);
+            case R.id.none:
+                gebaeude="Ohne";
+                etage="Ohne";
+                raum="Ohne";
+                startActivity(new Intent(this,ITTeamSenden4.class));
         }
     }
 }

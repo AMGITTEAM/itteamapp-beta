@@ -1,4 +1,3 @@
 ﻿Code aufgeräumt
-Fehler in der Benachrichtigung des Vertretungsplans behoben
-Fehler im Feedback behoben
-Fehler im Stundenplan behoben
+IT-Team-Meldung ohne Raum ermöglicht
+Fehler im Menü behoben

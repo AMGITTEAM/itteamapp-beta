@@ -52,15 +52,12 @@ public class ITTeamSenden5 extends AppCompatActivity
     public void Wichtigkeit(View view) {
         switch(view.getId()){
             case R.id.W1:
-                System.out.println("Wichtigkeit: 1");
                 ITTeamSenden.wichtigkeit="1";
                 break;
             case R.id.W2:
-                System.out.println("Wichtigkeit: 2");
                 ITTeamSenden.wichtigkeit="2";
                 break;
             case R.id.W3:
-                System.out.println("Wichtigkeit: 3");
                 ITTeamSenden.wichtigkeit="3";
                 break;
         }

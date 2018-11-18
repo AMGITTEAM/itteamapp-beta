@@ -55,7 +55,6 @@ public class Einstellungen extends AppCompatActivity
 
         final SharedPreferences prefs = getSharedPreferences("Prefs",MODE_PRIVATE);
         String klasseBisher = prefs.getString("klasse","");
-        System.out.println(klasseBisher);
 
         final NumberPicker klasseNr = findViewById(R.id.einstellungen_klasseNr_spinner);
         final NumberPicker klasseEndung = findViewById(R.id.einstellungen_klasseEndung_spinner);
@@ -68,7 +67,6 @@ public class Einstellungen extends AppCompatActivity
         for (int i=0; i<klassenNr.length; i++){
             if(klasseBisher.contains(klassenNr[i])){
                 position=i;
-                System.out.println(i);
             }
         }
         klasseNr.setValue(position);
@@ -86,7 +84,6 @@ public class Einstellungen extends AppCompatActivity
                         klasseEndung.setDisplayedValues(new String[]{" "});
                         klasseEndung.setEnabled(false);
                         prefs.edit().putString("klasse", text).apply();
-                        System.out.println(text);
                         break;
                     default:
                         klasseEndung.setDisplayedValues(klassenEndung);
@@ -94,12 +91,9 @@ public class Einstellungen extends AppCompatActivity
                         klasseEndung.setEnabled(true);
                         String lastKlasse = prefs.getString("klasse", "");
                         if (lastKlasse.equals("")) {
-                            System.out.println(text);
                             prefs.edit().putString("klasse", text + klassenEndung[klasseEndung.getValue()]).apply();
                         } else {
-                            System.out.println(text + prefs.getString("klasse", "").substring(2));
                             prefs.edit().putString("klasse", text + prefs.getString("klasse", "").substring(2)).apply();
-                            System.out.println(text + prefs.getString("klasse", "").substring(2));
                         }
                         break;
                 }
@@ -114,7 +108,6 @@ public class Einstellungen extends AppCompatActivity
         for (int i=0; i<klassenEndung.length; i++){
             if(klasseBisher.contains(klassenEndung[i])){
                 position=i;
-                System.out.println(i);
             }
         }
         klasseEndung.setValue(position);
@@ -124,7 +117,6 @@ public class Einstellungen extends AppCompatActivity
                 String text = picker.getDisplayedValues()[picker.getValue()];
                 if (!text.equals("")) {
                     prefs.edit().putString("klasse",prefs.getString("klasse","").substring(0,2)+text).apply();
-                    System.out.println(prefs.getString("klasse","").substring(0,2)+text);
                 }
             }
         });
@@ -303,7 +295,6 @@ public class Einstellungen extends AppCompatActivity
         @Override
         public void onOk(AmbilWarnaDialogFragment dialogFragment, int color) {
             Startseite.prefs.edit().putString(dialogFragment.getTag(),String.format("#%06X", (0xFFFFFF & color))).apply();
-            System.out.println(String.format("#%06X", (0xFFFFFF & color)));
         }
     }
 

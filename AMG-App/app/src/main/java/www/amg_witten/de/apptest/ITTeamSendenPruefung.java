@@ -42,9 +42,12 @@ public class ITTeamSendenPruefung extends AppCompatActivity
         methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden_pruefung);
 
         TextView raumPr = findViewById(R.id.pruefen);
-        raumPr.setText(getString(R.string.it_team_melden_pruefung_daten, ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum, ITTeamSenden.fehler, ITTeamSenden.wichtigkeit, ITTeamSenden.beschreibung));
-
-        //getString(R.string., ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum, ITTeamSenden.fehler, ITTeamSenden.wichtigkeit, ITTeamSenden.beschreibung)
+        if(ITTeamSenden.raum.equals("Ohne")){
+            raumPr.setText(getString(R.string.it_team_melden_pruefung_daten, getString(R.string.it_team_melden_gebaeude_none), ITTeamSenden.fehler, ITTeamSenden.wichtigkeit, ITTeamSenden.beschreibung));
+        }
+        else {
+            raumPr.setText(getString(R.string.it_team_melden_pruefung_daten, ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum, ITTeamSenden.fehler, ITTeamSenden.wichtigkeit, ITTeamSenden.beschreibung));
+        }
 
         ITTeamSenden.beschreibung = ITTeamSenden.beschreibung.replaceAll("\n","//");
     }

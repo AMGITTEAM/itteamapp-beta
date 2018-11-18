@@ -37,7 +37,7 @@ public class Feedback extends AppCompatActivity
     private String description = "";
     private EditText descriptionText = null;
     private Spinner typeSpinner = null;
-    private final String[] types = new String[]{"Typ","Bug/Fehler","Idee/Anregung","Anderes"};
+    private final String[] types = new String[]{getString(R.string.feedback_type_none),getString(R.string.feedback_type_bug),getString(R.string.feedback_type_idea),getString(R.string.feedback_type_other)};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,6 @@ public class Feedback extends AppCompatActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("WORKING");
                 try {String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     url = url.replaceAll("\n","%30");
@@ -111,14 +110,14 @@ public class Feedback extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Nachricht gesendet.\nVielen Dank für deine Hilfe!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(ac,getString(R.string.feedback_send_success),Toast.LENGTH_LONG).show();
                         }
                     });
                 } catch (final Exception e){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Fehler beim Melden des Fehlers: "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ac,getString(R.string.feedback_send_failure,e.getMessage()),Toast.LENGTH_SHORT).show();
                         }
                     });
                     e.printStackTrace();
@@ -130,15 +129,15 @@ public class Feedback extends AppCompatActivity
 
     private void askCompleteDebug(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Diese Funktion sollte nur auf Anfrage des Entwicklers genutzt werden.\nDer komplette Debug-Bericht enthält Login-Daten, den Stundenplan, alle Einstellungen, die Android-Version und eine ID zur Identifizierung, welche eine zufällig generierte Zahl ist. Diese sollte im Anschluss dem Entwickler zugesendet werden.\nMöchtest du wirklich alle diese Daten an den Entwickler senden?")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setMessage(getString(R.string.feedback_ask_completeDebug))
+                .setPositiveButton(getString(R.string.feedback_completeDebug_positiveButton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         doCompleteDebug();
                     }
                 })
-                .setNegativeButton("Abbrechen",null)
-                .setTitle("Kompletter Debug");
+                .setNegativeButton(getString(R.string.feedback_completeDebug_negativeButton),null)
+                .setTitle(getString(R.string.feedback_completeDebug_title));
         builder.create().show();
     }
 
@@ -176,14 +175,14 @@ public class Feedback extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Nachricht gesendet.\nVielen Dank für deine Hilfe!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(ac,getString(R.string.feedback_send_success),Toast.LENGTH_LONG).show();
                             AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             TextView tv = new TextView(context);
                             tv.setText(getString(R.string.feedback_full_id,id));
                             tv.setTextIsSelectable(true);
                             builder.setView(tv)
-                                    .setPositiveButton("OK", null)
-                                    .setTitle("Kompletter Debug");
+                                    .setPositiveButton(getString(R.string.feedback_completeDebug_positiveButton), null)
+                                    .setTitle(getString(R.string.feedback_completeDebug_title));
                             builder.create().show();
                         }
                     });
@@ -191,7 +190,7 @@ public class Feedback extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Fehler beim Senden der Daten",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ac,getString(R.string.feedback_send_failure,e.getMessage()),Toast.LENGTH_SHORT).show();
                         }
                     });
                     e.printStackTrace();

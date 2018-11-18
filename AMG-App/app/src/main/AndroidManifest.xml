@@ -71,14 +71,26 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Vertretungsplan"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="amg-witten.de"
+                    android:pathPrefix="/fileadmin/VertretungsplanSUS/Folgetag/subst_001.htm" />
+                <data android:scheme="https"
+                    android:host="amg-witten.de"
+                    android:pathPrefix="/fileadmin/VertretungsplanSUS/Heute/subst_001.htm" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Stundenplan"
-            android:label="Stundenplan"
+            android:label="@string/title_activity_stundenplan"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".StundenplanEdit"
-            android:label="Stundenplan"
+            android:label="@string/title_activity_stundenplan"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Info"
@@ -90,11 +102,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Feedback"
-            android:label="Feedback"
+            android:label="@string/title_activity_feedback"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Hilfe"
-            android:label="Hilfe"
+            android:label="@string/title_activity_hilfe"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".DeviceBootReceiver">

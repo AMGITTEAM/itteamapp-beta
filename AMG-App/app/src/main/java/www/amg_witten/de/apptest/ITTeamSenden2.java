@@ -44,9 +44,6 @@ public class ITTeamSenden2 extends AppCompatActivity
             case "N":
                 z.setVisibility(View.INVISIBLE);
                 break;
-            default:
-                Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();
-                System.exit(0);
         }
     }
 
@@ -73,29 +70,20 @@ public class ITTeamSenden2 extends AppCompatActivity
         startActivity(new Intent(this,ITTeamSenden3.class));
         switch (view.getId()){
             case R.id.E0:
-                System.out.println("0");
                 ITTeamSenden.etage="0";
                 return;
             case R.id.E1:
-                System.out.println("1");
                 ITTeamSenden.etage="1";
                 return;
             case R.id.E2:
-                System.out.println("2");
                 ITTeamSenden.etage="2";
                 return;
             case R.id.Z:
-                System.out.println("Z");
                 ITTeamSenden.etage="Z";
                 return;
             case R.id.U:
-                System.out.println("U");
                 ITTeamSenden.etage="U";
                 return;
-            default:
-                System.out.println("Nicht gefunden: "+view.getId());
-                Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();
-                System.exit(0);
         }
     }
 }

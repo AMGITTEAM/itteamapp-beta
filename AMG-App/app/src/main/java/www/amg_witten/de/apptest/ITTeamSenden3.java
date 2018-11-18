@@ -52,59 +52,45 @@ public class ITTeamSenden3 extends AppCompatActivity
     public void raum(View view) {
         switch (view.getId()){
             case R.id.R01:
-                System.out.println("01");
                 ITTeamSenden.raum="01";
                 break;
             case R.id.R02:
-                System.out.println("02");
                 ITTeamSenden.raum="02";
                 break;
             case R.id.R03:
-                System.out.println("03");
                 ITTeamSenden.raum="03";
                 break;
             case R.id.R04:
-                System.out.println("04");
                 ITTeamSenden.raum="04";
                 break;
             case R.id.R05:
-                System.out.println("05");
                 ITTeamSenden.raum="05";
                 break;
             case R.id.R06:
-                System.out.println("06");
                 ITTeamSenden.raum="06";
                 break;
             case R.id.R07:
-                System.out.println("07");
                 ITTeamSenden.raum="07";
                 break;
             case R.id.R08:
-                System.out.println("08");
                 ITTeamSenden.raum="08";
                 break;
             case R.id.R09:
-                System.out.println("09");
                 ITTeamSenden.raum="09";
                 break;
             case R.id.R10:
-                System.out.println("10");
                 ITTeamSenden.raum="10";
                 break;
             case R.id.R11:
-                System.out.println("11");
                 ITTeamSenden.raum="11";
                 break;
             case R.id.R12:
-                System.out.println("12");
                 ITTeamSenden.raum="12";
                 break;
             case R.id.R13:
-                System.out.println("13");
                 ITTeamSenden.raum="13";
                 break;
             case R.id.R14:
-                System.out.println("14");
                 ITTeamSenden.raum="14";
                 break;
         }

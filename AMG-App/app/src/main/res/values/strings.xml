@@ -29,8 +29,11 @@
     <string name="title_activity_itteam_senden6">Beschreibung</string>
     <string name="title_activity_itteam_senden_pruefeung">Zusammenfassung</string>
     <string name="title_activity_itteam_holen">Fehlermeldungen</string>
+    <string name="title_activity_stundenplan">Stundenplan</string>
     <string name="title_activity_info">Info</string>
     <string name="title_activity_einstellungen">Einstellungen</string>
+    <string name="title_activity_feedback">Feedback</string>
+    <string name="title_activity_hilfe">Hilfe</string>
 
     <!--ColorPicker-->
 
@@ -65,6 +68,9 @@
         \n\nWir unterrichten weitgehend in Doppelstunden. Lehrerarbeits- und Kommunikationsräume ergänzen das Angebot, um den Arbeitsplatz Schule für alle Beteiligten als Lebensraum Schule zu definieren.</string>
     <string name="startseite_logo_description">AMG-Logo</string>
 
+    <string name="startseite_changelog_positive">OK</string>
+    <string name="startseite_changelog_title">Changelog</string>
+
     <!--Stundenplan-->
 
     <string name="stundenplan_bearbeiten">Bearbeiten</string>
@@ -72,6 +78,20 @@
     <string name="stundenplan_new">+</string>
 
     <string name="stundenplan_nothing">Du musst zuerst einen Stundenplan für %1$s eingeben!</string>
+
+    <string name="stundenplan_mo_lang">Montag</string>
+    <string name="stundenplan_di_lang">Dienstag</string>
+    <string name="stundenplan_mi_lang">Mittwoch</string>
+    <string name="stundenplan_do_lang">Donnerstag</string>
+    <string name="stundenplan_fr_lang">Freitag</string>
+
+    <string name="stundenplan_mo_kurz">Mo.</string>
+    <string name="stundenplan_di_kurz">Di.</string>
+    <string name="stundenplan_mi_kurz">Mi.</string>
+    <string name="stundenplan_do_kurz">Do.</string>
+    <string name="stundenplan_fr_kurz">Fr.</string>
+
+    <string name="stundenplan_time_notDefined">Nicht definiert</string>
 
     <!--Stundenplan-Edit-->
 
@@ -88,6 +108,7 @@
     <string name="it_team_melden_gebaeude_hauptbau">H</string>
     <string name="it_team_melden_gebaeude_altbau">A</string>
     <string name="it_team_melden_gebaeude_neubau">N</string>
+    <string name="it_team_melden_gebaeude_none">Ohne Raum</string>
 
     <string name="it_team_melden_etage">Bitte wähle die Etage mit dem zu meldendem Fehler aus!</string>
     <string name="it_team_melden_etage_2">2</string>
@@ -113,6 +134,7 @@
     <string name="it_team_melden_raum_14">14</string>
 
     <string name="it_team_melden_fehler">Bitte wähle den Fehler für den Raum %1$s aus!</string>
+    <string name="it_team_melden_fehler_ohneRaum">Bitte wähle den generellen Fehler aus!</string>
 
     <string name="it_team_melden_beschr">Beschreibung des Fehlers</string>
     <string name="it_team_melden_beschr_ready">Fertig</string>
@@ -176,12 +198,60 @@
 
     <string name="it_team_holen_change_status">Status</string>
     <string name="it_team_holen_nothing">Keine Einträge vorhanden</string>
-    
+
+    <!--NotifyVertretungsplan-->
+
+    <string name="notify_vertretungsplan_nichts">Heute nichts!</string>
+    <string name="notify_vertretungsplan_etwas">Heute ändert sich etwas.</string>
+
+    <string name="notify_vertretungsplan_channel_title">AMGApp-Vertretungsplan-Benachrichtigung</string>
+    <string name="notify_vertretungsplan_channel_description">Benachrichtigungs-Kanal für die Benachrichtigung des Vertretungsplans für Heute der AMGApp</string>
+    <string name="notify_vertretungsplan_title">Vertretung für Klasse %1$s</string>
+
+    <!--Vertretungsplan_Titles-->
+
+    <string name="vertretungsplan_title_heute">Heutiger Vertretungsplan</string>
+
+    <!--Vertretungsplan_Dialog-->
+
+    <string name="vertretungsplan_dialog_title">Lädt den Vertretungsplan…</string>
+    <string name="vertretungsplan_dialog_counting">Dateien werden gezählt…</string>
+    <string name="vertretungsplan_dialog_downloading">Dateien werden heruntergeladen…</string>
+    <string name="vertretungsplan_dialog_reading">Dateien werden eingelesen…</string>
+    <string name="vertretungsplan_dialog_checking">Einträge werden überprüft…</string>
+    <string name="vertretungsplan_dialog_extracting">Einträge werden extrahiert…</string>
+    <string name="vertretungsplan_dialog_compiling">Einträge werden zusammengestellt…</string>
+    <string name="vertretungsplan_dialog_generating">Tabelle wird erstellt…</string>
+    <string name="vertretungsplan_dialog_opening">Datei wird geöffnet…</string>
+
+    <!--Vertretungsplan-->
+
+    <string name="vertretungsplan_for_date">Für %1$s</string>
+    <string name="vertretungsplan_last_update">Stand: %1$s</string>
+
+    <string name="vertretungsplan_stunde">Stunde</string>
+    <string name="vertretungsplan_klasse">Klasse</string>
+    <string name="vertretungsplan_vertretungsart">Vertretungsart</string>
+    <string name="vertretungsplan_fach">Fach</string>
+    <string name="vertretungsplan_ersatzfach">Ersatzfach</string>
+    <string name="vertretungsplan_vertretungslehrer">VertretungslehrerIn</string>
+    <string name="vertretungsplan_raum">Raum</string>
+    <string name="vertretungsplan_hinweise">Hinweise</string>
+
     <!--Login-->
 
     <string name="login_username">Benutzername</string>
     <string name="login_password">Passwort</string>
     <string name="login_ready">Fertig</string>
+
+    <string name="login_logout_success">Logout erfolgreich</string>
+
+    <string name="login_process_connecting">Verbinde…</string>
+    <string name="login_process_wait">Bitte warten…</string>
+
+    <string name="login_connection_error">Fehler beim Verbinden zum Server.</string>
+    <string name="login_wrong_password">Login fehlgeschlagen, falsches Passwort?</string>
+    <string name="login_success">Login erfolgreich</string>
 
     <!--Hilfe-->
 
@@ -226,9 +296,25 @@
 
     <!--Feedback-->
 
+    <string name="feedback_type_none">Typ</string>
+    <string name="feedback_type_bug">Bug/Fehler</string>
+    <string name="feedback_type_idea">Idee/Anregung</string>
+    <string name="feedback_type_other">Anderes</string>
+
     <string name="feedback_description">Beschreibung</string>
     <string name="feedback_ready">Fertig</string>
     <string name="feedback_full_id">Deine einmalige ID: &quot;%1$s&quot;\nBitte leite diese ID an den Entwickler weiter.</string>
+
+    <string name="feedback_send_success">Nachricht gesendet.\nVielen Dank für deine Hilfe!</string>
+    <string name="feedback_send_failure">Fehler beim Melden des Fehlers: %1$s</string>
+
+    <string name="feedback_ask_completeDebug">Diese Funktion sollte nur auf Anfrage des Entwicklers genutzt werden.
+\nDer komplette Debug-Bericht enthält Login-Daten, den Stundenplan, alle Einstellungen, die Android-Version und eine ID zur Identifizierung, welche eine zufällig generierte Zahl ist. Diese sollte im Anschluss dem Entwickler zugesendet werden.
+\nMöchtest du wirklich alle diese Daten an den Entwickler senden?</string>
+
+    <string name="feedback_completeDebug_title">Kompletter Debug</string>
+    <string name="feedback_completeDebug_positiveButton">OK</string>
+    <string name="feedback_completeDebug_negativeButton">Abbrechen</string>
 
     <!--Info-->
 
@@ -261,11 +347,14 @@ Fax: +49 02302 189059\n
     <!--Changelogs-->
 
     <string name="changelog">• Code aufgeräumt\n
-        • Fehler in der Benachrichtigung des Vertretungsplans behoben\n
-        • Fehler im Feedback behoben\n
-        • Fehler im Stundenplan behoben</string>
+        • IT-Team-Meldung ohne Raum ermöglicht\n
+        • Fehler im Menü behoben</string>
 
     <string name="changelog_all">
+        <b>1.0.2 - 18.11.2018</b>\n
+        • Code aufgeräumt\n
+        • IT-Team-Meldung ohne Raum ermöglicht\n
+        • Fehler im Menü behoben\n\n
         <b>1.0.1 - 11.11.2018</b>\n
         • Code aufgeräumt\n
         • Fehler in der Benachrichtigung des Vertretungsplans behoben\n

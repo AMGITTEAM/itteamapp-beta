@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity
             prefs.edit().putString("loginUsername","").apply();
             prefs.edit().putString("loginPassword","").apply();
             prefs.edit().putString("passwordVertretungsplanSchueler","").apply();
-            Toast.makeText(this,"Logout erfolgreich",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,getString(R.string.login_logout_success),Toast.LENGTH_LONG).show();
             Startseite.login=0;
             Intent alarmIntent = new Intent(this, NotifyVertretungsplan.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
@@ -65,8 +65,8 @@ public class Login extends AppCompatActivity
 
         final Activity ac = this;
         final ProgressDialog progress = new ProgressDialog(this);
-        progress.setTitle("Verbinde...");
-        progress.setMessage("Bitte warten...");
+        progress.setTitle(getString(R.string.login_process_connecting));
+        progress.setMessage(getString(R.string.login_process_wait));
         progress.setCancelable(false);
         progress.show();
         new Thread(new Runnable() {
@@ -82,9 +82,8 @@ public class Login extends AppCompatActivity
                         @Override
                         public void run() {
                             progress.dismiss();
-                            System.out.println("ERROR");
                             e.printStackTrace();
-                            Toast.makeText(ac,"Fehler beim Verbinden zum Server.",Toast.LENGTH_LONG).show();
+                            Toast.makeText(ac,getString(R.string.login_connection_error),Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(ac, Startseite.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -143,12 +142,11 @@ public class Login extends AppCompatActivity
                     in.close();
                     System.out.println(intAnmeldungErfolgreich);
                     int rechthoehe = Integer.parseInt(intAnmeldungErfolgreich);
-                    System.out.println("Gelesen");
                     if(rechthoehe==0){
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ac,"Login fehlgeschlagen, falsches Passwort?",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ac,getString(R.string.login_wrong_password),Toast.LENGTH_LONG).show();
                             }
                         });
                         return;
@@ -166,7 +164,7 @@ public class Login extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Login erfolgreich",Toast.LENGTH_LONG).show();
+                            Toast.makeText(ac,getString(R.string.login_success),Toast.LENGTH_LONG).show();
 
                             Intent alarmIntent = new Intent(context, NotifyVertretungsplan.class);
                             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
@@ -194,7 +192,7 @@ public class Login extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ac,"Fehler beim Verbinden zum Server",Toast.LENGTH_LONG).show();
+                            Toast.makeText(ac,getString(R.string.login_connection_error),Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(ac, Startseite.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);

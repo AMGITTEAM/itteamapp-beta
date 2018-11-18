@@ -2,8 +2,9 @@
 Schwarzes Brett
  -> Klausurtermine im Stundenplan
 Kurssprecher im Stundenplan
-Raumunabhängige Fehlermeldungen (IT-Team)
 Feedback abrufen
 IT-Team Meldungen löschen
-
-Stundenplan->Vertretungsplan: Bei Typ "Verlegung" (oder so) -> Fach auch ändern
+Serverrückmeldung auswerten
+IT-Team Raum schöner machen
+Vertretungsplan auf eine Seite mit Swipe
+IT-Team Holen Abfrage korrigieren (Und/oder)

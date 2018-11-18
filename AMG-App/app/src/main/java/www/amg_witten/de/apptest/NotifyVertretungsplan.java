@@ -60,7 +60,6 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                     VertretungModelArrayModel data = null;
                     for(int ie=0; ie<vertretungModels.size(); ie++){
                         if(vertretungModels.get(ie).getKlasse().equals(klasse)){
-                            System.out.println("TRUE");
                             int rightRowsCount = 0;
                             for(int iee=0; iee<vertretungModels.size(); iee++){
                                 if(vertretungModels.get(iee).getKlasse().equals(klasse)) {
@@ -80,25 +79,25 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                         System.out.println(vertretungModels.get(ie).getKlasse());
                     }
                     if(data == null){
-                        text = "Heute nichts!";
+                        text = context.getString(R.string.notify_vertretungsplan_nichts);
                     }
                     else {
-                        text = "Heute ändert sich etwas.";
+                        text = context.getString(R.string.notify_vertretungsplan_etwas);
                     }
                 }
                 catch(IOException ignored){}
                 Intent onOpenIntent = new Intent(context,Vertretungsplan.class);
                 onOpenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 onOpenIntent.putExtra("Date","Heute");
-                onOpenIntent.putExtra("Title","Heutiger Vertretungsplan");
+                onOpenIntent.putExtra("Title",context.getString(R.string.vertretungsplan_title_heute));
                 onOpenIntent.putExtra("navID",1);
                 PendingIntent onOpen = PendingIntent.getActivity(context,0,onOpenIntent,0);
                 if(android.os.Build.VERSION.SDK_INT>=26){
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-                    NotificationChannel mChannel = new NotificationChannel("vertretung_notification_amgapp", "AMGApp-Vertretungsplan-Benachrichtigung", NotificationManager.IMPORTANCE_LOW);
+                    NotificationChannel mChannel = new NotificationChannel("vertretung_notification_amgapp", context.getString(R.string.notify_vertretungsplan_channel_title), NotificationManager.IMPORTANCE_LOW);
 
-                    mChannel.setDescription("Benachrichtigungs-Kanal für die Benachrichtigung des Vertretungsplans für Heute der AMGApp");
+                    mChannel.setDescription(context.getString(R.string.notify_vertretungsplan_channel_description));
 
                     mChannel.enableLights(true);
                     mChannel.setLightColor(Color.RED);
@@ -111,7 +110,7 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context,NotificationCompat.CATEGORY_REMINDER).setSmallIcon(R.mipmap.ic_launcher);
 
-                mBuilder.setContentTitle("Vertretung für Klasse "+prefs.getString("klasse",""));
+                mBuilder.setContentTitle(context.getString(R.string.notify_vertretungsplan_title,prefs.getString("klasse","")));
                 mBuilder.setContentText(text);
                 mBuilder.setChannelId("vertretung_notification_amgapp");
 

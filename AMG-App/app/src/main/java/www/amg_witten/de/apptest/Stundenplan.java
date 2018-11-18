@@ -53,6 +53,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
     private ViewPager mViewPager;
     private TabLayout tabLayout;
+    private final Context context = this;
     private static boolean transistioning = false;
     private static boolean bearbeiten=false;
 
@@ -79,11 +80,11 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
         tabLayout = findViewById(R.id.tab_layout);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Montag"));
-        tabLayout.addTab(tabLayout.newTab().setText("Di."));
-        tabLayout.addTab(tabLayout.newTab().setText("Mi."));
-        tabLayout.addTab(tabLayout.newTab().setText("Do."));
-        tabLayout.addTab(tabLayout.newTab().setText("Fr."));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.stundenplan_mo_lang)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.stundenplan_di_kurz)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.stundenplan_mi_kurz)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.stundenplan_do_kurz)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.stundenplan_fr_kurz)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         TabLayout.Tab tab = tabLayout.getTabAt(0);
         if(tab!=null){
@@ -107,9 +108,9 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 layoutParams.weight=2.0f;
                 layout.setLayoutParams(layoutParams);
 
-                lastTab.setText(getWochentagAbk(lastSelected+1));
+                lastTab.setText(getWochentagAbk(lastSelected+1,context));
 
-                tab.setText(getWochentag(tab.getPosition()+1));
+                tab.setText(getWochentag(tab.getPosition()+1,context));
 
                 lastTab=tab;
                 lastSelected=tab.getPosition();
@@ -193,8 +194,8 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                     thise.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            pDialog.setTitle("Lädt den Vertretungsplan...");
-                            pDialog.setMessage("Dateien werden gezählt...");
+                            pDialog.setTitle(getString(R.string.vertretungsplan_dialog_title));
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_counting));
                             pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                             pDialog.setProgress(0);
                             pDialog.show();
@@ -211,7 +212,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(urlEndings.size());
-                            pDialog.setMessage("Dateien werden heruntergeladen...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_downloading));
                         }
                     });
 
@@ -221,7 +222,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(urlEndings.size());
-                            pDialog.setMessage("Dateien werden eingelesen...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_reading));
                         }
                     });
 
@@ -231,7 +232,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(klassen.size());
-                            pDialog.setMessage("Einträge werden überprüft...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_checking));
                         }
                     });
 
@@ -243,7 +244,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(realEintraege.size());
-                            pDialog.setMessage("Einträge werden extrahiert...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_extracting));
                         }
                     });
 
@@ -256,7 +257,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(klassen.size());
-                            pDialog.setMessage("Einträge werden zusammengestellt...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_compiling));
 
                             Vertretungsplan.parseKlassenWithProcess(klassen,fertigeKlassen,vertretungModels,data,pDialog);
 
@@ -284,8 +285,8 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                     thise.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            pDialog.setTitle("Lädt den Vertretungsplan...");
-                            pDialog.setMessage("Dateien werden gezählt...");
+                            pDialog.setTitle(getString(R.string.vertretungsplan_dialog_title));
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_counting));
                             pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                             pDialog.setProgress(0);
                             pDialog.show();
@@ -302,7 +303,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(urlEndingsFolgetag.size());
-                            pDialog.setMessage("Dateien werden heruntergeladen...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_downloading));
                         }
                     });
 
@@ -312,7 +313,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(urlEndingsFolgetag.size());
-                            pDialog.setMessage("Dateien werden eingelesen...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_reading));
                         }
                     });
 
@@ -322,7 +323,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(klassenFolgetag.size());
-                            pDialog.setMessage("Einträge werden überprüft...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_checking));
                         }
                     });
 
@@ -334,7 +335,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(realEintraegeFolgetag.size());
-                            pDialog.setMessage("Einträge werden extrahiert...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_extracting));
                         }
                     });
 
@@ -347,7 +348,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                         @Override
                         public void run() {
                             pDialog.setMax(klassenFolgetag.size());
-                            pDialog.setMessage("Einträge werden zusammengestellt...");
+                            pDialog.setMessage(getString(R.string.vertretungsplan_dialog_compiling));
 
                             Vertretungsplan.parseKlassenWithProcess(klassenFolgetag,fertigeKlassenFolgetag,vertretungModelsFolgetag,dataFolgetag,pDialog);
 
@@ -416,7 +417,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
     }
 
     public void EditStunde(View view){
-        wochentagPicking = getWochentag(tabLayout.getSelectedTabPosition()+1);
+        wochentagPicking = getWochentag(tabLayout.getSelectedTabPosition()+1,this);
         stundePicking = Integer.parseInt((String) view.getTag());
         CustomListAdapter.ViewHolder holder = (CustomListAdapter.ViewHolder)((ConstraintLayout)view.getParent()).getTag();
         showEditStunde(holder.fachID, holder.raumText, holder.lehrerText, holder.fachNameText);
@@ -550,7 +551,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 return null;
             }
             int wochentagNo = getArguments().getInt(ARG_SECTION_NUMBER);
-            String wochentag = getWochentag(wochentagNo);
+            String wochentag = getWochentag(wochentagNo,getContext());
             Set<String> stundenplanGeneral = loadStundenplanOrdered(wochentag);
             LinkedHashSet<String> stundenplan = null;
             try {
@@ -588,35 +589,35 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    private static String getWochentag(int noOfDay){
+    private static String getWochentag(int noOfDay, Context context){
         switch (noOfDay){
             case 1:
-                return "Montag";
+                return context.getString(R.string.stundenplan_mo_lang);
             case 2:
-                return "Dienstag";
+                return context.getString(R.string.stundenplan_di_lang);
             case 3:
-                return "Mittwoch";
+                return context.getString(R.string.stundenplan_mi_lang);
             case 4:
-                return "Donnerstag";
+                return context.getString(R.string.stundenplan_do_lang);
             case 5:
-                return "Freitag";
+                return context.getString(R.string.stundenplan_fr_lang);
             default:
                 return null;
         }
     }
 
-    private static String getWochentagAbk(int noOfDay){
+    private static String getWochentagAbk(int noOfDay, Context context){
         switch (noOfDay){
             case 1:
-                return "Mo.";
+                return context.getString(R.string.stundenplan_mo_kurz);
             case 2:
-                return "Di.";
+                return context.getString(R.string.stundenplan_di_kurz);
             case 3:
-                return "Mi.";
+                return context.getString(R.string.stundenplan_mi_kurz);
             case 4:
-                return "Do.";
+                return context.getString(R.string.stundenplan_do_kurz);
             case 5:
-                return "Fr.";
+                return context.getString(R.string.stundenplan_fr_kurz);
             default:
                 return null;
         }
@@ -814,7 +815,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 case "9":
                     return "14:45-15:30";
                 default:
-                    return "Nicht definiert";
+                    return context.getString(R.string.stundenplan_time_notDefined);
             }
         }
     }

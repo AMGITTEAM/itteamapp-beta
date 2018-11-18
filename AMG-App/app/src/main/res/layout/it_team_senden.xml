@@ -44,4 +44,23 @@
         android:id="@+id/N"
         android:onClick="gebaeude" />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:layout_below="@id/N"/>
+
+    <Button
+        android:text="@string/it_team_melden_gebaeude_none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:layout_alignRight="@+id/H"
+        android:layout_alignEnd="@+id/H"
+        android:id="@+id/none"
+        android:onClick="gebaeude" />
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package www.amg_witten.de.apptest;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 class VertretungModelArrayModel {
@@ -20,7 +21,7 @@ class VertretungModelArrayModel {
         return RightRows;
     }
 
-    String getHTMLListItems(int id, String ownKlasse, SharedPreferences prefs){
+    String getHTMLListItems(int id, String ownKlasse, SharedPreferences prefs, Context context){
         StringBuilder content = new StringBuilder();
         String klasse = "";
         for(VertretungModel s : RightRows){
@@ -68,15 +69,23 @@ class VertretungModelArrayModel {
                 "              <col width=\"27%\"/>\n" +
                 "            </colgroup>\n\n";
         if(prefs.getBoolean("vertretungsplanIconsEnabled",true)){
+            String stunde = context.getString(R.string.vertretungsplan_stunde);
+            String altklasse = context.getString(R.string.vertretungsplan_klasse);
+            String vertretungsart = context.getString(R.string.vertretungsplan_vertretungsart);
+            String fach = context.getString(R.string.vertretungsplan_fach);
+            String ersatzfach = context.getString(R.string.vertretungsplan_ersatzfach);
+            String vertretungslehrer = context.getString(R.string.vertretungsplan_vertretungslehrer);
+            String raum = context.getString(R.string.vertretungsplan_raum);
+            String hinweise = context.getString(R.string.vertretungsplan_hinweise);
             returns+="                       <tr>\n" +
-                    "              <td><img src=\"time.png\" alt=\"Stunde\" title=\"Stunde\" id=\"area\"/></td>\n" +
-                    "              <td><img src=\"group.png\" alt=\"Klasse\" title=\"Klasse\" id=\"area\"/></td>\n" +
-                    "              <td><img src=\"bullet_error.png\" alt=\"Vertretungsart\" title=\"Vertreungsart\" id=\"area\"/></td>\n" +
-                    "              <td><img src=\"book.png\" alt=\"Fach\" title=\"Fach\" id=\"area\"/></td>\n" +
-                    "              <td><img src=\"book_edit.png\" alt=\"Ersatzfach\" title=\"Ersatzfach\" id=\"area\"/></td>\n" +
-                    "              <td><img src=\"user.png\" alt=\"Vertretungslehrer\" title=\"VertretungslehrerIn\" id=\"area\"/></td>\n" +
-                    "              <td><img src=\"door_open.png\" alt=\"Raum\" title=\"Raum\" id=\"area\"/></td>\n" +
-                    "              <td><img src=\"lightbulb.png\" alt=\"Hinweise\" title=\"Hinweise\" id=\"area\"/></td>\n" +
+                    "              <td><img src=\"time.png\" alt=\""+stunde+"\" title=\""+stunde+"\" id=\"area\"/></td>\n" +
+                    "              <td><img src=\"group.png\" alt=\""+altklasse+"\" title=\""+altklasse+"\" id=\"area\"/></td>\n" +
+                    "              <td><img src=\"bullet_error.png\" alt=\""+vertretungsart+"\" title=\""+vertretungsart+"\" id=\"area\"/></td>\n" +
+                    "              <td><img src=\"book.png\" alt=\""+fach+"\" title=\""+fach+"\" id=\"area\"/></td>\n" +
+                    "              <td><img src=\"book_edit.png\" alt=\""+ersatzfach+"\" title=\""+ersatzfach+"\" id=\"area\"/></td>\n" +
+                    "              <td><img src=\"user.png\" alt=\""+vertretungslehrer+"\" title=\""+vertretungslehrer+"\" id=\"area\"/></td>\n" +
+                    "              <td><img src=\"door_open.png\" alt=\""+raum+"\" title=\""+raum+"\" id=\"area\"/></td>\n" +
+                    "              <td><img src=\"lightbulb.png\" alt=\""+hinweise+"\" title=\""+hinweise+"\" id=\"area\"/></td>\n" +
                     "            </tr>            ";
         }
         returns+="            "+content.toString()+"\n" +

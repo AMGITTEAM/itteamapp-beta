@@ -53,14 +53,17 @@ public class Vertretungsplan extends AppCompatActivity
         Intent thisIntent = getIntent();
         navID = thisIntent.getIntExtra("navID",0);
 
+        SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+        klasse = prefs.getString("klasse","");
+
+        Startseite.login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
+        Startseite.benutzername = prefs.getString("loginUsername","");
+
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,navID,R.layout.vertretungsplan);
 
         date = thisIntent.getStringExtra("Date");
         setTitle(thisIntent.getStringExtra("Title"));
-
-        SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
-        klasse = prefs.getString("klasse","");
 
         new Thread(new Runnable() {
             @Override
@@ -90,8 +93,8 @@ public class Vertretungsplan extends AppCompatActivity
             thise.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    pDialog.setTitle("Lädt...");
-                    pDialog.setMessage("Dateien werden gezählt...");
+                    pDialog.setTitle(thise.getString(R.string.vertretungsplan_dialog_title));
+                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_counting));
                     pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                     pDialog.setProgress(0);
                     pDialog.show();
@@ -108,7 +111,7 @@ public class Vertretungsplan extends AppCompatActivity
                 @Override
                 public void run() {
                     pDialog.setMax(urlEndings.size());
-                    pDialog.setMessage("Dateien werden heruntergeladen...");
+                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_downloading));
                 }
             });
 
@@ -120,7 +123,7 @@ public class Vertretungsplan extends AppCompatActivity
                 @Override
                 public void run() {
                     pDialog.setMax(urlEndings.size());
-                    pDialog.setMessage("Dateien werden eingelesen...");
+                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_reading));
                 }
             });
 
@@ -130,7 +133,7 @@ public class Vertretungsplan extends AppCompatActivity
                 @Override
                 public void run() {
                     pDialog.setMax(klassen.size());
-                    pDialog.setMessage("Einträge werden überprüft...");
+                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_checking));
                 }
             });
 
@@ -142,7 +145,7 @@ public class Vertretungsplan extends AppCompatActivity
                 @Override
                 public void run() {
                     pDialog.setMax(realEintraege.size());
-                    pDialog.setMessage("Einträge werden extrahiert...");
+                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_extracting));
                 }
             });
 
@@ -158,17 +161,17 @@ public class Vertretungsplan extends AppCompatActivity
                 @Override
                 public void run() {
                     pDialog.setMax(klassen.size());
-                    pDialog.setMessage("Einträge werden zusammengestellt...");
+                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_compiling));
 
                     parseKlassenWithProcess(klassen,fertigeKlassen,vertretungModels,data,pDialog);
 
                     pDialog.setMax(fertigeKlassen.size()+3);
-                    pDialog.setMessage("Tabelle wird erstellt...");
+                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_generating));
 
                     writeToFileWithProcess(pDialog, lFile, finalfuerDatum, finalstand, thise, data, fertigeKlassen);
 
                     pDialog.setMax(1);
-                    pDialog.setMessage("Datei wird geöffnet...");
+                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_opening));
 
                     WebView wv = thise.findViewById(R.id.webView);
                     wv.loadUrl("file:///"+lFile.getAbsolutePath());
@@ -1016,179 +1019,25 @@ public class Vertretungsplan extends AppCompatActivity
         try {
             FileWriter fw = new FileWriter(lFile);
             fw.write("<!DOCTYPE html>\n" +
-                    "<html>\n" +
-                    "<head>\n" +
-                    "<meta charset=\"UTF-8\">\n" +
-                    "<title>Accordion</title>\n" +
-                    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                    "<link href='http://fonts.googleapis.com/css?family=roboto:400,600,700' rel='stylesheet' type='text/css'>\n" +
-                    "\n" +
-                    "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script> \n" +
-                    "<script type = \"text/javascript\"> \n" +
-                    "$(function() {\n" +
-                    "\n" +
-                    "\tvar $navLink = $('#accordion').find('li');\n" +
-                    "\n" +
-                    "\n" +
-                    "\n" +
-                    "\t$navLink.on('click', function() {\n" +
-                    "\t\tvar panelToShow = $(this).data('panel-id');\n" +
-                    "\t\tvar $activeLink = $('#accordion').find('.active');\n" +
-                    "\n" +
-                    "\t\t// show new panel\n" +
-                    "\t\t// .stop is used to prevent the animation from repeating if you keep clicking the same link\n" +
-                    "\t\t$('.' + panelToShow).stop().slideDown();\n" +
-                    "\t\t$('.' + panelToShow).addClass('active');\n" +
-                    "\n" +
-                    "\n" +
-                    "\t\t// hide the previous panel \n" +
-                    "\t\t$activeLink.stop().slideUp()\n" +
-                    "\t\t.removeClass('active');\n" +
-                    "\t});\n" +
-                    "\n" +
-                    "});\n" +
-                    "\n" +
-                    "    var xOffset = 30;\n" +
-                    "    var yOffset = 10;\n" +
-                    "    $(document).ready(function() {\n" +
-                    "        $(\"body\").append(\"<div id='tooltip'>\");\n" +
-                    "\n" +
-                    "  var $navLink = $('#accordion').find('img');\n" +
-                    "  console.log($navLink);\n" +
-                    "  $navLink.on('click', function(e) {\n" +
-                    "  console.log(\"CLICKED\");\n" +
-                    "            e.preventDefault();\n" +
-                    "            $(\"#tooltip\")\n" +
-                    "                .text($(this).attr('title'))\n" +
-                    "                .css(\"top\",(e.pageY - xOffset) + \"px\")\n" +
-                    "                .css(\"left\",(e.pageX + yOffset) + \"px\")\n" +
-                    "                .show().fadeIn(\"fast\");\n" +
-                    "        })\n" +
-                    "            .on('mouseout',function(){\n" +
-                    "                $(\"#tooltip\").fadeOut(\"slow\").hide();\n" +
-                    "            })\n" +
-                    "    })\n" +
-                    "</script>\n");
+                    "<html>\n");
             fw.flush();
+            printHead(fw);
             pDialog.setProgress(1);
-            fw.write("\n" +
-                    "<style>\n" +
-                    "body {\n" +
-                    "  background-color: #ccc;\n" +
-                    "  margin: auto auto;\n" +
-                    "  padding: 0;\n" +
-                    "  width:100%;\n" +
-                    "}\n" +
-                    "/**/\n" +
-                    "#accordion {\n" +
-                    //"  width: 80%;\n" +
-                    "  margin: 10px auto;\n" +
-                    "  height: 50%;\n" +
-                    "  position: relative;\n" +
-                    "}\n" +
-                    "\n" +
-                    "#accordion ul {\n" +
-                    "  text-align: center;\n" +
-                    "  margin: 0;\n" +
-                    "}\n" +
-                    "\n" +
-                    "#accordion ul li {\n" +
-                    "  list-style-type: none;\n" +
-                    "  cursor: pointer;\n" +
-                    "  font-family: \"roboto\", sans-serif;\n" +
-                    "  padding: 0.4em;\n" +
-                    "  font-size: 1.4em;\n" +
-                    "  color: white;\n" +
-                    "  letter-spacing: 0.2em;\n" +
-                    "  transition: 0.3s ease all;\n" +
-                    "  text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;\n" +
-                    "}\n" +
-                    "\n" +
-                    "#accordion ul li:hover { color: #ccc; }\n" +
-                    "\n" +
-                    "#accordion ul a { color: #333; }\n");
-            fw.flush();
-            fw.write("/**/\n" +
-                    ".panels {\n" +
-                    "padding: 0;\n" +
-                    "}\n" +
-                    "\n" +
-                    " \n" +
-                    ".panel {\n" +
-                    "  display: none;\n" +
-                    "   padding: 25px;\n" +
-                    "  font-family: \"roboto\", sans-serif;\n" +
-                    "  padding: 0.3em;\n" +
-                    "  font-size: 1.0em;\n" +
-                    "  color: white;\n" +
-                    "  background-color: white;\n" +
-                    "  color: #333;\n" +
-                    "}\n" +
-                    "@media only screen and (max-width:480px) and (orientation:portrait) {\n" +
-                    "      nav { display:none;}\n" +
-                    "\n" +
-                    ".panel {\n" +
-                    "  padding: 0.2em;\n" +
-                    "  font-size: 0.7em;\n" +
-                    " }   \n" +
-                    " }\n" +
-                    "\n" +
-                    "    #tooltip{\n" +
-                    "        position:absolute;\n" +
-                    "        border:1px solid #222;\n" +
-                    "        border-radius: 6px; \n" +
-                    "        background:#444;\n" +
-                    "        padding:3px 6px;\n" +
-                    "        color:#fff;\n" +
-                    "        font-family:verdana, sans-serif;\n" +
-                    "        display:none;\n" +
-                    "    }\n" +
-                    "    \n" +
-                    "   table {\n" +
-                    "    border-collapse: collapse;\n" +
-                    "    width:100%;" +
-                    "}\n" +
-                    "\n" +
-                    "   table, td, th {\n" +
-                    "    border: 1px solid black;\n" +
-                    "} \n");
-            fw.flush();
-            fw.write(".aktuell {\n" +
-                    "font-family: roboto, sans-serif; \n" +
-                    "padding-top: 10px;\n" +
-                    "font-size: 1.4em; \n" +
-                    "font-weight:bold;\n" +
-                    "text-align: center;\n" +
-                    "color: white;\n" +
-                    "text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;\n" +
-                    "}\n" +
-                    "\n" +
-                    ".stand {\n" +
-                    "font-family: verdana, sans-serif; \n" +
-                    "padding: 0 20px 10px 0;\n" +
-                    "font-size: 0.8em; \n" +
-                    "text-align: right;\n" +
-                    "color: #232323;\n" +
-                    "}\n" +
-                    "</style>");
-            fw.flush();
-            pDialog.setProgress(2);
-            fw.write("\t</head>\n" +
-                    "\t<body>\n" +
+            fw.write( "\t<body>\n" +
                     "  <div class=\"container\">\n" +
-                    "  <div class=\"aktuell\">Für "+finalfuerDatum+"</div>\n" +
+                    "  <div class=\"aktuell\">"+thise.getString(R.string.vertretungsplan_for_date,finalfuerDatum)+"</div>\n" +
                     "    <div id=\"accordion\">\n" +
                     "      <ul class=\"panels\">\n");
             fw.flush();
             for(int i=0;i<fertigeKlassen.size(); i++){
-                fw.write(data.get(i).getHTMLListItems(i, klasse,thise.getSharedPreferences("Prefs", MODE_PRIVATE)));
+                fw.write(data.get(i).getHTMLListItems(i, klasse,thise.getSharedPreferences("Prefs", MODE_PRIVATE),thise));
                 fw.flush();
-                pDialog.setProgress(i+3);
+                pDialog.setProgress(i+2);
             }
             fw.write("      </ul>\n" +
                     "    </div>\n" +
                     "   </div>\n" +
-                    "   <div class=\"stand\">Stand: "+finalstand+"</div>\n" +
+                    "   <div class=\"stand\">"+thise.getString(R.string.vertretungsplan_last_update,finalstand)+"</div>\n" +
                     "  </body>\n" +
                     "</html>");
             fw.close();
@@ -1196,6 +1045,164 @@ public class Vertretungsplan extends AppCompatActivity
         }
         catch(IOException ignored){}
 
+    }
+
+    private static void printHead(FileWriter fw) throws IOException{
+        fw.write("<head>\n" +
+                "<meta charset=\"UTF-8\">\n" +
+                "<title>Accordion</title>\n" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                "<link href='http://fonts.googleapis.com/css?family=roboto:400,600,700' rel='stylesheet' type='text/css'>\n" +
+                "\n" +
+                "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script> \n" +
+                "<script type = \"text/javascript\"> \n" +
+                "$(function() {\n" +
+                "\n" +
+                "\tvar $navLink = $('#accordion').find('li');\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\t$navLink.on('click', function() {\n" +
+                "\t\tvar panelToShow = $(this).data('panel-id');\n" +
+                "\t\tvar $activeLink = $('#accordion').find('.active');\n" +
+                "\n" +
+                "\t\t// show new panel\n" +
+                "\t\t// .stop is used to prevent the animation from repeating if you keep clicking the same link\n" +
+                "\t\t$('.' + panelToShow).stop().slideDown();\n" +
+                "\t\t$('.' + panelToShow).addClass('active');\n" +
+                "\n" +
+                "\n" +
+                "\t\t// hide the previous panel \n" +
+                "\t\t$activeLink.stop().slideUp()\n" +
+                "\t\t.removeClass('active');\n" +
+                "\t});\n" +
+                "\n" +
+                "});\n" +
+                "\n" +
+                "    var xOffset = 30;\n" +
+                "    var yOffset = 10;\n" +
+                "    $(document).ready(function() {\n" +
+                "        $(\"body\").append(\"<div id='tooltip'>\");\n" +
+                "\n" +
+                "  var $navLink = $('#accordion').find('img');\n" +
+                "  console.log($navLink);\n" +
+                "  $navLink.on('click', function(e) {\n" +
+                "  console.log(\"CLICKED\");\n" +
+                "            e.preventDefault();\n" +
+                "            $(\"#tooltip\")\n" +
+                "                .text($(this).attr('title'))\n" +
+                "                .css(\"top\",(e.pageY - xOffset) + \"px\")\n" +
+                "                .css(\"left\",(e.pageX + yOffset) + \"px\")\n" +
+                "                .show().fadeIn(\"fast\");\n" +
+                "        })\n" +
+                "            .on('mouseout',function(){\n" +
+                "                $(\"#tooltip\").fadeOut(\"slow\").hide();\n" +
+                "            })\n" +
+                "    })\n" +
+                "</script>\n");
+        fw.flush();
+        fw.write("\n" +
+                "<style>\n" +
+                "body {\n" +
+                "  background-color: #ccc;\n" +
+                "  margin: auto auto;\n" +
+                "  padding: 0;\n" +
+                "  width:100%;\n" +
+                "}\n" +
+                "/**/\n" +
+                "#accordion {\n" +
+                //"  width: 80%;\n" +
+                "  margin: 10px auto;\n" +
+                "  height: 50%;\n" +
+                "  position: relative;\n" +
+                "}\n" +
+                "\n" +
+                "#accordion ul {\n" +
+                "  text-align: center;\n" +
+                "  margin: 0;\n" +
+                "}\n" +
+                "\n" +
+                "#accordion ul li {\n" +
+                "  list-style-type: none;\n" +
+                "  cursor: pointer;\n" +
+                "  font-family: \"roboto\", sans-serif;\n" +
+                "  padding: 0.4em;\n" +
+                "  font-size: 1.4em;\n" +
+                "  color: white;\n" +
+                "  letter-spacing: 0.2em;\n" +
+                "  transition: 0.3s ease all;\n" +
+                "  text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;\n" +
+                "}\n" +
+                "\n" +
+                "#accordion ul li:hover { color: #ccc; }\n" +
+                "\n" +
+                "#accordion ul a { color: #333; }\n");
+        fw.flush();
+        fw.write("/**/\n" +
+                ".panels {\n" +
+                "padding: 0;\n" +
+                "}\n" +
+                "\n" +
+                " \n" +
+                ".panel {\n" +
+                "  display: none;\n" +
+                "   padding: 25px;\n" +
+                "  font-family: \"roboto\", sans-serif;\n" +
+                "  padding: 0.3em;\n" +
+                "  font-size: 1.0em;\n" +
+                "  color: white;\n" +
+                "  background-color: white;\n" +
+                "  color: #333;\n" +
+                "}\n" +
+                "@media only screen and (max-width:480px) and (orientation:portrait) {\n" +
+                "      nav { display:none;}\n" +
+                "\n" +
+                ".panel {\n" +
+                "  padding: 0.2em;\n" +
+                "  font-size: 0.7em;\n" +
+                " }   \n" +
+                " }\n" +
+                "\n" +
+                "    #tooltip{\n" +
+                "        position:absolute;\n" +
+                "        border:1px solid #222;\n" +
+                "        border-radius: 6px; \n" +
+                "        background:#444;\n" +
+                "        padding:3px 6px;\n" +
+                "        color:#fff;\n" +
+                "        font-family:verdana, sans-serif;\n" +
+                "        display:none;\n" +
+                "    }\n" +
+                "    \n" +
+                "   table {\n" +
+                "    border-collapse: collapse;\n" +
+                "    width:100%;" +
+                "}\n" +
+                "\n" +
+                "   table, td, th {\n" +
+                "    border: 1px solid black;\n" +
+                "} \n");
+        fw.flush();
+        fw.write(".aktuell {\n" +
+                "font-family: roboto, sans-serif; \n" +
+                "padding-top: 10px;\n" +
+                "font-size: 1.4em; \n" +
+                "font-weight:bold;\n" +
+                "text-align: center;\n" +
+                "color: white;\n" +
+                "text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;\n" +
+                "}\n" +
+                "\n" +
+                ".stand {\n" +
+                "font-family: verdana, sans-serif; \n" +
+                "padding: 0 20px 10px 0;\n" +
+                "font-size: 0.8em; \n" +
+                "text-align: right;\n" +
+                "color: #232323;\n" +
+                "}\n" +
+                "</style>\n" +
+                "\t</head>\n");
+        fw.flush();
     }
 
     public static String onlyElement(String full, String element, String params) {
