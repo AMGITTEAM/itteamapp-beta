@@ -4,10 +4,8 @@
     <item android:title="@string/nav_drawer_startseite"
         android:id="@+id/nav_startseite"/>
 
-    <item android:title="@string/nav_drawer_vplanheute"
-        android:id="@+id/nav_vertret_heute"/>
-    <item android:title="@string/nav_drawer_vplanmorgen"
-        android:id="@+id/nav_vertret_morgen"/>
+    <item android:title="@string/nav_drawer_vplan"
+        android:id="@+id/nav_vertretungsplan"/>
     <item android:title="@string/nav_drawer_stundenplan"
         android:id="@+id/nav_stundenplan"/>
 

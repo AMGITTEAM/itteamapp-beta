@@ -25,22 +25,9 @@ class Methoden {
                     currentActivity.startActivity(intent);
                 }
                 break;
-            case R.id.nav_vertret_heute:
+            case R.id.nav_vertretungsplan:
                 if (id != currentNavId) {
-                    Intent myIntent = new Intent(currentActivity, Vertretungsplan.class);
-                    myIntent.putExtra("Date", "Heute");
-                    myIntent.putExtra("Title", "Heutiger Vertretungsplan");
-                    myIntent.putExtra("navID", 1);
-                    currentActivity.startActivity(myIntent);
-                }
-                break;
-            case R.id.nav_vertret_morgen:
-                if (id != currentNavId) {
-                    Intent myIntent = new Intent(currentActivity, Vertretungsplan.class);
-                    myIntent.putExtra("Date", "Folgetag");
-                    myIntent.putExtra("Title", "Morgiger Vertretungsplan");
-                    myIntent.putExtra("navID", 2);
-                    currentActivity.startActivity(myIntent);
+                    currentActivity.startActivity(new Intent(currentActivity, Vertretungsplan.class));
                 }
                 break;
             case R.id.nav_stundenplan:
@@ -116,14 +103,13 @@ class Methoden {
             navigationView.getMenu().getItem(2).setVisible(false);
             navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
-            navigationView.getMenu().getItem(5).setVisible(false);
         }
         if(Startseite.login==1){
+            navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
-            navigationView.getMenu().getItem(5).setVisible(false);
         }
         if(Startseite.login<=2){
-            navigationView.getMenu().getItem(5).setVisible(false);
+            navigationView.getMenu().getItem(4).setVisible(false);
         }
 
         ViewStub stub = currentActivity.findViewById(R.id.all_content);

@@ -5,17 +5,34 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,7 +42,10 @@ import java.io.InputStreamReader;
 import java.net.Authenticator;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,9 +53,7 @@ public class Vertretungsplan extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final Activity thise = this;
-    private static String date = "";
     private static String klasse = "";
-    private int navID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,31 +68,26 @@ public class Vertretungsplan extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        Intent thisIntent = getIntent();
-        navID = thisIntent.getIntExtra("navID",0);
+        Startseite.prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+        klasse = Startseite.prefs.getString("klasse","");
 
-        SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
-        klasse = prefs.getString("klasse","");
-
-        Startseite.login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
-        Startseite.benutzername = prefs.getString("loginUsername","");
+        Startseite.login = Startseite.prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
+        Startseite.benutzername = Startseite.prefs.getString("loginUsername","");
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,navID,R.layout.vertretungsplan);
-
-        date = thisIntent.getStringExtra("Date");
-        setTitle(thisIntent.getStringExtra("Title"));
+        methoden.onCreateFillIn(this,this,1,R.layout.vertretungsplan_activity);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                action(thise);
+                File heute = action(thise, "Heute");
+                File folgetag = action(thise, "Folgetag");
+                generateLayout(heute, folgetag);
             }
         }).start();
     }
 
-    private static void action(final Activity thise){
-        System.out.println(klasse);
+    private static File action(final Activity thise, String date){
         String fuerDatum;
         String stand;
         final List<String> urlEndings = new ArrayList<>();
@@ -87,7 +100,10 @@ public class Vertretungsplan extends AppCompatActivity
         final List<String> fertigeKlassen = new ArrayList<>();
         final File lFile = new File(thise.getFilesDir() + "/Vertretungsplan"+date+".htm");
         try {
-            Looper.prepare();
+            try {
+                Looper.prepare();
+            }
+            catch (Exception ignored){}
             final ProgressDialog pDialog = new ProgressDialog(thise);
 
             thise.runOnUiThread(new Runnable() {
@@ -170,14 +186,6 @@ public class Vertretungsplan extends AppCompatActivity
 
                     writeToFileWithProcess(pDialog, lFile, finalfuerDatum, finalstand, thise, data, fertigeKlassen);
 
-                    pDialog.setMax(1);
-                    pDialog.setMessage(thise.getString(R.string.vertretungsplan_dialog_opening));
-
-                    WebView wv = thise.findViewById(R.id.webView);
-                    wv.loadUrl("file:///"+lFile.getAbsolutePath());
-                    wv.getSettings().setJavaScriptEnabled(true);
-                    wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-
                     pDialog.hide();
                 }
             });
@@ -186,6 +194,7 @@ public class Vertretungsplan extends AppCompatActivity
         catch (Exception e) {
             e.printStackTrace();
         }
+        return lFile;
     }
 
     static void tryMatcher(String s, List<VertretungModel> fertigeMulti, List<VertretungModel> vertretungModels){
@@ -863,7 +872,6 @@ public class Vertretungsplan extends AppCompatActivity
         String stand = "";
         String fuerDatum = "";
         for (int i=0;i<urlEndings.size();i++) {
-            System.out.println(main);
             URL mainUrl = new URL(main+"subst_"+urlEndings.get(i));
             BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
             StringBuilder full = new StringBuilder();
@@ -886,7 +894,6 @@ public class Vertretungsplan extends AppCompatActivity
             }
             String table = onlyElement(center,"table"," class=\"mon_list\" ");
             tables.add(table);
-            System.out.println(urlEndings.get(i));
             if(urlEndings.get(i).equals("001.htm")){
                 String headData = onlyElement(body,"td"," align=\"right\" valign=\"bottom\"");
                 stand = (headData.split("Stand: ")[1]).split("</p>")[0].trim();
@@ -903,7 +910,6 @@ public class Vertretungsplan extends AppCompatActivity
         String stand = "";
         String fuerDatum = "";
         for (int i=0;i<urlEndings.size();i++) {
-            System.out.println(main);
             URL mainUrl = new URL(main+"subst_"+urlEndings.get(i));
             BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
             StringBuilder full = new StringBuilder();
@@ -926,7 +932,6 @@ public class Vertretungsplan extends AppCompatActivity
             }
             String table = onlyElement(center,"table"," class=\"mon_list\" ");
             tables.add(table);
-            System.out.println(urlEndings.get(i));
             if(urlEndings.get(i).equals("001.htm")){
                 String headData = onlyElement(body,"td"," align=\"right\" valign=\"bottom\"");
                 stand = (headData.split("Stand: ")[1]).split("</p>")[0].trim();
@@ -1221,6 +1226,100 @@ public class Vertretungsplan extends AppCompatActivity
         return partTwo.split("\"")[0];
     }
 
+    private void generateLayout(final File heute, final File folgetag){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), heute, folgetag);
+
+                final ViewPager mViewPager = findViewById(R.id.vertretungsplan_container);
+                mViewPager.setAdapter(mSectionsPagerAdapter);
+
+                if(!Startseite.prefs.getBoolean("vplantutorial_shown",false)){
+                    findViewById(R.id.vertretungsplan_darken_view).setVisibility(View.VISIBLE);
+                    findViewById(R.id.vertretungsplan_darken_view).setAlpha(0.6f);
+                    final ShowcaseView view = new ShowcaseView.Builder(thise)
+                            .setTarget(new ViewTarget(mViewPager))
+                            .withMaterialShowcase()
+                            .setContentTitle("Vertretungsplan")
+                            .setContentText("Nach links wischen, um die nächste Seite des Vertretungsplan zu öffnen")
+                            .hideOnTouchOutside()
+                            .build();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while(view.isShowing()){
+                                try {
+                                    Thread.sleep(100);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    findViewById(R.id.vertretungsplan_darken_view).setAlpha(0f);
+                                    findViewById(R.id.vertretungsplan_darken_view).setVisibility(View.GONE);
+                                }
+                            });
+                            Startseite.prefs.edit().putBoolean("vplantutorial_shown",true).apply();
+                        }
+                    }).start();
+                }
+            }
+        });
+    }
+
+    class SectionsPagerAdapter extends FragmentPagerAdapter {
+        File heute;
+        File folgetag;
+
+        SectionsPagerAdapter(FragmentManager fm, File heute, File folgetag) {
+            super(fm);
+            this.heute = heute;
+            this.folgetag = folgetag;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if(position==0){
+                return PlaceholderFragment.newInstance(heute);
+            }
+            else if(position==1){
+                return PlaceholderFragment.newInstance(folgetag);
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {}
+
+        static PlaceholderFragment newInstance(File file) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putString("file",file.getAbsolutePath());
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+            View rootView = inflater.inflate(R.layout.vertretungsplan_fragment, container, false);
+            WebView webView = rootView.findViewById(R.id.webView);
+            webView.loadUrl("file://"+getArguments().getString("file"));
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+            return rootView;
+        }
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -1236,14 +1335,7 @@ public class Vertretungsplan extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
-        int newNavID = 0;
-        if(navID==1){
-            newNavID=R.id.nav_vertret_heute;
-        }
-        else if(navID==2){
-            newNavID=R.id.nav_vertret_morgen;
-        }
-        methoden.onNavigationItemSelectedFillIn(item,newNavID,this);
+        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_vertretungsplan,this);
         return true;
     }
 }

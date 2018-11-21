@@ -6,5 +6,4 @@ Feedback abrufen
 IT-Team Meldungen löschen
 Serverrückmeldung auswerten
 IT-Team Raum schöner machen
-Vertretungsplan auf eine Seite mit Swipe
 IT-Team Holen Abfrage korrigieren (Und/oder)

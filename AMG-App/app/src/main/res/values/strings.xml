@@ -30,6 +30,7 @@
     <string name="title_activity_itteam_senden_pruefeung">Zusammenfassung</string>
     <string name="title_activity_itteam_holen">Fehlermeldungen</string>
     <string name="title_activity_stundenplan">Stundenplan</string>
+    <string name="title_activity_vertretungsplan">Vertretungsplan</string>
     <string name="title_activity_info">Info</string>
     <string name="title_activity_einstellungen">Einstellungen</string>
     <string name="title_activity_feedback">Feedback</string>
@@ -50,8 +51,7 @@
     <!--NavDrawer-->
 
     <string name="nav_drawer_startseite">Startseite</string>
-    <string name="nav_drawer_vplanheute">Vertretungsplan heute</string>
-    <string name="nav_drawer_vplanmorgen">Vertretungsplan morgen</string>
+    <string name="nav_drawer_vplan">Vertretungsplan</string>
     <string name="nav_drawer_stundenplan">Stundenplan</string>
     <string name="nav_drawer_it_team_senden">Meldung an IT-Team</string>
     <string name="nav_drawer_it_team_holen">Meldungen abrufen</string>
@@ -222,7 +222,6 @@
     <string name="vertretungsplan_dialog_extracting">Einträge werden extrahiert…</string>
     <string name="vertretungsplan_dialog_compiling">Einträge werden zusammengestellt…</string>
     <string name="vertretungsplan_dialog_generating">Tabelle wird erstellt…</string>
-    <string name="vertretungsplan_dialog_opening">Datei wird geöffnet…</string>
 
     <!--Vertretungsplan-->
 
@@ -346,11 +345,11 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Code aufgeräumt\n
-        • IT-Team-Meldung ohne Raum ermöglicht\n
-        • Fehler im Menü behoben</string>
+    <string name="changelog">• Vertretungsplan auf eine Seite gebracht. Wische, um zur nächsten Seite zu kommen!</string>
 
     <string name="changelog_all">
+        <b>1.1.0 - 21.11.2018</b>\n
+        • Vertretungsplan auf eine Seite gebracht. Wische, um zur nächsten Seite zu kommen!\n\n
         <b>1.0.2 - 18.11.2018</b>\n
         • Code aufgeräumt\n
         • IT-Team-Meldung ohne Raum ermöglicht\n

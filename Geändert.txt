@@ -1,3 +1,1 @@
-﻿Code aufgeräumt
-IT-Team-Meldung ohne Raum ermöglicht
-Fehler im Menü behoben
+﻿Vertretungsplan auf eine Seite gebracht. Wische, um zur nächsten Seite zu kommen!
