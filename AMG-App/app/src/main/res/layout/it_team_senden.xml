@@ -9,40 +9,49 @@
     tools:context="www.amg_witten.de.apptest.ITTeamSenden">
 
     <TextView
-        android:text="@string/it_team_melden_gebaeude"
+        android:text="@string/it_team_melden_raum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Hilfe"/>
 
-    <Button
-        android:text="@string/it_team_melden_gebaeude_hauptbau"
-        android:layout_width="match_parent"
+    <NumberPicker
+        android:id="@+id/gebaeude"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Hilfe"
-        android:layout_alignRight="@+id/Hilfe"
-        android:layout_alignEnd="@+id/Hilfe"
-        android:id="@+id/H"
-        android:onClick="gebaeude"/>
+        android:layout_below="@id/Hilfe"
+        android:layout_toStartOf="@+id/etage"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="end"
+        android:layout_toLeftOf="@+id/etage" />
+
+    <NumberPicker
+        android:id="@+id/etage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Hilfe"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="end"
+        android:layout_centerHorizontal="true"/>
+
+    <NumberPicker
+        android:id="@+id/raum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Hilfe"
+        android:layout_toEndOf="@+id/etage"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="end"
+        android:layout_toRightOf="@+id/etage" />
 
     <Button
-        android:text="@string/it_team_melden_gebaeude_altbau"
-        android:layout_width="match_parent"
+        android:id="@+id/weiter"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/H"
-        android:layout_alignRight="@+id/H"
-        android:layout_alignEnd="@+id/H"
-        android:id="@+id/A"
-        android:onClick="gebaeude" />
-
-    <Button
-        android:text="@string/it_team_melden_gebaeude_neubau"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/A"
-        android:layout_alignRight="@+id/H"
-        android:layout_alignEnd="@+id/H"
-        android:id="@+id/N"
-        android:onClick="gebaeude" />
+        android:layout_below="@id/raum"
+        android:layout_toEndOf="@+id/raum"
+        android:onClick="fertig"
+        android:text="@string/it_team_melden_raum_ready"
+        android:layout_toRightOf="@+id/raum" />
 
     <View
         android:id="@+id/divider"
@@ -51,16 +60,14 @@
         android:layout_marginBottom="20dp"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
-        android:layout_below="@id/N"/>
+        android:layout_below="@id/weiter"/>
 
     <Button
         android:text="@string/it_team_melden_gebaeude_none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
-        android:layout_alignRight="@+id/H"
-        android:layout_alignEnd="@+id/H"
         android:id="@+id/none"
-        android:onClick="gebaeude" />
+        android:onClick="ohne" />
 
 </RelativeLayout>

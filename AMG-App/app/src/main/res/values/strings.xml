@@ -18,7 +18,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="title_activity_itteam_senden">Gebäude</string>
+    <string name="title_activity_itteam_senden">Raum</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_itteam_senden2">Etage</string>
     <string name="title_activity_itteam_senden3">Raumnummer</string>
@@ -103,6 +103,41 @@
     <string name="stundenplan_edit_delete">Löschen</string>
 
     <!--IT-Team-Melden-->
+
+    <string name="it_team_melden_raum_ready">Weiter</string>
+
+    <string-array name="it_team_melden_gebaeude_array">
+        <item>H</item>
+        <item>A</item>
+        <item>N</item>
+    </string-array>
+
+
+    <string-array name="it_team_melden_etage_array">
+        <item>2</item>
+        <item>1</item>
+        <item>0</item>
+        <item>Z</item>
+        <item>U</item>
+    </string-array>
+
+
+    <string-array name="it_team_melden_raum_array">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </string-array>
 
     <string name="it_team_melden_gebaeude">Bitte wähle das Gebäude mit dem zu meldendem Fehler aus!</string>
     <string name="it_team_melden_gebaeude_hauptbau">H</string>
@@ -320,7 +355,7 @@
     <string name="info_manager">Diese App wird programmiert, verwaltet und gewartet von\nAdrian Kathagen</string>
     <string name="info_version_placeholder">Version wird geladen…</string>
     <string name="info_credits_placeholder">Credits werden geladen…</string>
-    <string name="info_credits">Icons: http://www.famfamfam.com/lab/icons/silk/</string>
+    <string name="info_credits">Icons: Silk Icons, by Mark James - famfamfam</string>
     <string name="info_schule">Diese App wurde programmiert für das\n
 Albert-Martmöller-Gymnasium\n
 Oberdorf 9\n
@@ -345,9 +380,18 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Vertretungsplan auf eine Seite gebracht. Wische, um zur nächsten Seite zu kommen!</string>
+    <string name="changelog">• Fehler im Vertretungsplan behoben\n
+    • Absturz im Feedback-Bereich behoben</string>
 
     <string name="changelog_all">
+        <b>1.1.2 - 07.02.2018</b>\n
+        • Fehler im Vertretungsplan behoben\n
+        • Absturz im Feedback-Bereich behoben\n\n
+        <b>1.1.1 - 20.01.2018</b>\n
+        • Lizenzprobleme mit Google behoben (App wieder im Play-Store verfügbar)\n
+        • Raumeingabe beim Melden eines IT-Fehlers vereinfacht\n
+        • Logikfehlerkorrektur im IT-Team-Abrufen-Bereich\n
+        • Menü-Fehler behoben\n\n
         <b>1.1.0 - 21.11.2018</b>\n
         • Vertretungsplan auf eine Seite gebracht. Wische, um zur nächsten Seite zu kommen!\n\n
         <b>1.0.2 - 18.11.2018</b>\n

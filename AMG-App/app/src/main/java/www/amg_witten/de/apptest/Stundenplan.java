@@ -76,7 +76,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         setSupportActionBar(toolbar);
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,3,R.layout.stundenplan_activity);
+        methoden.onCreateFillIn(this,this,2,R.layout.stundenplan_activity);
 
         tabLayout = findViewById(R.id.tab_layout);
 

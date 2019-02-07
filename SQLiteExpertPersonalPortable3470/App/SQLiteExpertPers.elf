@@ -1,0 +1,378 @@
+EurekaLog 6.1.01
+
+Application:
+--------------------------------------------------------------------------------------------
+  1.1 Start Date      : Fri, 28 Jun 2013 23:52:17 +0500
+  1.2 Name/Description: SQLiteExpertPers.exe - (The complete administration tool for SQLite)
+  1.3 Version Number  : 3.4.70.2300
+  1.4 Parameters      : 
+  1.5 Compilation Date: Sat, 8 Jun 2013 09:57:39 +0500
+  1.6 Up Time         : 47 seconds
+
+Exception:
+------------------------------------------------------------------------------------------
+  2.1 Date          : Fri, 28 Jun 2013 23:53:04 +0500
+  2.2 Address       : 00AC1CB9
+  2.3 Module Name   : SQLiteExpertPers.exe - (The complete administration tool for SQLite)
+  2.4 Module Version: 3.4.70.2300
+  2.5 Type          : ESQLiteException
+  2.6 Message       : file is encrypted or is not a database
+                      .
+                      SQL Statement:
+---------------------------------------------------------------                      .
+                      select name from sqlite_master limit 0, 0.
+  2.7 ID            : 213D
+  2.8 Count         : 1
+  2.9 Status        : New
+  2.10 Note         : 
+
+User:
+-------------------------------------------------------
+  3.1 ID        : Abhishek
+  3.2 Name      : eXPerience
+  3.3 Email     : 
+  3.4 Company   : eXPerience
+  3.5 Privileges: SeChangeNotifyPrivilege         - ON
+                  SeSecurityPrivilege             - OFF
+                  SeBackupPrivilege               - OFF
+                  SeRestorePrivilege              - OFF
+                  SeSystemtimePrivilege           - OFF
+                  SeShutdownPrivilege             - OFF
+                  SeRemoteShutdownPrivilege       - OFF
+                  SeTakeOwnershipPrivilege        - OFF
+                  SeDebugPrivilege                - OFF
+                  SeSystemEnvironmentPrivilege    - OFF
+                  SeSystemProfilePrivilege        - OFF
+                  SeProfileSingleProcessPrivilege - OFF
+                  SeIncreaseBasePriorityPrivilege - OFF
+                  SeLoadDriverPrivilege           - ON
+                  SeCreatePagefilePrivilege       - OFF
+                  SeIncreaseQuotaPrivilege        - OFF
+                  SeUndockPrivilege               - ON
+                  SeManageVolumePrivilege         - OFF
+                  SeImpersonatePrivilege          - ON
+                  SeCreateGlobalPrivilege         - ON
+
+Active Controls:
+-------------------------------------------------------
+  4.1 Form Class   : TfrmSCMain
+  4.2 Form Text    : SQLite Expert Personal 3.4.70.2300
+  4.3 Control Class: TDLDBTree
+  4.4 Control Text : 
+
+Computer:
+--------------------------------------------------------------------------------------
+  5.1 Name          : USER7
+  5.2 Total Memory  : 3046 Mb
+  5.3 Free Memory   : 1707 Mb
+  5.4 Total Disk    : 134.81 Gb
+  5.5 Free Disk     : 16.21 Gb
+  5.6 System Up Time: 1 day, 9 hours, 29 minutes, 59 seconds
+  5.7 Processor     : Intel(R) Core(TM)2 Duo CPU     T8100  @ 2.10GHz
+  5.8 Display Mode  : 1680 x 1050, 32 bit
+  5.9 Display DPI   : 96
+  5.10 Video Card   : Mobile Intel(R) 965 Express Chipset Family (driver 6.14.10.5218)
+  5.11 Printer      : 
+
+Operating System:
+------------------------------------
+  6.1 Type    : Microsoft Windows XP
+  6.2 Build # : 2600
+  6.3 Update  : Service Pack 3
+  6.4 Language: English
+  6.5 Charset : 0
+
+
+Call Stack Information:
+------------------------------------------------------------------------------------------------------------
+|Address |Module              |Unit                |Class             |Procedure/Method          |Line     |
+------------------------------------------------------------------------------------------------------------
+|*Exception Thread: ID=620; Priority=0; Class=; [Main]                                                     |
+|----------------------------------------------------------------------------------------------------------|
+|00AC1CB9|SQLiteExpertPers.exe|DLSQLite3BaseAPI.pas|TSQLite3BaseDriver|sqlite3drv_check_error_msg|639[5]   |
+|00AC1C60|SQLiteExpertPers.exe|DLSQLite3BaseAPI.pas|TSQLite3BaseDriver|sqlite3drv_check_error_msg|634[0]   |
+|00ACF575|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |SQLiteCheck               |1621[2]  |
+|00ACF544|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |SQLiteCheck               |1619[0]  |
+|00AD6F96|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |SQLiteCheck               |3584[1]  |
+|00AD6F94|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |SQLiteCheck               |3584[1]  |
+|00AD0D62|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |InternalPrepare           |2055[1]  |
+|00AD0D48|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |InternalPrepare           |2054[0]  |
+|00AD0DCC|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |Prepare                   |2066[7]  |
+|00A387A2|SQLiteExpertPers.exe|DLDatabase.pas      |TDLDatabase       |Execute                   |194[10]  |
+|00A386B2|SQLiteExpertPers.exe|DLDatabase.pas      |TDLDatabase       |Execute                   |165[1]   |
+|00ACCB44|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |InternalOpen              |1020[20] |
+|00ACCA04|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |InternalOpen              |1000[0]  |
+|00ACD185|SQLiteExpertPers.exe|DLSQLiteDatabase.pas|TDLSQLiteDatabase |DoConnect                 |1097[13] |
+|00B34AD4|SQLiteExpertPers.exe|DLDBTree.pas        |TDLDBTree         |GetNodeMetadata           |356[0]   |
+|00B34B22|SQLiteExpertPers.exe|DLDBTree.pas        |TDLDBTree         |GetCurrentMetadata        |367[1]   |
+|005E0CFD|SQLiteExpertPers.exe|DB.pas              |TCustomConnection |SetConnected              |3167[8]  |
+|011C7E2B|SQLiteExpertPers.exe|SCMain.pas          |TfrmSCMain        |OpenDatabase              |2839[46] |
+|011C7BDC|SQLiteExpertPers.exe|SCMain.pas          |TfrmSCMain        |OpenDatabase              |2793[0]  |
+|011C79E3|SQLiteExpertPers.exe|SCMain.pas          |TfrmSCMain        |acOpenDatabaseExecute     |2760[14] |
+|004FC711|SQLiteExpertPers.exe|ActnList.pas        |TContainedAction  |Execute                   |448[8]   |
+|004FC6E0|SQLiteExpertPers.exe|ActnList.pas        |TContainedAction  |Execute                   |440[0]   |
+|004FD4CC|SQLiteExpertPers.exe|ActnList.pas        |TCustomAction     |Execute                   |1094[7]  |
+|007F621E|SQLiteExpertPers.exe|dxBar.pas           |                  |Finalization              |53991[12]|
+|007F619B|SQLiteExpertPers.exe|dxBar.pas           |                  |Finalization              |53991[12]|
+|007EEF17|SQLiteExpertPers.exe|dxBar.pas           |                  |Finalization              |53991[12]|
+|007EEDF8|SQLiteExpertPers.exe|dxBar.pas           |                  |Finalization              |53991[12]|
+|007F2639|SQLiteExpertPers.exe|dxBar.pas           |                  |Finalization              |53991[12]|
+|007D9B78|SQLiteExpertPers.exe|dxBar.pas           |                  |Finalization              |53991[12]|
+|007D85C5|SQLiteExpertPers.exe|dxBar.pas           |                  |Finalization              |53991[12]|
+|0050DED4|SQLiteExpertPers.exe|Controls.pas        |TControl          |WndProc                   |7074[91] |
+|0050DC00|SQLiteExpertPers.exe|Controls.pas        |TControl          |WndProc                   |6983[0]  |
+|00512798|SQLiteExpertPers.exe|Controls.pas        |TWinControl       |WndProc                   |9831[144]|
+|00512230|SQLiteExpertPers.exe|Controls.pas        |TWinControl       |WndProc                   |9687[0]  |
+|007D90F7|SQLiteExpertPers.exe|dxBar.pas           |                  |Finalization              |53991[12]|
+|00511E38|SQLiteExpertPers.exe|Controls.pas        |TWinControl       |MainWndProc               |9552[3]  |
+|00508B42|SQLiteExpertPers.exe|Controls.pas        |                  |FindControl               |3378[6]  |
+|005BCD13|SQLiteExpertPers.exe|Forms.pas           |TApplication      |ProcessMessage            |9760[23] |
+|005BCC20|SQLiteExpertPers.exe|Forms.pas           |TApplication      |ProcessMessage            |9737[0]  |
+|005BCD56|SQLiteExpertPers.exe|Forms.pas           |TApplication      |HandleMessage             |9790[1]  |
+|005BCD4C|SQLiteExpertPers.exe|Forms.pas           |TApplication      |HandleMessage             |9789[0]  |
+|005BD081|SQLiteExpertPers.exe|Forms.pas           |TApplication      |Run                       |9927[26] |
+|005BCFB8|SQLiteExpertPers.exe|Forms.pas           |TApplication      |Run                       |9901[0]  |
+|01209815|SQLiteExpertPers.exe|SQLiteExpert.dpr    |                  |                          |213[22]  |
+------------------------------------------------------------------------------------------------------------
+
+Modules Information:
+--------------------
+
+Processes Information:
+----------------------
+
+Assembler Information:
+----------------------
+
+Registers:
+----------
+
+
+
+EurekaLog 6.1.01
+
+Application:
+--------------------------------------------------------------------------------------------
+  1.1 Start Date      : Fri, 10 Feb 2017 21:29:33 +0100
+  1.2 Name/Description: SQLiteExpertPers.exe - (The complete administration tool for SQLite)
+  1.3 Version Number  : 3.4.70.2300
+  1.4 Parameters      : 
+  1.5 Compilation Date: Sat, 8 Jun 2013 05:57:39 +0100
+  1.6 Up Time         : 2 minutes, 10 seconds
+
+Exception:
+------------------------------------------------------------------------------------------
+  2.1 Date          : Fri, 10 Feb 2017 21:31:44 +0100
+  2.2 Address       : 00432E4B
+  2.3 Module Name   : SQLiteExpertPers.exe - (The complete administration tool for SQLite)
+  2.4 Module Version: 3.4.70.2300
+  2.5 Type          : EVariantInvalidOpError
+  2.6 Message       : Invalid variant operation.
+  2.7 ID            : F96E
+  2.8 Count         : 1
+  2.9 Status        : New
+  2.10 Note         : 
+
+User:
+-------------------------------------------------------
+  3.1 ID        : Adrian
+  3.2 Name      : 
+  3.3 Email     : 
+  3.4 Company   : 
+  3.5 Privileges: SeShutdownPrivilege             - OFF
+                  SeChangeNotifyPrivilege         - ON
+                  SeUndockPrivilege               - OFF
+                  SeIncreaseWorkingSetPrivilege   - OFF
+                  SeTimeZonePrivilege             - OFF
+
+Active Controls:
+-------------------------------------------------------
+  4.1 Form Class   : TfrmSCMain
+  4.2 Form Text    : SQLite Expert Personal 3.4.70.2300
+  4.3 Control Class: TcxGridSite
+  4.4 Control Text : 
+
+Computer:
+--------------------------------------------------------------------------------
+  5.1 Name          : ADRIANS-PC
+  5.2 Total Memory  : 8110 Mb
+  5.3 Free Memory   : 2677 Mb
+  5.4 Total Disk    : 1863.01 Gb
+  5.5 Free Disk     : 1393.67 Gb
+  5.6 System Up Time: 4 days, 1 hour, 2 minutes, 24 seconds
+  5.7 Processor     : Intel(R) Core(TM) i3-6100 CPU @ 3.70GHz
+  5.8 Display Mode  : 1680 x 1050, 32 bit
+  5.9 Display DPI   : 96
+  5.10 Video Card   : NVIDIA GeForce 8400 GS (driver 21.21.13.4201 - RAM 512 MB)
+  5.11 Printer      : RICOH AficioSG2100N RPCS-R (driver 3.2.54.4)
+
+Operating System:
+----------------------------------------------
+  6.1 Type    : Microsoft Windows 6.2 (64 bit)
+  6.2 Build # : 9200
+  6.3 Update  : 
+  6.4 Language: German
+  6.5 Charset : 0
+
+
+Call Stack Information:
+------------------------------------------------------------------------------------------------------------------------------------------
+|Address |Module              |Unit                          |Class                            |Procedure/Method               |Line     |
+------------------------------------------------------------------------------------------------------------------------------------------
+|*Exception Thread: ID=832; Priority=0; Class=; [Main]                                                                                   |
+|----------------------------------------------------------------------------------------------------------------------------------------|
+|00432E4B|SQLiteExpertPers.exe|                              |                                 |                               |         |
+|009666B3|SQLiteExpertPers.exe|cxGridCustomTableViewPatch.pas|                                 |SameVariant                    |79[26]   |
+|00966584|SQLiteExpertPers.exe|cxGridCustomTableViewPatch.pas|                                 |SameVariant                    |53[0]    |
+|00966730|SQLiteExpertPers.exe|cxGridCustomTableViewPatch.pas|TcxCustomGridTableControllerPatch|IsPullFocusingPosChangedPatched|85[1]    |
+|00957CD8|SQLiteExpertPers.exe|cxGridCustomTableView.pas     |TcxCustomGridTableController     |IsPullFocusingPosChanged       |11570[1] |
+|00957B30|SQLiteExpertPers.exe|cxGridCustomTableView.pas     |TcxCustomGridTableController     |DoPullFocusing                 |11520[4] |
+|00958C38|SQLiteExpertPers.exe|cxGridCustomTableView.pas     |TcxCustomGridTableController     |MouseMove                      |12007[9] |
+|008CEEAD|SQLiteExpertPers.exe|cxGridCustomView.pas          |TcxGridSite                      |MouseMove                      |5083[3]  |
+|0050E7FA|SQLiteExpertPers.exe|Controls.pas                  |TControl                         |WMMouseMove                    |7306[9]  |
+|0050DED4|SQLiteExpertPers.exe|Controls.pas                  |TControl                         |WndProc                        |7074[91] |
+|0050DC00|SQLiteExpertPers.exe|Controls.pas                  |TControl                         |WndProc                        |6983[0]  |
+|00512798|SQLiteExpertPers.exe|Controls.pas                  |TWinControl                      |WndProc                        |9831[144]|
+|00512230|SQLiteExpertPers.exe|Controls.pas                  |TWinControl                      |WndProc                        |9687[0]  |
+|00677D2C|SQLiteExpertPers.exe|cxControls.pas                |TcxControl                       |WndProc                        |4934[21] |
+|00677BD8|SQLiteExpertPers.exe|cxControls.pas                |TcxControl                       |WndProc                        |4913[0]  |
+|008CF15E|SQLiteExpertPers.exe|cxGridCustomView.pas          |TcxGridSite                      |WndProc                        |5168[4]  |
+|00511E38|SQLiteExpertPers.exe|Controls.pas                  |TWinControl                      |MainWndProc                    |9552[3]  |
+|005BCD13|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |ProcessMessage                 |9760[23] |
+|005BCC20|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |ProcessMessage                 |9737[0]  |
+|005BCD56|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |HandleMessage                  |9790[1]  |
+|005BCD4C|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |HandleMessage                  |9789[0]  |
+|005BD081|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |Run                            |9927[26] |
+|005BCFB8|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |Run                            |9901[0]  |
+|01209815|SQLiteExpertPers.exe|SQLiteExpert.dpr              |                                 |                               |213[22]  |
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Modules Information:
+--------------------
+
+Processes Information:
+----------------------
+
+Assembler Information:
+----------------------
+
+Registers:
+----------
+
+
+
+EurekaLog 6.1.01
+
+Application:
+--------------------------------------------------------------------------------------------
+  1.1 Start Date      : Fri, 10 Feb 2017 21:29:33 +0100
+  1.2 Name/Description: SQLiteExpertPers.exe - (The complete administration tool for SQLite)
+  1.3 Version Number  : 3.4.70.2300
+  1.4 Parameters      : 
+  1.5 Compilation Date: Sat, 8 Jun 2013 05:57:39 +0100
+  1.6 Up Time         : 2 minutes, 24 seconds
+
+Exception:
+------------------------------------------------------------------------------------------
+  2.1 Date          : Fri, 10 Feb 2017 21:31:57 +0100
+  2.2 Address       : 00432E4B
+  2.3 Module Name   : SQLiteExpertPers.exe - (The complete administration tool for SQLite)
+  2.4 Module Version: 3.4.70.2300
+  2.5 Type          : EVariantInvalidOpError
+  2.6 Message       : Invalid variant operation.
+  2.7 ID            : CC89
+  2.8 Count         : 1
+  2.9 Status        : New
+  2.10 Note         : 
+
+User:
+-------------------------------------------------------
+  3.1 ID        : Adrian
+  3.2 Name      : 
+  3.3 Email     : 
+  3.4 Company   : 
+  3.5 Privileges: SeShutdownPrivilege             - OFF
+                  SeChangeNotifyPrivilege         - ON
+                  SeUndockPrivilege               - OFF
+                  SeIncreaseWorkingSetPrivilege   - OFF
+                  SeTimeZonePrivilege             - OFF
+
+Active Controls:
+-------------------------------------------------------
+  4.1 Form Class   : TfrmSCMain
+  4.2 Form Text    : SQLite Expert Personal 3.4.70.2300
+  4.3 Control Class: TcxGridSite
+  4.4 Control Text : 
+
+Computer:
+--------------------------------------------------------------------------------
+  5.1 Name          : ADRIANS-PC
+  5.2 Total Memory  : 8110 Mb
+  5.3 Free Memory   : 2672 Mb
+  5.4 Total Disk    : 1863.01 Gb
+  5.5 Free Disk     : 1393.67 Gb
+  5.6 System Up Time: 4 days, 1 hour, 2 minutes, 37 seconds
+  5.7 Processor     : Intel(R) Core(TM) i3-6100 CPU @ 3.70GHz
+  5.8 Display Mode  : 1680 x 1050, 32 bit
+  5.9 Display DPI   : 96
+  5.10 Video Card   : NVIDIA GeForce 8400 GS (driver 21.21.13.4201 - RAM 512 MB)
+  5.11 Printer      : RICOH AficioSG2100N RPCS-R (driver 3.2.54.4)
+
+Operating System:
+----------------------------------------------
+  6.1 Type    : Microsoft Windows 6.2 (64 bit)
+  6.2 Build # : 9200
+  6.3 Update  : 
+  6.4 Language: German
+  6.5 Charset : 0
+
+
+Call Stack Information:
+------------------------------------------------------------------------------------------------------------------------------------------
+|Address |Module              |Unit                          |Class                            |Procedure/Method               |Line     |
+------------------------------------------------------------------------------------------------------------------------------------------
+|*Exception Thread: ID=832; Priority=0; Class=; [Main]                                                                                   |
+|----------------------------------------------------------------------------------------------------------------------------------------|
+|00432E4B|SQLiteExpertPers.exe|                              |                                 |                               |         |
+|0094E940|SQLiteExpertPers.exe|cxGridCustomTableView.pas     |TcxCustomGridTableViewData       |GetGridView                    |6177[1]  |
+|00B95E3D|SQLiteExpertPers.exe|cxGridTableView.pas           |TcxGridViewData                  |HasFilterRow                   |4358[1]  |
+|009666B3|SQLiteExpertPers.exe|cxGridCustomTableViewPatch.pas|                                 |SameVariant                    |79[26]   |
+|00966584|SQLiteExpertPers.exe|cxGridCustomTableViewPatch.pas|                                 |SameVariant                    |53[0]    |
+|00966730|SQLiteExpertPers.exe|cxGridCustomTableViewPatch.pas|TcxCustomGridTableControllerPatch|IsPullFocusingPosChangedPatched|85[1]    |
+|00957CD8|SQLiteExpertPers.exe|cxGridCustomTableView.pas     |TcxCustomGridTableController     |IsPullFocusingPosChanged       |11570[1] |
+|00957B30|SQLiteExpertPers.exe|cxGridCustomTableView.pas     |TcxCustomGridTableController     |DoPullFocusing                 |11520[4] |
+|00958C38|SQLiteExpertPers.exe|cxGridCustomTableView.pas     |TcxCustomGridTableController     |MouseMove                      |12007[9] |
+|008CEEAD|SQLiteExpertPers.exe|cxGridCustomView.pas          |TcxGridSite                      |MouseMove                      |5083[3]  |
+|0050E7FA|SQLiteExpertPers.exe|Controls.pas                  |TControl                         |WMMouseMove                    |7306[9]  |
+|0050DED4|SQLiteExpertPers.exe|Controls.pas                  |TControl                         |WndProc                        |7074[91] |
+|0050DC00|SQLiteExpertPers.exe|Controls.pas                  |TControl                         |WndProc                        |6983[0]  |
+|00512798|SQLiteExpertPers.exe|Controls.pas                  |TWinControl                      |WndProc                        |9831[144]|
+|00512230|SQLiteExpertPers.exe|Controls.pas                  |TWinControl                      |WndProc                        |9687[0]  |
+|00677D2C|SQLiteExpertPers.exe|cxControls.pas                |TcxControl                       |WndProc                        |4934[21] |
+|00677BD8|SQLiteExpertPers.exe|cxControls.pas                |TcxControl                       |WndProc                        |4913[0]  |
+|008CF15E|SQLiteExpertPers.exe|cxGridCustomView.pas          |TcxGridSite                      |WndProc                        |5168[4]  |
+|00511E38|SQLiteExpertPers.exe|Controls.pas                  |TWinControl                      |MainWndProc                    |9552[3]  |
+|005BCD13|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |ProcessMessage                 |9760[23] |
+|005BCC20|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |ProcessMessage                 |9737[0]  |
+|005BCD56|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |HandleMessage                  |9790[1]  |
+|005BCD4C|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |HandleMessage                  |9789[0]  |
+|005BD081|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |Run                            |9927[26] |
+|005BCFB8|SQLiteExpertPers.exe|Forms.pas                     |TApplication                     |Run                            |9901[0]  |
+|01209815|SQLiteExpertPers.exe|SQLiteExpert.dpr              |                                 |                               |213[22]  |
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Modules Information:
+--------------------
+
+Processes Information:
+----------------------
+
+Assembler Information:
+----------------------
+
+Registers:
+----------
+
+
+
+

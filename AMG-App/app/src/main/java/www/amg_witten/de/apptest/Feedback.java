@@ -37,7 +37,7 @@ public class Feedback extends AppCompatActivity
     private String description = "";
     private EditText descriptionText = null;
     private Spinner typeSpinner = null;
-    private final String[] types = new String[]{getString(R.string.feedback_type_none),getString(R.string.feedback_type_bug),getString(R.string.feedback_type_idea),getString(R.string.feedback_type_other)};
+    private final String[] types = new String[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,10 @@ public class Feedback extends AppCompatActivity
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,902,R.layout.feedback);
 
+        types[0] = getString(R.string.feedback_type_none);
+        types[1] = getString(R.string.feedback_type_bug);
+        types[2] = getString(R.string.feedback_type_idea);
+        types[3] = getString(R.string.feedback_type_other);
         descriptionText = findViewById(R.id.feedback_description);
         typeSpinner = findViewById(R.id.feedback_type);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, types);

@@ -70,7 +70,7 @@ public class ITTeamHolen extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,5, R.layout.it_team_holen);
+        methoden.onCreateFillIn(this,this,4, R.layout.it_team_holen);
 
         ITTeamHolenAnzeigen("select * from fehlermeldungen where status=\"Offen\";");
     }
@@ -138,179 +138,328 @@ public class ITTeamHolen extends AppCompatActivity
     private String AnfrageGenerieren() {
         String anfrage = "select * from fehlermeldungen where ";
         boolean etwMarkiert = false;
+        boolean neuBereich = true;
 
         if(offen.isChecked()){
             /*if(etwMarkiert){
                 anfrage+=" OR ";
             }*/
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="status=\"Offen\"";
         }
         if(inBearbeitung.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="status=\"In Bearbeitung\"";
         }
         if(fertig.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="status=\"Fertig\"";
         }
+        neuBereich=true;
         if(gebH.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="gebaeude=\"H\"";
         }
         if(gebA.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="gebaeude=\"A\"";
         }
         if(gebN.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="gebaeude=\"N\"";
         }
+        neuBereich=true;
         if(et2.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"2\"";
         }
         if(et1.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"1\"";
         }
         if(et0.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"0\"";
         }
         if(etZ.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"Z\"";
         }
         if(etU.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"U\"";
         }
+        neuBereich=true;
         if(raum01.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"01\"";
         }
         if(raum02.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"02\"";
         }
         if(raum03.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"03\"";
         }
         if(raum04.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"04\"";
         }
         if(raum05.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"05\"";
         }
         if(raum06.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"06\"";
         }
         if(raum07.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"07\"";
         }
         if(raum08.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"08\"";
         }
         if(raum09.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"09\"";
         }
         if(raum10.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"10\"";
         }
         if(raum11.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"11\"";
         }
         if(raum12.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"12\"";
         }
         if(raum13.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"13\"";
         }
         if(raum14.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
+            //neuBereich=false;
             //etwMarkiert=true;
             anfrage+="raum=\"14\"";
         }
@@ -393,7 +542,7 @@ public class ITTeamHolen extends AppCompatActivity
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                final String[] grpname = {"Offen","In Bearbeitung","Fertig"};
+                                final String[] grpname = {"Offen","In Bearbeitung","Fertig","Löschen"};
 
                                 LinearLayout ll = new LinearLayout(ac);
                                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -403,12 +552,14 @@ public class ITTeamHolen extends AppCompatActivity
                                 RadioButton rd1 = new RadioButton(ac);
                                 RadioButton rd2 = new RadioButton(ac);
                                 RadioButton rd3 = new RadioButton(ac);
+                                RadioButton rd4 = new RadioButton(ac);
 
                                 AlertDialog.Builder dialog = new AlertDialog.Builder(ac);
 
                                 rd1.setText(grpname[0]);
                                 rd2.setText(grpname[1]);
                                 rd3.setText(grpname[2]);
+                                rd4.setText(grpname[3]);
 
                                 switch (status){
                                     case "Offen":
@@ -426,6 +577,7 @@ public class ITTeamHolen extends AppCompatActivity
                                 ll.addView(rd1);
                                 ll.addView(rd2);
                                 ll.addView(rd3);
+                                ll.addView(rd4);
 
                                 dialog.setView(ll);
                                 dialog.setTitle("Bitte wähle den Status aus!");
@@ -452,6 +604,13 @@ public class ITTeamHolen extends AppCompatActivity
                                     @Override
                                     public void onClick(View v) {
                                         StatusAendern(grpname[2],texte[finali]);
+                                        diag.dismiss();
+                                    }
+                                });
+                                rd4.setOnClickListener(new View.OnClickListener(){
+                                    @Override
+                                    public void onClick(View v) {
+                                        Loeschen(texte[finali]);
                                         diag.dismiss();
                                     }
                                 });
@@ -574,4 +733,52 @@ public class ITTeamHolen extends AppCompatActivity
         }).start();
     }
 
+
+    private void Loeschen(String text){
+        final Activity ac = this;
+
+        final String[] daten = new String[8];
+        String[] results = text.split("//");
+        daten[0]=results[0].replace("Datum: ","");
+        daten[1]=results[2].replace("Gebaeude: ","");
+        daten[2]=results[3].replace("Etage: ","");
+        daten[3]=results[4].replace("Raum: ","");
+        daten[4]=results[5].replace("Wichtigkeit: ","");
+        daten[5]=results[6].replace("Fehler: ","");
+        daten[6]=results[7].replace("Beschreibung: ","");
+        daten[7]=results[8].replace("Status: ","");
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+daten[1]+"\" and etage=\""+daten[2]+"\" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    url = url.replaceAll(" ","%20");
+                    URL oracle = new URL(url);
+                    System.out.println(url);
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
+
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    System.out.println(in.readLine());
+                    in.close();
+
+                    startActivity(new Intent(ac,ITTeamHolen.class));
+
+                } catch (Exception e){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ac,"Fehler beim Löschen",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    Intent intent = new Intent(ac, Startseite.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            }
+        }).start();
+    }
 }

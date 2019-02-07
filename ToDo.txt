@@ -3,7 +3,7 @@ Schwarzes Brett
  -> Klausurtermine im Stundenplan
 Kurssprecher im Stundenplan
 Feedback abrufen
-IT-Team Meldungen löschen
 Serverrückmeldung auswerten
-IT-Team Raum schöner machen
-IT-Team Holen Abfrage korrigieren (Und/oder)
+Schulkalender von der Homepage
+Bei Änderung im Vertretungsplan -> Benachrichtigung
+Nach oben wischen im Vertretungsplan für Aktualisierung
