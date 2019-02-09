@@ -109,6 +109,10 @@
             android:name=".Hilfe"
             android:label="@string/title_activity_hilfe"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FeedbackHolen"
+            android:label="@string/title_activity_feedback_holen"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".DeviceBootReceiver">
             <intent-filter>

@@ -11,9 +11,11 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,8 +43,12 @@ import java.util.regex.Pattern;
 public class Vertretungsplan extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final Activity thise = this;
+    private Activity thise = this;
     private static String klasse = "";
+
+    public Vertretungsplan(){
+        thise = this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,9 +203,6 @@ public class Vertretungsplan extends AppCompatActivity
         }
 
         VertretungModel model = new VertretungModel(allMatches.get(0),allMatches.get(1),allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7));
-
-
-        System.out.println(allMatches);
 
         Matcher matcherabcd = Pattern.compile("0\\dabcd").matcher(allMatches.get(1));
         Matcher matcherab = Pattern.compile("0\\dab").matcher(allMatches.get(1));
@@ -1221,10 +1224,57 @@ public class Vertretungsplan extends AppCompatActivity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), heute, folgetag);
+                final SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), heute, folgetag);
+                mSectionsPagerAdapter.notifyDataSetChanged();
 
                 final ViewPager mViewPager = findViewById(R.id.vertretungsplan_container);
                 mViewPager.setAdapter(mSectionsPagerAdapter);
+
+                //FIXME Übernehmen in Apple
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((SwipeRefreshLayout)mSectionsPagerAdapter.getCurrentItem(0).getView().findViewById(R.id.vertretungsplan_swipe_refresh)).setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                            @Override
+                            public void onRefresh() {
+                                System.out.println("YES");
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        final File heute = action(thise, "Heute");
+                                        final File folgetag = action(thise, "Folgetag");
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                generateLayout(heute,folgetag);
+                                            }
+                                        });
+                                    }
+                                }).start();
+                            }
+                        });
+
+                        ((SwipeRefreshLayout)mSectionsPagerAdapter.getCurrentItem(1).getView().findViewById(R.id.vertretungsplan_swipe_refresh)).setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                            @Override
+                            public void onRefresh() {
+                                System.out.println("YES");
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        final File heute = action(thise, "Heute");
+                                        final File folgetag = action(thise, "Folgetag");
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                generateLayout(heute,folgetag);
+                                            }
+                                        });
+                                    }
+                                }).start();
+                            }
+                        });
+                    }
+                }).start();
 
                 if(!Startseite.prefs.getBoolean("vplantutorial_shown",false)){
                     findViewById(R.id.vertretungsplan_darken_view).setVisibility(View.VISIBLE);
@@ -1261,25 +1311,64 @@ public class Vertretungsplan extends AppCompatActivity
         });
     }
 
-    class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public static void updateStatic(SwipeRefreshLayout swipeRefreshLayout) {
+        Looper.prepare();
+        new Vertretungsplan().update(swipeRefreshLayout);
+    }
+
+    public void update(final SwipeRefreshLayout swipeRefreshLayout){
+        File heute = action(thise, "Heute");
+        File folgetag = action(thise, "Folgetag");
+        generateLayout(heute, folgetag);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         File heute;
         File folgetag;
+
+        Fragment heuteF;
+        Fragment folgetagF;
 
         SectionsPagerAdapter(FragmentManager fm, File heute, File folgetag) {
             super(fm);
             this.heute = heute;
             this.folgetag = folgetag;
+            System.out.println("RECREATE");
         }
 
         @Override
         public Fragment getItem(int position) {
+            System.out.println(position);
             if(position==0){
-                return PlaceholderFragment.newInstance(heute);
+                heuteF = PlaceholderFragment.newInstance(heute);
+                return heuteF;
             }
             else if(position==1){
-                return PlaceholderFragment.newInstance(folgetag);
+                folgetagF = PlaceholderFragment.newInstance(folgetag);
+                return folgetagF;
             }
             return null;
+        }
+
+        Fragment getCurrentItem(int position){
+            if(position==0){
+                return heuteF;
+            }
+            else if(position==1){
+                return folgetagF;
+            }
+            return null;
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object){
+            return POSITION_NONE;
         }
 
         @Override
@@ -1289,6 +1378,8 @@ public class Vertretungsplan extends AppCompatActivity
     }
 
     public static class PlaceholderFragment extends Fragment {
+
+        View view;
 
         public PlaceholderFragment() {}
 
@@ -1304,10 +1395,17 @@ public class Vertretungsplan extends AppCompatActivity
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
             View rootView = inflater.inflate(R.layout.vertretungsplan_fragment, container, false);
             WebView webView = rootView.findViewById(R.id.webView);
+
             webView.loadUrl("file://"+getArguments().getString("file"));
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+            view=rootView;
             return rootView;
+        }
+
+        @Override
+        public View getView(){
+            return view;
         }
     }
 

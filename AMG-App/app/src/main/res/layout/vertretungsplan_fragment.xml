@@ -4,10 +4,17 @@
     android:background="@color/black"
     android:layout_height="match_parent">
 
-    <WebView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        android:id="@+id/webView"/>
+        android:id="@+id/vertretungsplan_swipe_refresh">
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:id="@+id/webView"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

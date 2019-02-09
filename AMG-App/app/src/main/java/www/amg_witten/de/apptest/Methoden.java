@@ -40,6 +40,11 @@ class Methoden {
                     currentActivity.startActivity(new Intent(currentActivity, ITTeamSenden.class));
                 }
                 break;
+            case R.id.nav_feedback_holen:
+                if(id != currentNavId) {
+                    currentActivity.startActivity(new Intent(currentActivity, FeedbackHolen.class));
+                }
+                break;
             case R.id.nav_login:
                 if (id != currentNavId) {
                     currentActivity.startActivity(new Intent(currentActivity, Login.class));
@@ -103,13 +108,16 @@ class Methoden {
             navigationView.getMenu().getItem(2).setVisible(false);
             navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
+            navigationView.getMenu().getItem(5).setVisible(false);
         }
         if(Startseite.login==1){
             navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
+            navigationView.getMenu().getItem(5).setVisible(false);
         }
         if(Startseite.login<=2){
             navigationView.getMenu().getItem(4).setVisible(false);
+            navigationView.getMenu().getItem(5).setVisible(false);
         }
 
         ViewStub stub = currentActivity.findViewById(R.id.all_content);

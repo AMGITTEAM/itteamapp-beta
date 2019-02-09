@@ -35,6 +35,7 @@
     <string name="title_activity_einstellungen">Einstellungen</string>
     <string name="title_activity_feedback">Feedback</string>
     <string name="title_activity_hilfe">Hilfe</string>
+    <string name="title_activity_feedback_holen">Feedback abrufen</string>
 
     <!--ColorPicker-->
 
@@ -55,6 +56,7 @@
     <string name="nav_drawer_stundenplan">Stundenplan</string>
     <string name="nav_drawer_it_team_senden">Meldung an IT-Team</string>
     <string name="nav_drawer_it_team_holen">Meldungen abrufen</string>
+    <string name="nav_drawer_feedback_holen">Feedback abrufen</string>
     <string name="nav_drawer_login">Login</string>
     <string name="nav_drawer_einstellungen">Einstellungen</string>
     <string name="nav_drawer_feedback">Hilfe und Feedback</string>
@@ -350,6 +352,13 @@
     <string name="feedback_completeDebug_positiveButton">OK</string>
     <string name="feedback_completeDebug_negativeButton">Abbrechen</string>
 
+    <!--Feedback abrufen-->
+
+    <string name="feedback_holen_dialog_loeschen">Möchtest du diesen Eintrag wirklich löschen?</string>
+    <string name="feedback_holen_dialog_positive">Ja</string>
+    <string name="feedback_holen_dialog_negative">Abbrechen</string>
+    <string name="feedback_holen_loeschen">Löschen</string>
+
     <!--Info-->
 
     <string name="info_manager">Diese App wird programmiert, verwaltet und gewartet von\nAdrian Kathagen</string>
@@ -380,10 +389,15 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Fehler im Vertretungsplan behoben\n
-    • Absturz im Feedback-Bereich behoben</string>
+    <string name="changelog">• Feedback abrufen-Bereich hinzugefügt\n
+        • Swipe to Refresh im Vertretungsplan hinzugefügt\n
+        • Terminkalender von der Homepage auf die Startseite übernommen</string>
 
     <string name="changelog_all">
+        <b>1.2.0 - 09.02.2018</b>\n
+        • Feedback abrufen-Bereich hinzugefügt\n
+        • Swipe to Refresh im Vertretungsplan hinzugefügt\n
+        • Terminkalender von der Homepage auf die Startseite übernommen\n\n
         <b>1.1.2 - 07.02.2018</b>\n
         • Fehler im Vertretungsplan behoben\n
         • Absturz im Feedback-Bereich behoben\n\n

@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.webkit.WebView;
 
 public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +40,10 @@ public class Startseite extends AppCompatActivity
 
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,0, R.layout.startseite);
+
+        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptEnabled(true);
+        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).loadUrl("https://calendar.google.com/calendar/embed?title=Demn%C3%A4chst%20am%20AMG&showPrint=0&showTabs=0&showCalendars=0&showNav=0&showDate=0&showTz=0&mode=AGENDA&height=500&wkst=1&bgcolor=%23FFFFFF&src=lvcbajbvce91hrj2cg531ess60%40group.calendar.google.com&color=%235229A3&ctz=Europe%2FBerlin");
 
         // Get current version code
         int currentVersionCode = BuildConfig.VERSION_CODE;

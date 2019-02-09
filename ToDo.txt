@@ -2,8 +2,5 @@
 Schwarzes Brett
  -> Klausurtermine im Stundenplan
 Kurssprecher im Stundenplan
-Feedback abrufen
 Serverrückmeldung auswerten
-Schulkalender von der Homepage
 Bei Änderung im Vertretungsplan -> Benachrichtigung
-Nach oben wischen im Vertretungsplan für Aktualisierung
