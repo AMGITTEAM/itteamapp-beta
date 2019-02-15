@@ -1,5 +1,9 @@
 package amgapp;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.Authenticator;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -128,6 +132,38 @@ public class Lite {
 					returnString="Du hast nicht genügend Rechte!";
 				}
 			}
+			else if(request.equals("FeedbackHolen")){
+				if(getRechthoehe(benutzername,passwort)>=3) {
+					Class.forName("org.sqlite.JDBC");
+					Connection conn = DriverManager.getConnection(path);
+				    Statement stat = conn.createStatement();
+				    System.out.println("SELECT * FROM feedback");
+					ResultSet rs2 = stat.executeQuery(req);
+					boolean ready=false;
+					int rowcount = 0;
+					while (!ready){
+						if (!rs2.next()) {
+							ready=true;
+						}
+						else {
+							rowcount++;
+						}
+					}
+					System.out.println(rowcount);
+					returnString += rowcount+"/newthing/";
+					ResultSet rs = stat.executeQuery(req);
+				    while (rs.next()){
+				      returnString += "Typ: "+rs.getString("type")+"//Beschreibung: "+rs.getString("description")+"/newthing/";
+				    }
+				    rs.close();
+				    rs2.close();
+				    stat.close();
+				    conn.close();
+				}
+				else {
+					returnString="Du hast nicht genügend Rechte!";
+				}
+			}
 			else if(request.equals("ITTeamLoeschen")){
 				if(getRechthoehe(benutzername,passwort)>=3) {
 					if(getRechthoehe(benutzername,passwort)==100) {
@@ -184,6 +220,71 @@ public class Lite {
 					    System.out.println(result);
 					    returnString=success+"";
 					}
+				}
+				else {
+					returnString="Du hast nicht genügend Rechte!";
+				}
+			}
+			else if(request.equals("HTMLRequest")) {
+				if(getRechthoehe(benutzername,passwort)>=1) {
+					if(req.contains("http://amg-witten.de/fileadmin/VertretungsplanSUS")) {
+						Class.forName("org.sqlite.JDBC");
+						Connection conn = DriverManager.getConnection(path);
+					    Statement stat = conn.createStatement();
+					    String req2 = "select * from passwords where benutzername=\"Schueler\"";
+					    System.out.println(req2);
+						ResultSet rs2 = stat.executeQuery(req2);
+						System.out.println(rs2.getString("password"));
+						String pwd = rs2.getString("password");
+						Authenticator.setDefault(new SUSAuthenticator(pwd));
+					}
+					URL mainUrl = new URL(req);
+					System.out.println("HTMLRequest auf "+req);
+
+		            BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
+		            StringBuilder full = new StringBuilder();
+		            String str;
+		            while ((str = in.readLine()) != null) {
+		                full.append(str);
+		            }
+		            in.close();
+		            
+		            returnString=full.toString();
+				}
+				else {
+					returnString="Du hast nicht genügend Rechte!";
+				}
+			}
+			else if(request.equals("KurssprecherRequest")) {
+				if(getRechthoehe(benutzername,passwort)>=1) {
+					String kursid = args[0];
+					Class.forName("org.sqlite.JDBC");
+					Connection conn = DriverManager.getConnection(path);
+				    Statement stat = conn.createStatement();
+				    System.out.println("SELECT * FROM kurssprecher");
+					ResultSet rs2 = stat.executeQuery("SELECT * FROM kurssprecher;");
+					boolean ready=false;
+					int rowcount = 0;
+					while (!ready){
+						if (!rs2.next()) {
+							ready=true;
+						}
+						else {
+							rowcount++;
+						}
+					}
+					System.out.println(rowcount);
+					returnString += rowcount+"/newthing/";
+					ResultSet rs = stat.executeQuery("SELECT * FROM kurssprecher;");
+				    while (rs.next()){
+				    	if(kursid.equals(rs.getString("kursid"))) {
+						      returnString += "Kurs-ID: "+rs.getString("kursid")+"//Kurssprecher: "+rs.getString("sprecher");
+				    	}
+				    }
+				    rs.close();
+				    rs2.close();
+				    stat.close();
+				    conn.close();
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";

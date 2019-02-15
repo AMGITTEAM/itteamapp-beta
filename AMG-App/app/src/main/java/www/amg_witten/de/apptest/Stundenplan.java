@@ -3,6 +3,7 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,6 +17,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -31,16 +33,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.Authenticator;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -52,7 +59,7 @@ import java.util.Set;
 public class Stundenplan extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ViewPager mViewPager;
-    private TabLayout tabLayout;
+    private static TabLayout tabLayout;
     private final Context context = this;
     private static boolean transistioning = false;
     private static boolean bearbeiten=false;
@@ -585,6 +592,64 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             }
             saveStundenplan(wochentag,Arrays.copyOf(stundenplan.toArray(), stundenplan.toArray().length, String[].class));
             listView.setAdapter(new CustomListAdapter(array, getContext(),wochentagNo));
+            if(Startseite.kurssprecherEnabled){ //FIXME Anleitung, Klassenbegrenzung
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    final String fachId = ((CustomListAdapter.ViewHolder)(view).getTag()).fachID;
+                                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                                    url = url.replaceAll(" ","%20");
+                                    URL oracle = new URL(url);
+                                    BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
+
+                                    boolean end = false;
+
+                                    while (!end){
+                                        if ((in.readLine()).equals("<body>")){
+                                            end=true;
+                                        }
+                                    }
+                                    in.readLine();
+                                    String serverReturn = in.readLine();
+                                    in.close();
+
+                                    try {
+                                        final String sprecher = serverReturn.split("//")[1].split("Kurssprecher: ")[1];
+
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                                builder.setMessage("Kurs: "+fachId+"\n\n"+
+                                                        "Kurssprecher: "+sprecher)
+                                                        .setPositiveButton("OK", null)
+                                                        .setTitle("Kurssprecher");
+                                                builder.create().show();
+                                            }
+                                        });
+                                    }
+                                    catch (ArrayIndexOutOfBoundsException e) {
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(getContext(),"Es sind keine Kurssprecher für diesen Kurs angegeben! Bitte deine Kurssprecher, sich bei mir zu melden.",Toast.LENGTH_LONG).show();//FIXME Text?
+                                            }
+                                        });
+                                    }
+                                }
+                                catch(Exception e){
+                                    e.printStackTrace();
+                                    Toast.makeText(getContext(),"Abrufen der Daten fehlgeschlagen",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }).start();
+                    }
+                });
+            }
             return rootView;
         }
     }
@@ -689,7 +754,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 if (eigeneKlasseHeute != null) {
                     VertretungModel[] rightRows = eigeneKlasseHeute.getRightRows();
                     for (VertretungModel row : rightRows) {
-                        System.out.println(row);
                         try {
                             if (Integer.parseInt(row.getStunde()) == Integer.parseInt(stunde.stunde)) {
                                 if (row.getFach().equals(stunde.fach)) {
@@ -829,7 +893,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         Startseite.prefs.edit().putString("stundenplan"+wochentag,array.toString()).apply();
     }
 
-    private static  LinkedHashSet<String> loadStundenplanOrdered(String wochentag){
+    static  LinkedHashSet<String> loadStundenplanOrdered(String wochentag){
         try {
             LinkedHashSet<String> list = new LinkedHashSet<>();
             JSONArray array = new JSONArray(Startseite.prefs.getString("stundenplan"+wochentag,null));

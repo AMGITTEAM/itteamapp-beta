@@ -389,11 +389,15 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Feedback abrufen-Bereich hinzugefügt\n
-        • Swipe to Refresh im Vertretungsplan hinzugefügt\n
-        • Terminkalender von der Homepage auf die Startseite übernommen</string>
+    <string name="changelog">• Vorbereitungen zum Anzeigen der Kurssprecher im Stundenplan\n
+    • Fehler beim Aktualisieren des Vertretungsplans behoben (schaltete immer auf die erste Seite)\n
+    • Eingabe des Stundenplans vereinfacht</string>
 
     <string name="changelog_all">
+        <b>1.2.1 - 15.02.2019</b>\n
+        • Vorbereitungen zum Anzeigen der Kurssprecher im Stundenplan\n
+        • Fehler beim Aktualisieren des Vertretungsplans behoben (schaltete immer auf die erste Seite)\n
+        • Eingabe des Stundenplans vereinfacht\n\n
         <b>1.2.0 - 09.02.2018</b>\n
         • Feedback abrufen-Bereich hinzugefügt\n
         • Swipe to Refresh im Vertretungsplan hinzugefügt\n

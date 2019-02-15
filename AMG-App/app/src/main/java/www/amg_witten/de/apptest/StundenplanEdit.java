@@ -13,13 +13,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class StundenplanEdit extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final Context context = this;
+    private String[] faecherComponents = new String[0];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +53,75 @@ public class StundenplanEdit extends AppCompatActivity
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,3,R.layout.stundenplan_edit);
 
+        LinkedHashSet<String> stundenplanMontag = Stundenplan.loadStundenplanOrdered("Montag");
+        LinkedHashSet<String> stundenplanDienstag = Stundenplan.loadStundenplanOrdered("Dienstag");
+        LinkedHashSet<String> stundenplanMittwoch = Stundenplan.loadStundenplanOrdered("Mittwoch");
+        LinkedHashSet<String> stundenplanDonnerstag = Stundenplan.loadStundenplanOrdered("Donnerstag");
+        LinkedHashSet<String> stundenplanFreitag = Stundenplan.loadStundenplanOrdered("Freitag");
+
+        List<String> faecherNamen = new ArrayList<>();
+        final List<String> faecherComponent = new ArrayList<>();
+
+        try {
+            faecherComponent.addAll(stundenplanMontag);
+        }
+        catch(Exception ignored){}
+        try {
+            faecherComponent.addAll(stundenplanDienstag);
+        }
+        catch(Exception ignored){}
+        try {
+            faecherComponent.addAll(stundenplanMittwoch);
+        }
+        catch(Exception ignored){}
+        try {
+            faecherComponent.addAll(stundenplanDonnerstag);
+        }
+        catch(Exception ignored){}
+        try {
+            faecherComponent.addAll(stundenplanFreitag);
+        }
+        catch(Exception ignored){}
+
+        faecherComponents = Arrays.copyOf(faecherComponent.toArray(),faecherComponent.size(),String[].class);
+
+        if(faecherComponent.toArray()==null){
+            faecherComponents = new String[0];
+        }
+
+        for(String stunde : faecherComponent) {
+            if(!faecherNamen.contains(stunde.split("\\|\\|")[4])){
+                faecherNamen.add(stunde.split("\\|\\|")[4]);
+            }
+        }
+
+        String[] faecherNamenArray = Arrays.copyOf(faecherNamen.toArray(),faecherNamen.size(),String[].class);
+
+        if(faecherNamen.toArray()==null){
+            faecherNamenArray = new String[0];
+        }
+
         ((EditText)findViewById(R.id.stundenplan_edit_fach)).setText(getIntent().getExtras().getString("fach").trim());
-        ((EditText)findViewById(R.id.stundenplan_edit_fachName)).setText(getIntent().getExtras().getString("fachName").trim());
+        ((AutoCompleteTextView)findViewById(R.id.stundenplan_edit_fachName)).setText(getIntent().getExtras().getString("fachName").trim());
+        ((AutoCompleteTextView)findViewById(R.id.stundenplan_edit_fachName)).setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_dropdown_item_1line,faecherNamenArray));
         ((EditText)findViewById(R.id.stundenplan_edit_lehrer)).setText(getIntent().getExtras().getString("lehrer").trim());
         ((EditText)findViewById(R.id.stundenplan_edit_raum)).setText(getIntent().getExtras().getString("raum").trim());
+
+        ((AutoCompleteTextView)findViewById(R.id.stundenplan_edit_fachName)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selText = ""+((android.support.v7.widget.AppCompatTextView)view).getText();
+                String fachCompPos = "";
+                for(String stunde : faecherComponent) {
+                    if(stunde.split("\\|\\|")[4].equals(selText)){
+                        fachCompPos = stunde;
+                    }
+                }
+                ((EditText)findViewById(R.id.stundenplan_edit_lehrer)).setText(fachCompPos.split("\\|\\|")[2]);
+                ((EditText)findViewById(R.id.stundenplan_edit_fach)).setText(fachCompPos.split("\\|\\|")[1]);
+                ((EditText)findViewById(R.id.stundenplan_edit_raum)).setText(fachCompPos.split("\\|\\|")[3]);
+            }
+        });
     }
 
     @Override

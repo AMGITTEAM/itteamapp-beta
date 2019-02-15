@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.15" >
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/stundenplan_edit_fachName"
             android:importantForAccessibility="no"
             android:importantForAutofill="no"

@@ -18,7 +18,11 @@ public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static int login;
     public static String benutzername;
+    public static String passwort;
     public static SharedPreferences prefs;
+
+
+    public static boolean kurssprecherEnabled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class Startseite extends AppCompatActivity
         prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
         login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team, 100=Google-Tester
         benutzername = prefs.getString("loginUsername","");
+        passwort = prefs.getString("loginPassword","");
         System.out.println(login);
 
         Methoden methoden = new Methoden();

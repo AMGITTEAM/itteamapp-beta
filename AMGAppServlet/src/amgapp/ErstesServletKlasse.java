@@ -71,7 +71,12 @@ public class ErstesServletKlasse extends HttpServlet {
 			String returnString = Lite.transact(requestType, request, benutzername, passwort, datum, gebaeude, etage, raum, wichtigkeit, fehler, beschreibung, status, bearbeitetVon);
 			HttpRequest.setAttribute("responsed", returnString);
 			HttpRequest.setAttribute("fehler", ausfuehrFehler);
-			getServletContext().getRequestDispatcher("/ergebnis.jsp").forward(HttpRequest, HttpResponse);
+			if(requestType.equals("HTMLRequest")) {
+				getServletContext().getRequestDispatcher("/htmlrequest.jsp").forward(HttpRequest, HttpResponse);
+			}
+			else {
+				getServletContext().getRequestDispatcher("/ergebnis.jsp").forward(HttpRequest, HttpResponse);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
