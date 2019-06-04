@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.Placeholder;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -60,7 +58,7 @@ public class Vertretungsplan extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -1210,17 +1208,17 @@ public class Vertretungsplan extends AppCompatActivity
         fw.flush();
     }
 
-    public static String onlyElement(String full, String element, String params) {
+    private static String onlyElement(String full, String element, String params) {
         String partOne;
         partOne = full.split("<"+element+params+">")[1];
         return partOne.split("</"+element+">")[0];
     }
 
-    public static String onlyElement(String full, String element) {
+    private static String onlyElement(String full, String element) {
         return onlyElement(full,element,"");
     }
 
-    public static String onlyArgumentOfElement(String full, String element,String argument) {
+    private static String onlyArgumentOfElement(String full, String element, String argument) {
         String partOne = full.split("<"+element)[1];
         String partTwo = partOne.split(argument+"=\"")[1];
         return partTwo.split("\"")[0];
@@ -1340,8 +1338,8 @@ public class Vertretungsplan extends AppCompatActivity
     }
 
     class SectionsPagerAdapter extends FragmentStatePagerAdapter {
-        File heute;
-        File folgetag;
+        final File heute;
+        final File folgetag;
 
         PlaceholderFragment heuteF;
         PlaceholderFragment folgetagF;
@@ -1375,12 +1373,12 @@ public class Vertretungsplan extends AppCompatActivity
             return null;
         }
 
-        public void onSaveInstanceState(Bundle outState){
+        void onSaveInstanceState(Bundle outState){
             heuteF.onSaveInstanceState(outState);
             folgetagF.onSaveInstanceState(outState);
         }
 
-        public void onRestoreInstanceState(Bundle savedInstanceState){
+        void onRestoreInstanceState(Bundle savedInstanceState){
             heuteF.onRestoreInstanceState(savedInstanceState);
             folgetagF.onRestoreInstanceState(savedInstanceState);
         }
@@ -1427,7 +1425,7 @@ public class Vertretungsplan extends AppCompatActivity
             ((WebView)view.findViewById(R.id.webView)).saveState(outState);
         }
 
-        public void onRestoreInstanceState(Bundle savedInstanceState){
+        void onRestoreInstanceState(Bundle savedInstanceState){
             ((WebView)view.findViewById(R.id.webView)).restoreState(savedInstanceState);
         }
 
@@ -1439,7 +1437,7 @@ public class Vertretungsplan extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

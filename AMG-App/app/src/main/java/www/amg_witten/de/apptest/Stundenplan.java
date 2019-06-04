@@ -3,7 +3,6 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -41,6 +40,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -59,7 +61,7 @@ import java.util.Set;
 public class Stundenplan extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ViewPager mViewPager;
-    private static TabLayout tabLayout;
+    private TabLayout tabLayout;
     private final Context context = this;
     private static boolean transistioning = false;
     private static boolean bearbeiten=false;
@@ -157,7 +159,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         });
 
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -371,6 +373,43 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         }).start();
+
+        //FIXME warte auf Veröffentlichung
+
+        String klasse = Startseite.prefs.getString("klasse","");
+        if(klasse.equals("EF")||klasse.equals("Q1")||klasse.equals("Q2")){
+            if(!Startseite.prefs.getBoolean("splantutorial_shown",false)){
+                findViewById(R.id.stundenplan_darken_view).setVisibility(View.VISIBLE);
+                findViewById(R.id.stundenplan_darken_view).setAlpha(0.6f);
+                final ShowcaseView view = new ShowcaseView.Builder(this)
+                        .setTarget(new ViewTarget(mViewPager))
+                        .withMaterialShowcase()
+                        .setContentTitle("Kurssprecher")
+                        .setContentText("Um den Kurssprecher für das jeweilige Fach anzuzeigen, tippe es an!")
+                        .hideOnTouchOutside()
+                        .build();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(view.isShowing()){
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                findViewById(R.id.stundenplan_darken_view).setAlpha(0f);
+                                findViewById(R.id.stundenplan_darken_view).setVisibility(View.GONE);
+                            }
+                        });
+                        Startseite.prefs.edit().putBoolean("splantutorial_shown",true).apply();
+                    }
+                }).start();
+            }
+        }
     }
 
     private void includeVertretungsplanHeuteInViews(List<VertretungModelArrayModel> data) {
@@ -552,7 +591,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-            View rootView = inflater.inflate(R.layout.stundenplan_fragment, container, false);
+            final View rootView = inflater.inflate(R.layout.stundenplan_fragment, container, false);
             ListView listView = rootView.findViewById(R.id.stundenplan_listView);
             if(getArguments()==null){
                 return null;
@@ -592,63 +631,66 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             }
             saveStundenplan(wochentag,Arrays.copyOf(stundenplan.toArray(), stundenplan.toArray().length, String[].class));
             listView.setAdapter(new CustomListAdapter(array, getContext(),wochentagNo));
-            if(Startseite.kurssprecherEnabled){ //FIXME Anleitung, Klassenbegrenzung
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    final String fachId = ((CustomListAdapter.ViewHolder)(view).getTag()).fachID;
-                                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
-                                    url = url.replaceAll(" ","%20");
-                                    URL oracle = new URL(url);
-                                    BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
+            if(Startseite.KURSSPRECHER_ENABLED){ //FIXME Anleitung, Apple
+                String klasse = Startseite.prefs.getString("klasse","");
+                if(klasse.equals("EF")||klasse.equals("Q1")||klasse.equals("Q2")){
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        final String fachId = ((CustomListAdapter.ViewHolder)(view).getTag()).fachID;
+                                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                                        url = url.replaceAll(" ","%20");
+                                        URL oracle = new URL(url);
+                                        BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
 
-                                    boolean end = false;
+                                        boolean end = false;
 
-                                    while (!end){
-                                        if ((in.readLine()).equals("<body>")){
-                                            end=true;
+                                        while (!end){
+                                            if ((in.readLine()).equals("<body>")){
+                                                end=true;
+                                            }
+                                        }
+                                        in.readLine();
+                                        String serverReturn = in.readLine();
+                                        in.close();
+
+                                        try {
+                                            final String sprecher = serverReturn.split("//")[1].split("Kurssprecher: ")[1];
+
+                                            getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                                    builder.setMessage("Kurs: "+fachId+"\n\n"+
+                                                            "Kurssprecher: "+sprecher)
+                                                            .setPositiveButton("OK", null)
+                                                            .setTitle("Kurssprecher");
+                                                    builder.create().show();
+                                                }
+                                            });
+                                        }
+                                        catch (ArrayIndexOutOfBoundsException e) {
+                                            getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText(getContext(),"Es sind keine Kurssprecher für diesen Kurs angegeben! Bitte deine Kurssprecher, sich bei mir zu melden.",Toast.LENGTH_LONG).show();//FIXME Text?
+                                                }
+                                            });
                                         }
                                     }
-                                    in.readLine();
-                                    String serverReturn = in.readLine();
-                                    in.close();
-
-                                    try {
-                                        final String sprecher = serverReturn.split("//")[1].split("Kurssprecher: ")[1];
-
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                                builder.setMessage("Kurs: "+fachId+"\n\n"+
-                                                        "Kurssprecher: "+sprecher)
-                                                        .setPositiveButton("OK", null)
-                                                        .setTitle("Kurssprecher");
-                                                builder.create().show();
-                                            }
-                                        });
-                                    }
-                                    catch (ArrayIndexOutOfBoundsException e) {
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Toast.makeText(getContext(),"Es sind keine Kurssprecher für diesen Kurs angegeben! Bitte deine Kurssprecher, sich bei mir zu melden.",Toast.LENGTH_LONG).show();//FIXME Text?
-                                            }
-                                        });
+                                    catch(Exception e){
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(),"Abrufen der Daten fehlgeschlagen",Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                catch(Exception e){
-                                    e.printStackTrace();
-                                    Toast.makeText(getContext(),"Abrufen der Daten fehlgeschlagen",Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).start();
-                    }
-                });
+                            }).start();
+                        }
+                    });
+                }
             }
             return rootView;
         }
@@ -932,7 +974,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

@@ -32,7 +32,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -54,7 +54,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -130,23 +130,44 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                         });
                     }
                     else {
-                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
-                        url = url.replaceAll(" ","%20");
-                        URL oracle = new URL(url);
-                        System.out.println(oracle);
-                        BufferedReader in = new BufferedReader(
-                                new InputStreamReader(oracle.openStream()));
+                        if(ITTeamSenden.gebFehler){
+                            String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=GebaeudefehlerMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
+                            url = url.replaceAll(" ","%20");
+                            URL oracle = new URL(url);
+                            System.out.println(oracle);
+                            BufferedReader in = new BufferedReader(
+                                    new InputStreamReader(oracle.openStream()));
 
-                        while (!(in.readLine()).equals("<body>")){}
-                        in.readLine();
-                        System.out.println(in.readLine());
-                        in.close();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(ac,getString(R.string.it_team_melden_erfolgreich),Toast.LENGTH_LONG).show();
-                            }
-                        });
+                            while (!(in.readLine()).equals("<body>")){}
+                            in.readLine();
+                            System.out.println(in.readLine());
+                            in.close();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ac,getString(R.string.it_team_melden_erfolgreich),Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                        else {
+                            String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
+                            url = url.replaceAll(" ","%20");
+                            URL oracle = new URL(url);
+                            System.out.println(oracle);
+                            BufferedReader in = new BufferedReader(
+                                    new InputStreamReader(oracle.openStream()));
+
+                            while (!(in.readLine()).equals("<body>")){}
+                            in.readLine();
+                            System.out.println(in.readLine());
+                            in.close();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ac,getString(R.string.it_team_melden_erfolgreich),Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
                     }
                 } catch (final Exception e){
                     runOnUiThread(new Runnable() {

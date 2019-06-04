@@ -34,14 +34,6 @@
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ITTeamSenden2"
-            android:label="@string/title_activity_itteam_senden2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ITTeamSenden3"
-            android:label="@string/title_activity_itteam_senden3"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ITTeamSenden4"
             android:label="@string/title_activity_itteam_senden4"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -4,4 +4,5 @@ Schwarzes Brett
 Kurssprecher im Stundenplan  -  Erlaubt? Sonst fertig
 Serverrückmeldung auswerten
 Bei Änderung im Vertretungsplan -> Benachrichtigung
-Stundenplan-Stunden als Vorlage
+Hausmeldung beenden
+AG-Vorstellung

@@ -3,21 +3,23 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:id="@id/einstellungen_scroll">
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@id/einstellungen_main">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:id="@+id/einstellungen_changelog_layout">
+        android:id="@id/einstellungen_changelog_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_changelog_text"
+            android:id="@id/einstellungen_changelog_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -30,7 +32,7 @@
             android:layout_alignParentLeft="true" />
 
         <Button
-            android:id="@+id/einstellungen_changelog_button"
+            android:id="@id/einstellungen_changelog_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -47,10 +49,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_changelog_layout"
-        android:id="@+id/einstellungen_klasse_layout">
+        android:id="@id/einstellungen_klasse_layout">
 
         <TextView
-            android:id="@+id/einstellungen_klasse_text"
+            android:id="@id/einstellungen_klasse_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -63,7 +65,7 @@
             android:layout_alignParentLeft="true" />
 
         <NumberPicker
-            android:id="@+id/einstellungen_klasseEndung_spinner"
+            android:id="@id/einstellungen_klasseEndung_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -73,7 +75,7 @@
             android:gravity="end" />
 
         <NumberPicker
-            android:id="@+id/einstellungen_klasseNr_spinner"
+            android:id="@id/einstellungen_klasseNr_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -89,11 +91,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_klasse_layout"
-        android:id="@+id/einstellungen_notification_layout">
+        android:id="@id/einstellungen_notification_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_notification_text"
+            android:id="@id/einstellungen_notification_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -106,7 +108,7 @@
             android:layout_alignParentLeft="true" />
 
         <Switch
-            android:id="@+id/einstellungen_notification_switch"
+            android:id="@id/einstellungen_notification_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -122,11 +124,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_notification_layout"
-        android:id="@+id/einstellungen_notificationtime_layout">
+        android:id="@id/einstellungen_notificationtime_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_notificationtime_text"
+            android:id="@id/einstellungen_notificationtime_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -139,7 +141,7 @@
             android:layout_alignParentLeft="true" />
 
         <Button
-            android:id="@+id/einstellungen_notificationtime_button"
+            android:id="@id/einstellungen_notificationtime_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -156,11 +158,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_notificationtime_layout"
-        android:id="@+id/einstellungen_colorOwn_layout">
+        android:id="@id/einstellungen_colorOwn_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_colorOwn_text"
+            android:id="@id/einstellungen_colorOwn_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -173,7 +175,7 @@
             android:layout_alignParentLeft="true" />
 
         <Button
-            android:id="@+id/einstellungen_colorOwn_button"
+            android:id="@id/einstellungen_colorOwn_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -190,11 +192,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_colorOwn_layout"
-        android:id="@+id/einstellungen_colorUnter_layout">
+        android:id="@id/einstellungen_colorUnter_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_colorUnter_text"
+            android:id="@id/einstellungen_colorUnter_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -207,7 +209,7 @@
             android:layout_alignParentLeft="true" />
 
         <Button
-            android:id="@+id/einstellungen_colorUnter_button"
+            android:id="@id/einstellungen_colorUnter_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -224,11 +226,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_colorUnter_layout"
-        android:id="@+id/einstellungen_colorMitte_layout">
+        android:id="@id/einstellungen_colorMitte_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_colorMitte_text"
+            android:id="@id/einstellungen_colorMitte_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -241,7 +243,7 @@
             android:layout_alignParentLeft="true" />
 
         <Button
-            android:id="@+id/einstellungen_colorMitte_button"
+            android:id="@id/einstellungen_colorMitte_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -258,11 +260,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_colorMitte_layout"
-        android:id="@+id/einstellungen_colorOber_layout">
+        android:id="@id/einstellungen_colorOber_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_colorOber_text"
+            android:id="@id/einstellungen_colorOber_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -275,7 +277,7 @@
             android:layout_alignParentLeft="true" />
 
         <Button
-            android:id="@+id/einstellungen_colorOber_button"
+            android:id="@id/einstellungen_colorOber_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -292,11 +294,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_colorOber_layout"
-        android:id="@+id/einstellungen_vertretungsplan_icons_layout">
+        android:id="@id/einstellungen_vertretungsplan_icons_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_vertretungsplan_icons_text"
+            android:id="@id/einstellungen_vertretungsplan_icons_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -309,7 +311,7 @@
             android:layout_alignParentLeft="true" />
 
         <Switch
-            android:id="@+id/einstellungen_vertretungsplan_icons_switch"
+            android:id="@id/einstellungen_vertretungsplan_icons_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -325,11 +327,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_vertretungsplan_icons_layout"
-        android:id="@+id/einstellungen_all_settings_layout">
+        android:id="@id/einstellungen_all_settings_layout">
 
 
         <TextView
-            android:id="@+id/einstellungen_all_settings_text"
+            android:id="@id/einstellungen_all_settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -342,7 +344,7 @@
             android:layout_alignParentLeft="true" />
 
         <CheckBox
-            android:id="@+id/einstellungen_all_settings_checkbox"
+            android:id="@id/einstellungen_all_settings_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

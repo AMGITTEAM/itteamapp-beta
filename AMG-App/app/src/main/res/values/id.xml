@@ -2,4 +2,50 @@
 <resources>
     <item name="before" type="id"/>
     <item name="sthelse" type="id"/>
+
+    <!--Feedback-->
+    <item name="feedback_main" type="id"/>
+    <item name="feedback_type" type="id"/>
+    <item name="feedback_description" type="id"/>
+    <item name="feedback_ready" type="id"/>
+
+    <!--Einstellungen-->
+    <item name="einstellungen_scroll" type="id"/>
+    <item name="einstellungen_main" type="id"/>
+    <item name="einstellungen_changelog_layout" type="id"/>
+    <item name="einstellungen_changelog_text" type="id"/>
+    <item name="einstellungen_changelog_button" type="id"/>
+    <item name="einstellungen_klasse_layout" type="id"/>
+    <item name="einstellungen_klasse_text" type="id"/>
+    <item name="einstellungen_klasseEnding_spinner" type="id"/>
+    <item name="einstellungen_klasseNr_spinner" type="id"/>
+    <item name="einstellungen_notification_layout" type="id"/>
+    <item name="einstellungen_notification_text" type="id"/>
+    <item name="einstellungen_notification_switch" type="id"/>
+    <item name="einstellungen_notificationtime_layout" type="id"/>
+    <item name="einstellungen_notificationtime_text" type="id"/>
+    <item name="einstellungen_notificationtime_button" type="id"/>
+    <item name="einstellungen_colorOwn_layout" type="id"/>
+    <item name="einstellungen_colorOwn_text" type="id"/>
+    <item name="einstellungen_colorOwn_button" type="id"/>
+    <item name="einstellungen_colorUnter_layout" type="id"/>
+    <item name="einstellungen_colorUnter_text" type="id"/>
+    <item name="einstellungen_colorUnter_button" type="id"/>
+    <item name="einstellungen_colorMitte_layout" type="id"/>
+    <item name="einstellungen_colorMitte_text" type="id"/>
+    <item name="einstellungen_colorMitte_button" type="id"/>
+    <item name="einstellungen_colorOber_layout" type="id"/>
+    <item name="einstellungen_colorOber_text" type="id"/>
+    <item name="einstellungen_colorOber_button" type="id"/>
+    <item name="einstellungen_vertretungsplan_icons_layout" type="id"/>
+    <item name="einstellungen_vertretungsplan_icons_text" type="id"/>
+    <item name="einstellungen_vertretungsplan_icons_switch" type="id"/>
+    <item name="einstellungen_all_settings_layout" type="id"/>
+    <item name="einstellungen_all_settings_text" type="id"/>
+    <item name="einstellungen_all_settings_checkbox" type="id"/>
+
+    <!--All-main - alle-->
+    <item name="main_drawer_layout" type="id"/>
+    <item name="main_nav_view" type="id"/>
+    <item name="all_content_inflated" type="id"/>
 </resources>

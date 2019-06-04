@@ -40,6 +40,7 @@
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:hint="@string/stundenplan_edit_fachAbk"
+            android:textAllCaps="true"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content" />
 
@@ -80,6 +81,7 @@
             android:importantForAutofill="no"
             android:id="@+id/stundenplan_edit_raum"
             android:inputType="textPersonName"
+            android:textAllCaps="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

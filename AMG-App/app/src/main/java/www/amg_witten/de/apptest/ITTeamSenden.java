@@ -12,10 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 public class ITTeamSenden extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static boolean gebFehler;
     public static String gebaeude;
     public static String etage;
     public static String raum;
@@ -24,9 +24,9 @@ public class ITTeamSenden extends AppCompatActivity
     public static String beschreibung;
     public static boolean ueberschreiben=true;
 
-    NumberPicker gebaeudePicker;
-    NumberPicker etagePicker;
-    NumberPicker raumPicker;
+    private NumberPicker gebaeudePicker;
+    private NumberPicker etagePicker;
+    private NumberPicker raumPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class ITTeamSenden extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -43,6 +43,8 @@ public class ITTeamSenden extends AppCompatActivity
 
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,3,R.layout.it_team_senden);
+
+        gebFehler=false;
 
         gebaeudePicker = findViewById(R.id.gebaeude);
         etagePicker = findViewById(R.id.etage);
@@ -58,7 +60,7 @@ public class ITTeamSenden extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

@@ -1,5 +1,6 @@
 package www.amg_witten.de.apptest;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,6 +15,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import java.io.IOException;
 import java.net.Authenticator;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -43,7 +45,7 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                     String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/subst_" + next;
                     Vertretungsplan.getAllEndings(main,urlEndings);
 
-                    Vertretungsplan.getTables(main,urlEndings,tables);
+                    String[] stands = Vertretungsplan.getTables(main,urlEndings,tables);
 
                     Vertretungsplan.getKlassenList(tables,klassen);
 
@@ -76,14 +78,37 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                             }
                             data = (new VertretungModelArrayModel(rightRows,klasse));
                         }
-                        System.out.println(vertretungModels.get(ie).getKlasse());
                     }
-                    if(data == null){
-                        text = context.getString(R.string.notify_vertretungsplan_nichts);
+                    if(!prefs.getString("lastRefresh","").equals(stands[0])){
+                        if(data == null){
+                            text = context.getString(R.string.notify_vertretungsplan_nichts);
+                        }
+                        else {
+                            text = context.getString(R.string.notify_vertretungsplan_etwas);
+                        }
+
                     }
                     else {
-                        text = context.getString(R.string.notify_vertretungsplan_etwas);
+                        Calendar currTime = Calendar.getInstance();
+                        int hour = currTime.get(Calendar.HOUR_OF_DAY);
+                        if (hour >= 7 && hour < 8) {
+                            Intent alarmIntent = new Intent(context, NotifyVertretungsplan.class);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+
+                            AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(System.currentTimeMillis());
+                            calendar.set(Calendar.HOUR_OF_DAY, currTime.get(Calendar.HOUR_OF_DAY));
+                            calendar.set(Calendar.MINUTE, currTime.get(Calendar.MINUTE)+5);
+                            calendar.set(Calendar.SECOND, 1);
+
+                            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                    AlarmManager.INTERVAL_DAY, pendingIntent);
+                        }
                     }
+
+                    prefs.edit().putString("lastRefresh",stands[0]).apply();
                 }
                 catch(IOException ignored){}
                 Intent onOpenIntent = new Intent(context,Vertretungsplan.class);

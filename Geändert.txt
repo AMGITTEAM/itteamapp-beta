@@ -1,3 +1,7 @@
-﻿Feedback abrufen-Bereich hinzugefügt
-Swipe to Refresh im Vertretungsplan hinzugefügt
-Terminkalender von der Homepage auf die Startseite übernommen
+﻿Kurssprecher anzeigen abgeschlossen, warte auf Veröffentlichung
+Morgendliche Benachrichtigung erscheint erst beim Aktualisieren des Vertretungsplans
+Im Stundenplan wird Kurs-ID und Raum in Caps-Lock geschrieben
+Code aufgeräumt und Warnungen entfernt
+IDs aufgeräumt
+Haustechnik-Fehler Melden angefangen, noch nicht freigeschaltet
+Login ist nun wieder möglich, Danke an Jawago

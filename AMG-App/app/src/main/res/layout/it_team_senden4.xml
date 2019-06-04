@@ -16,7 +16,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fehler1"
+        android:text="@string/fehler1it"
         android:id="@+id/fehler1"
         android:layout_below="@id/raumPruefen"
         android:layout_alignRight="@+id/raumPruefen"
@@ -26,7 +26,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fehler2"
+        android:text="@string/fehler2it"
         android:id="@+id/fehler2"
         android:layout_below="@id/fehler1"
         android:layout_alignRight="@+id/raumPruefen"
@@ -36,7 +36,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fehler3"
+        android:text="@string/fehler3it"
         android:id="@+id/fehler3"
         android:layout_below="@id/fehler2"
         android:layout_alignRight="@+id/raumPruefen"
@@ -46,7 +46,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fehler4"
+        android:text="@string/fehler4it"
         android:id="@+id/fehler4"
         android:layout_below="@id/fehler3"
         android:layout_alignRight="@+id/raumPruefen"
@@ -56,7 +56,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fehler5"
+        android:text="@string/fehler5it"
         android:id="@+id/fehler5"
         android:layout_below="@id/fehler4"
         android:layout_alignRight="@+id/raumPruefen"
@@ -66,7 +66,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fehler6"
+        android:text="@string/fehler6it"
         android:id="@+id/fehler6"
         android:layout_below="@id/fehler5"
         android:layout_alignRight="@+id/raumPruefen"
@@ -84,5 +84,25 @@
         android:layout_alignRight="@+id/raumPruefen"
         android:layout_alignEnd="@+id/raumPruefen"
         android:onClick="Fehler"/>
+
+
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/fehlersonstige"
+        android:id="@+id/fehlerdivider"
+        android:background="?android:attr/listDivider"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fehlergebaeude"
+        android:text="@string/fehlergebaeude"
+        android:layout_below="@id/fehlerdivider"
+        android:layout_alignRight="@+id/raumPruefen"
+        android:layout_alignEnd="@+id/raumPruefen"
+        android:onClick="Fehler"/>-->
 
 </RelativeLayout>

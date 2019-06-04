@@ -24,7 +24,6 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
     private AmbilWarnaKotak mViewSatVal;
     private View mParentView;
     private View mViewHue;
-    private View mViewOldColor;
     private View mViewNewColor;
     private ImageView mViewCursor;
     private ImageView mViewTarget;
@@ -114,7 +113,7 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
         mViewHue = mParentView.findViewById(R.id.ambilwarna_viewHue);
         mViewSatVal = mParentView.findViewById(R.id.ambilwarna_viewSatBri);
         mViewCursor = mParentView.findViewById(R.id.ambilwarna_cursor);
-        mViewOldColor = mParentView.findViewById(R.id.ambilwarna_warnaLama);
+        View mViewOldColor = mParentView.findViewById(R.id.ambilwarna_warnaLama);
         mViewNewColor = mParentView.findViewById(R.id.ambilwarna_warnaBaru);
         mViewTarget = mParentView.findViewById(R.id.ambilwarna_target);
         mViewCancelButton = mParentView.findViewById(R.id.ambilwarna_btn_no);

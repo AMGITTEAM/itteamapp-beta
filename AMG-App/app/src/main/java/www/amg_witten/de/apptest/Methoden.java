@@ -72,12 +72,12 @@ class Methoden {
                 break;
         }
 
-        DrawerLayout drawer = currentActivity.findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = currentActivity.findViewById(R.id.main_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
 
     void onCreateFillIn(Activity currentActivity, NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener, Integer navigationNr, int layout){
-        NavigationView navigationView = currentActivity.findViewById(R.id.nav_view);
+        NavigationView navigationView = currentActivity.findViewById(R.id.main_nav_view);
         navigationView.setNavigationItemSelectedListener(navigationItemSelectedListener);
 
         if(navigationNr!=null){

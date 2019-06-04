@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Calendar;
 
 public class Login extends AppCompatActivity
@@ -34,7 +35,7 @@ public class Login extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -96,7 +97,7 @@ public class Login extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -137,8 +138,11 @@ public class Login extends AppCompatActivity
                         }
                     }
                     in.readLine();
-                    String intAnmeldungErfolgreich = in.readLine();
-                    String passwordVertretungsplanSchueler = in.readLine();
+                    String data = in.readLine();
+                    data = URLDecoder.decode(data,"utf-8");
+                    System.out.println(data);
+                    String intAnmeldungErfolgreich = data.split("//")[0];
+                    String passwordVertretungsplanSchueler = data.split("//")[1];
                     in.close();
                     System.out.println(intAnmeldungErfolgreich);
                     int rechthoehe = Integer.parseInt(intAnmeldungErfolgreich);

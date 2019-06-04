@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -30,7 +31,7 @@ public class ITTeamSenden4 extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -50,7 +51,7 @@ public class ITTeamSenden4 extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -68,33 +69,39 @@ public class ITTeamSenden4 extends AppCompatActivity
     public void Fehler(View view) {
         switch(view.getId()){
             case R.id.fehler1:
-                ITTeamSenden.fehler=getString(R.string.fehler1);
+                ITTeamSenden.fehler=getString(R.string.fehler1it);
                 System.out.println(ITTeamSenden.fehler);
                 break;
             case R.id.fehler2:
-                ITTeamSenden.fehler=getString(R.string.fehler2);
+                ITTeamSenden.fehler=getString(R.string.fehler2it);
                 System.out.println(ITTeamSenden.fehler);
                 break;
             case R.id.fehler3:
-                ITTeamSenden.fehler=getString(R.string.fehler3);
+                ITTeamSenden.fehler=getString(R.string.fehler3it);
                 System.out.println(ITTeamSenden.fehler);
                 break;
             case R.id.fehler4:
-                ITTeamSenden.fehler=getString(R.string.fehler4);
+                ITTeamSenden.fehler=getString(R.string.fehler4it);
                 System.out.println(ITTeamSenden.fehler);
                 break;
             case R.id.fehler5:
-                ITTeamSenden.fehler=getString(R.string.fehler5);
+                ITTeamSenden.fehler=getString(R.string.fehler5it);
                 System.out.println(ITTeamSenden.fehler);
                 break;
             case R.id.fehler6:
-                ITTeamSenden.fehler=getString(R.string.fehler6);
+                ITTeamSenden.fehler=getString(R.string.fehler6it);
                 System.out.println(ITTeamSenden.fehler);
                 break;
 
             case R.id.fehlersonstige:
                 startActivity(new Intent(this,ITTeamSenden4Sonstige.class));
                 return;
+            /*case R.id.fehlergebaeude:
+                ITTeamSenden.gebFehler=true;
+                System.out.println("Gebaeude");
+                startActivity(new Intent(this,ITTeamSenden4Sonstige.class));
+                return;*/
+
         }
         final Activity ac=this;
         new Thread(new Runnable() {

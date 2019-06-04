@@ -2,12 +2,14 @@
 
     <!--It-Team-Fehler-->
 
-    <string name="fehler1">Computer startet nicht</string>
-    <string name="fehler2">Beamer funktioniert nicht</string>
-    <string name="fehler3">Ton funktioniert nicht</string>
-    <string name="fehler4">Programm fehlt</string>
-    <string name="fehler5">Friert ein</string>
-    <string name="fehler6">Stürzt ab</string>
+    <string name="fehler1it">Computer startet nicht</string>
+    <string name="fehler2it">Beamer funktioniert nicht</string>
+    <string name="fehler3it">Ton funktioniert nicht</string>
+    <string name="fehler4it">Programm fehlt</string>
+    <string name="fehler5it">Friert ein</string>
+    <string name="fehler6it">Stürzt ab</string>
+
+    <string name="fehlergebaeude">Haustechnik</string>
 
     <string name="fehlersonstige">Sonstige</string>
 
@@ -20,8 +22,6 @@
 
     <string name="title_activity_itteam_senden">Raum</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_activity_itteam_senden2">Etage</string>
-    <string name="title_activity_itteam_senden3">Raumnummer</string>
     <string name="title_activity_itteam_senden4">Fehler</string>
     <string name="title_activity_itteam_senden4_vorhanden">Meldung vorhanden</string>
     <string name="title_activity_itteam4_sonstige">Sonstige Fehler</string>
@@ -54,7 +54,7 @@
     <string name="nav_drawer_startseite">Startseite</string>
     <string name="nav_drawer_vplan">Vertretungsplan</string>
     <string name="nav_drawer_stundenplan">Stundenplan</string>
-    <string name="nav_drawer_it_team_senden">Meldung an IT-Team</string>
+    <string name="nav_drawer_it_team_senden">Fehler melden</string>
     <string name="nav_drawer_it_team_holen">Meldungen abrufen</string>
     <string name="nav_drawer_feedback_holen">Feedback abrufen</string>
     <string name="nav_drawer_login">Login</string>
@@ -141,34 +141,9 @@
         <item>14</item>
     </string-array>
 
-    <string name="it_team_melden_gebaeude">Bitte wähle das Gebäude mit dem zu meldendem Fehler aus!</string>
-    <string name="it_team_melden_gebaeude_hauptbau">H</string>
-    <string name="it_team_melden_gebaeude_altbau">A</string>
-    <string name="it_team_melden_gebaeude_neubau">N</string>
     <string name="it_team_melden_gebaeude_none">Ohne Raum</string>
 
-    <string name="it_team_melden_etage">Bitte wähle die Etage mit dem zu meldendem Fehler aus!</string>
-    <string name="it_team_melden_etage_2">2</string>
-    <string name="it_team_melden_etage_1">1</string>
-    <string name="it_team_melden_etage_0">0</string>
-    <string name="it_team_melden_etage_Z">Z</string>
-    <string name="it_team_melden_etage_U">U</string>
-
     <string name="it_team_melden_raum">Bitte wähle den Raum mit dem zu meldendem Fehler aus!</string>
-    <string name="it_team_melden_raum_01">01</string>
-    <string name="it_team_melden_raum_02">02</string>
-    <string name="it_team_melden_raum_03">03</string>
-    <string name="it_team_melden_raum_04">04</string>
-    <string name="it_team_melden_raum_05">05</string>
-    <string name="it_team_melden_raum_06">06</string>
-    <string name="it_team_melden_raum_07">07</string>
-    <string name="it_team_melden_raum_08">08</string>
-    <string name="it_team_melden_raum_09">09</string>
-    <string name="it_team_melden_raum_10">10</string>
-    <string name="it_team_melden_raum_11">11</string>
-    <string name="it_team_melden_raum_12">12</string>
-    <string name="it_team_melden_raum_13">13</string>
-    <string name="it_team_melden_raum_14">14</string>
 
     <string name="it_team_melden_fehler">Bitte wähle den Fehler für den Raum %1$s aus!</string>
     <string name="it_team_melden_fehler_ohneRaum">Bitte wähle den generellen Fehler aus!</string>
@@ -389,11 +364,23 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Vorbereitungen zum Anzeigen der Kurssprecher im Stundenplan\n
-    • Fehler beim Aktualisieren des Vertretungsplans behoben (schaltete immer auf die erste Seite)\n
-    • Eingabe des Stundenplans vereinfacht</string>
+    <string name="changelog">• Kurssprecher anzeigen abgeschlossen, warte auf Veröffentlichung\n
+    • Morgendliche Benachrichtigung erscheint erst beim Aktualisieren des Vertretungsplans\n
+    • Im Stundenplan wird Kurs-ID und Raum in Caps-Lock geschrieben\n
+    • Code aufgeräumt und Warnungen entfernt\n
+    • IDs aufgeräumt\n
+    • Haustechnik-Fehler Melden angefangen, noch nicht freigeschaltet\n
+    • Login ist nun wieder möglich, Danke an Jawago</string>
 
     <string name="changelog_all">
+        <b>1.2.2 - 04.06.2019</b>\n
+        • Kurssprecher anzeigen abgeschlossen, warte auf Veröffentlichung\n
+        • Morgendliche Benachrichtigung erscheint erst beim Aktualisieren des Vertretungsplans\n
+        • Im Stundenplan wird Kurs-ID und Raum in Caps-Lock geschrieben\n
+        • Code aufgeräumt und Warnungen entfernt\n
+        • IDs aufgeräumt\n
+        • Haustechnik-Fehler Melden angefangen, noch nicht freigeschaltet\n
+        • Login ist nun wieder möglich, Danke an Jawago\n\n
         <b>1.2.1 - 15.02.2019</b>\n
         • Vorbereitungen zum Anzeigen der Kurssprecher im Stundenplan\n
         • Fehler beim Aktualisieren des Vertretungsplans behoben (schaltete immer auf die erste Seite)\n

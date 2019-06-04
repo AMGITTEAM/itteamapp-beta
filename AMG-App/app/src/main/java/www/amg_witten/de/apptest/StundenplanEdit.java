@@ -19,23 +19,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 public class StundenplanEdit extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final Context context = this;
-    private String[] faecherComponents = new String[0];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +36,7 @@ public class StundenplanEdit extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -83,12 +75,6 @@ public class StundenplanEdit extends AppCompatActivity
         }
         catch(Exception ignored){}
 
-        faecherComponents = Arrays.copyOf(faecherComponent.toArray(),faecherComponent.size(),String[].class);
-
-        if(faecherComponent.toArray()==null){
-            faecherComponents = new String[0];
-        }
-
         for(String stunde : faecherComponent) {
             if(!faecherNamen.contains(stunde.split("\\|\\|")[4])){
                 faecherNamen.add(stunde.split("\\|\\|")[4]);
@@ -126,7 +112,7 @@ public class StundenplanEdit extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

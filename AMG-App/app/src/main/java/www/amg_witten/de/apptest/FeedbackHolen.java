@@ -1,7 +1,6 @@
 package www.amg_witten.de.apptest;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,13 +13,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +24,13 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 public class FeedbackHolen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Context context = this;
+    private final Context context = this;
 
 
     @Override
@@ -42,7 +40,7 @@ public class FeedbackHolen extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -67,6 +65,7 @@ public class FeedbackHolen extends AppCompatActivity
                     while (!(in.readLine()).equals("<body>")){}
                     in.readLine();
                     String data = in.readLine();
+                    data = URLDecoder.decode(data,"utf-8");
                     System.out.println(data);
                     in.close();
 
@@ -102,11 +101,15 @@ public class FeedbackHolen extends AppCompatActivity
                         Button button = new Button(ac);
 
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                        params.resolveLayoutDirection(View.LAYOUT_DIRECTION_RTL);
                         params.setMargins(10,10,0,10);
+                        button.setId(View.generateViewId());
+                        params.addRule(RelativeLayout.LEFT_OF,button.getId());
                         tv.setLayoutParams(params);
                         tv.setText(readLine);
                         rl.addView(tv);
                         params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                        params.removeRule(RelativeLayout.LEFT_OF);
                         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
                         params.setMargins(0,25,10,0);
                         button.setText(getString(R.string.feedback_holen_loeschen));
@@ -167,7 +170,7 @@ public class FeedbackHolen extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -185,18 +188,20 @@ public class FeedbackHolen extends AppCompatActivity
     }
 
     private void Loeschen(String text){
+        System.out.println(text);
         final Activity ac = this;
 
         final String[] daten = new String[2];
         String[] results = text.split("//");
         daten[0]=results[0].replace("Typ: ","");
-        daten[1]=results[1].replace("Beschreibung: ","");
+        daten[1]=text.replace("Beschreibung: ","").replace("Typ: "+daten[0]+"//","");
 
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    daten[1]=URLEncoder.encode(daten[1].replaceAll("\"","\"\""),"utf-8");
                     String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from feedback where type=\""+daten[0]+"\" and description=\""+daten[1]+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     URL oracle = new URL(url);
@@ -212,6 +217,7 @@ public class FeedbackHolen extends AppCompatActivity
                     startActivity(new Intent(ac, FeedbackHolen.class));
 
                 } catch (Exception e){
+                    e.printStackTrace();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
