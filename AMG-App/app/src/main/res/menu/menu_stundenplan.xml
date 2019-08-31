@@ -5,4 +5,6 @@
         <item android:id="@+id/action_settings"
             android:title="@string/menu_stundenplan_bearbeiten" />
     </group>
+    <item android:id="@+id/stundenplan_komplett_loeschen"
+        android:title="@string/menu_stundenplan_loeschen"/>
 </menu>

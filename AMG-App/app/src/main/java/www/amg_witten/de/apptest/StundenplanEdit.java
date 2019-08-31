@@ -76,8 +76,12 @@ public class StundenplanEdit extends AppCompatActivity
         catch(Exception ignored){}
 
         for(String stunde : faecherComponent) {
-            if(!faecherNamen.contains(stunde.split("\\|\\|")[4])){
-                faecherNamen.add(stunde.split("\\|\\|")[4]);
+            if(stunde!=null){
+                System.out.println(stunde);
+                System.out.println(Arrays.deepToString(stunde.split("\\|\\|")));
+                if(!faecherNamen.contains(stunde.split("\\|\\|")[4])){
+                    faecherNamen.add(stunde.split("\\|\\|")[4]);
+                }
             }
         }
 

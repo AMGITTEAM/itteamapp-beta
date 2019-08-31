@@ -95,6 +95,11 @@
 
     <string name="stundenplan_time_notDefined">Nicht definiert</string>
 
+    <string name="stundenplan_ask_deleteAll">Bist du sicher, dass du deinen ganzen Stundenplan löschen willst?</string>
+    <string name="stundenplan_ask_deleteAll_positive">Ja</string>
+    <string name="stundenplan_ask_deleteAll_negative">Abbrechen</string>
+    <string name="stundenplan_ask_deleteAll_title">Stundenplan löschen</string>
+
     <!--Stundenplan-Edit-->
 
     <string name="stundenplan_edit_fachname">Fachname</string>
@@ -357,6 +362,7 @@ Fax: +49 02302 189059\n
     <!--Menu-Stundenplan-->
 
     <string name="menu_stundenplan_bearbeiten">Bearbeiten</string>
+    <string name="menu_stundenplan_loeschen">Stundenplan löschen</string>
 
     <!--Sonstiges-->
 
@@ -364,15 +370,17 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Kurssprecher anzeigen abgeschlossen, warte auf Veröffentlichung\n
-    • Morgendliche Benachrichtigung erscheint erst beim Aktualisieren des Vertretungsplans\n
-    • Im Stundenplan wird Kurs-ID und Raum in Caps-Lock geschrieben\n
-    • Code aufgeräumt und Warnungen entfernt\n
-    • IDs aufgeräumt\n
-    • Haustechnik-Fehler Melden angefangen, noch nicht freigeschaltet\n
-    • Login ist nun wieder möglich, Danke an Jawago</string>
+    <string name="changelog">• Abstürze im Vertretungsplan und Stundenplan-Bearbeiten behoben\n
+    • Vertretungsplan-Code bereinigt (ca. 600 Zeilen)\n
+    • "Stundenplan komplett löschen"-Option hinzugefügt\n
+    • Kurssprecher anzeigen veröffentlicht (nur für EF-Q2)</string>
 
     <string name="changelog_all">
+        <b>1.2.3 - 28.08.2019</b>\n
+        • Abstürze im Vertretungsplan und Stundenplan-Bearbeiten behoben\n
+        • Vertretungsplan-Code bereinigt (ca. 600 Zeilen)\n
+        • "Stundenplan komplett löschen"-Option hinzugefügt\n
+        • Kurssprecher anzeigen veröffentlicht (nur für EF-Q2)\n\n
         <b>1.2.2 - 04.06.2019</b>\n
         • Kurssprecher anzeigen abgeschlossen, warte auf Veröffentlichung\n
         • Morgendliche Benachrichtigung erscheint erst beim Aktualisieren des Vertretungsplans\n

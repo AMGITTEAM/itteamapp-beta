@@ -3,6 +3,7 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -50,6 +51,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Authenticator;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -453,6 +456,26 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             item.setChecked(!item.isChecked());
             return true;
         }
+        else if(id == R.id.stundenplan_komplett_loeschen){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getString(R.string.stundenplan_ask_deleteAll))
+                    .setPositiveButton(getString(R.string.stundenplan_ask_deleteAll_positive), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Startseite.prefs.edit().remove("stundenplanMontag").apply();
+                            Startseite.prefs.edit().remove("stundenplanDienstag").apply();
+                            Startseite.prefs.edit().remove("stundenplanMittwoch").apply();
+                            Startseite.prefs.edit().remove("stundenplanDonnerstag").apply();
+                            Startseite.prefs.edit().remove("stundenplanFreitag").apply();
+                            mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+                            mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.stundenplan_ask_deleteAll_negative),null)
+                    .setTitle(getString(R.string.stundenplan_ask_deleteAll_title));
+            builder.create().show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -495,7 +518,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                     array[i]=stunde;
                 }
                 else {
-                    array[i]=new StundenplanEintragModel(stunde).stunde+"||"+" "+"||"+" "+"||"+" ";
+                    array[i]=new StundenplanEintragModel(stunde).stunde+"||"+" "+"||"+" "+"||"+" "+"||"+" ";
                 }
                 i++;
             }
@@ -606,6 +629,13 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
                 String[] stundenplanGeneralArray = Arrays.copyOf(stundenplanGeneral.toArray(), stundenplanGeneral.toArray().length, String[].class);
                 Arrays.sort(stundenplanGeneralArray);
+                if(stundenplanGeneralArray.length==10){
+                    String temp = stundenplanGeneralArray[0];
+                    for(int i=0;i<stundenplanGeneralArray.length-1;i++){
+                        stundenplanGeneralArray[i]=stundenplanGeneralArray[i+1];
+                    }
+                    stundenplanGeneralArray[stundenplanGeneralArray.length-1]=temp;
+                }
                 stundenplan = new LinkedHashSet<>(Arrays.asList(stundenplanGeneralArray));
             }
             catch (NullPointerException ignored){}
@@ -631,8 +661,8 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             }
             saveStundenplan(wochentag,Arrays.copyOf(stundenplan.toArray(), stundenplan.toArray().length, String[].class));
             listView.setAdapter(new CustomListAdapter(array, getContext(),wochentagNo));
-            if(Startseite.KURSSPRECHER_ENABLED){ //FIXME Anleitung, Apple
-                String klasse = Startseite.prefs.getString("klasse","");
+            if(Startseite.KURSSPRECHER_ENABLED){ //FIXME Apple
+                final String klasse = Startseite.prefs.getString("klasse","");
                 if(klasse.equals("EF")||klasse.equals("Q1")||klasse.equals("Q2")){
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -642,7 +672,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                                 public void run() {
                                     try {
                                         final String fachId = ((CustomListAdapter.ViewHolder)(view).getTag()).fachID;
-                                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude="+klasse+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                                         url = url.replaceAll(" ","%20");
                                         URL oracle = new URL(url);
                                         BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
@@ -655,18 +685,21 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                                             }
                                         }
                                         in.readLine();
-                                        String serverReturn = in.readLine();
+                                        String serverReturn = URLDecoder.decode(in.readLine());
                                         in.close();
 
                                         try {
-                                            final String sprecher = serverReturn.split("//")[1].split("Kurssprecher: ")[1];
+                                            System.out.println(serverReturn);
+                                            final String sprecher = serverReturn.split("//")[1].split("Kurssprecher: ")[1].split("//")[0];
+                                            final String sprecherVertretung = serverReturn.split("//")[2].split("Vertretung: ")[1];
 
                                             getActivity().runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                                     builder.setMessage("Kurs: "+fachId+"\n\n"+
-                                                            "Kurssprecher: "+sprecher)
+                                                            "Kurssprecher/in: "+sprecher+"\n"+
+                                                            "Vertretung: "+sprecherVertretung)
                                                             .setPositiveButton("OK", null)
                                                             .setTitle("Kurssprecher");
                                                     builder.create().show();
@@ -919,7 +952,14 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 case "8":
                     return "14:00-14:45";
                 case "9":
-                    return "14:45-15:30";
+                    if(getCount()==10){
+                        return "15:00-15:45";
+                    }
+                    else {
+                        return "14:45-15:30";
+                    }
+                case "10":
+                    return "15:45-16:30";
                 default:
                     return context.getString(R.string.stundenplan_time_notDefined);
             }

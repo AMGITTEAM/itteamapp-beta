@@ -2,6 +2,7 @@ package amgapp;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -69,6 +70,11 @@ public class ErstesServletKlasse extends HttpServlet {
 		}
 		try {
 			String returnString = Lite.transact(requestType, request, benutzername, passwort, datum, gebaeude, etage, raum, wichtigkeit, fehler, beschreibung, status, bearbeitetVon);
+			if(!requestType.equals("vplan")) {
+				System.out.println(requestType+" not "+"vplan");
+				returnString = URLEncoder.encode(returnString.replaceAll("\n","//"), "utf-8");
+			}
+			System.out.println(returnString);
 			HttpRequest.setAttribute("responsed", returnString);
 			HttpRequest.setAttribute("fehler", ausfuehrFehler);
 			if(requestType.equals("HTMLRequest")) {

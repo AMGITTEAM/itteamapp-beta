@@ -22,7 +22,7 @@ public class Startseite extends AppCompatActivity
     public static SharedPreferences prefs;
 
 
-    public static final boolean KURSSPRECHER_ENABLED = false;
+    public static final boolean KURSSPRECHER_ENABLED = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +37,7 @@ public class Startseite extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
-        login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team, 100=Google-Tester
-        benutzername = prefs.getString("loginUsername","");
-        passwort = prefs.getString("loginPassword","");
-        System.out.println(login);
+        initVars();
 
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,0, R.layout.startseite);
@@ -50,6 +46,18 @@ public class Startseite extends AppCompatActivity
         ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         ((WebView)findViewById(R.id.webViewStartseiteCalendar)).loadUrl("https://calendar.google.com/calendar/embed?title=Demn%C3%A4chst%20am%20AMG&showPrint=0&showTabs=0&showCalendars=0&showNav=0&showDate=0&showTz=0&mode=AGENDA&height=500&wkst=1&bgcolor=%23FFFFFF&src=lvcbajbvce91hrj2cg531ess60%40group.calendar.google.com&color=%235229A3&ctz=Europe%2FBerlin");
 
+        checkForFirstRun();
+    }
+
+    private void initVars(){
+        prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+        login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team, 100=Google-Tester
+        benutzername = prefs.getString("loginUsername","");
+        passwort = prefs.getString("loginPassword","");
+        System.out.println(login);
+    }
+
+    private void checkForFirstRun(){
         // Get current version code
         int currentVersionCode = BuildConfig.VERSION_CODE;
 
@@ -84,6 +92,18 @@ public class Startseite extends AppCompatActivity
             }
             if(savedVersionCode<8){
                 prefs.edit().putBoolean("vertretungsplanIconsEnabled",true).apply();
+            }
+            if(savedVersionCode<23){
+                String montag = prefs.getString("stundenplanMontag","").replaceAll("\\|\\| \\|\\| \\|\\| ","|| || || || ");
+                prefs.edit().putString("stundenplanMontag",montag).apply();
+                String dienstag = prefs.getString("stundenplanDienstag","").replaceAll("\\|\\| \\|\\| \\|\\| ","|| || || || ");
+                prefs.edit().putString("stundenplanDienstag",dienstag).apply();
+                String mittwoch = prefs.getString("stundenplanMittwoch","").replaceAll("\\|\\| \\|\\| \\|\\| ","|| || || || ");
+                prefs.edit().putString("stundenplanMittwoch",mittwoch).apply();
+                String donnerstag = prefs.getString("stundenplanDonnerstag","").replaceAll("\\|\\| \\|\\| \\|\\| ","|| || || || ");
+                prefs.edit().putString("stundenplanDonnerstag",donnerstag).apply();
+                String freitag = prefs.getString("stundenplanFreitag","").replaceAll("\\|\\| \\|\\| \\|\\| ","|| || || || ");
+                prefs.edit().putString("stundenplanFreitag",freitag).apply();
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
