@@ -186,7 +186,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         if(newTab!=null){
             newTab.select();
         }
-
+/*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -375,8 +375,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         }).start();
-
-        //FIXME warte auf Veröffentlichung
+*/
 
         String klasse = Startseite.prefs.getString("klasse","");
         if(klasse.equals("EF")||klasse.equals("Q1")||klasse.equals("Q2")){
@@ -630,9 +629,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 Arrays.sort(stundenplanGeneralArray);
                 if(stundenplanGeneralArray.length==10){
                     String temp = stundenplanGeneralArray[0];
-                    for(int i=0;i<stundenplanGeneralArray.length-1;i++){
-                        stundenplanGeneralArray[i]=stundenplanGeneralArray[i+1];
-                    }
+                    System.arraycopy(stundenplanGeneralArray, 1, stundenplanGeneralArray, 0, stundenplanGeneralArray.length - 1);
                     stundenplanGeneralArray[stundenplanGeneralArray.length-1]=temp;
                 }
                 stundenplan = new LinkedHashSet<>(Arrays.asList(stundenplanGeneralArray));
@@ -684,7 +681,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                                             }
                                         }
                                         in.readLine();
-                                        String serverReturn = URLDecoder.decode(in.readLine());
+                                        String serverReturn = URLDecoder.decode(in.readLine(),"UTF-8");
                                         in.close();
 
                                         try {
@@ -1023,7 +1020,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();

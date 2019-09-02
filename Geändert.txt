@@ -1,2 +1,1 @@
-﻿Gradle-Update + Android 10 (Q) unterstützt
-Fehler im Vertretungsplan behoben (URL korrigiert)
+﻿Vertretungsplan abgeschaltet

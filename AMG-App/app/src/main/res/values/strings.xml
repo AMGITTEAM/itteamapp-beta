@@ -366,14 +366,20 @@ Fax: +49 02302 189059\n
 
     <!--Sonstiges-->
 
-
+    <string name="vertretungsplan_disabled_first">Aufgrund von umfangreichen Veränderungen im Vertretungsplan wird der Vertretungsplan in dieser App vorübergehend abgeschaltet.</string>
+    <string name="vertretungsplan_disabled_second">Online-Vertretungsplan:</string>
+    <string name="vertretungsplan_disabled_heute">&lt;a href="https://amg-witten.de/fileadmin/VertretungsplanSUS/Heute/subst_001.htm"&gt;Heute&lt;/a&gt;</string>
+    <string name="vertretungsplan_disabled_folgetag">&lt;a href="https://amg-witten.de/fileadmin/VertretungsplanSUS/Folgetag/subst_001.htm"&gt;Folgetag&lt;/a&gt;</string>
+    <string name="vertretungsplan_disabled_title">Vertretungsplan</string>
+    <string name="vertretungsplan_disabled_positive">OK</string>
 
     <!--Changelogs-->
 
-    <string name="changelog">• Gradle-Update + Android 10 (Q) unterstützt\n
-    • Fehler im Vertretungsplan behoben (URL korrigiert)</string>
+    <string name="changelog">• Vertretungsplan abgeschaltet</string>
 
     <string name="changelog_all">
+        <b>1.2.5 - 02.09.2019</b>\n
+        • Vertretungsplan abgeschaltet\n\n
         <b>1.2.4 - 02.09.2019</b>\n
         • Gradle-Update + Android 10 (Q) unterstützt\n
         • Fehler im Vertretungsplan behoben (URL korrigiert)\n\n

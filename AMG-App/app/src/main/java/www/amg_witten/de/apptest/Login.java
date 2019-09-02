@@ -107,7 +107,6 @@ public class Login extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();

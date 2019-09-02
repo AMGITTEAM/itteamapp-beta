@@ -76,7 +76,6 @@ public class Feedback extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();

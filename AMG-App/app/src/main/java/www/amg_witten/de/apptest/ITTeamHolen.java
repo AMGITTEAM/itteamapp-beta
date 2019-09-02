@@ -115,12 +115,9 @@ public class ITTeamHolen extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.FilterEtage:
-                return true;
             case R.id.FilterGebaeude:
-                return true;
-            case R.id.FilterStatus:
-                return true;
             case R.id.FilterRaum:
+            case R.id.FilterStatus:
                 return true;
 
             default:

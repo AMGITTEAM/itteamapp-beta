@@ -91,7 +91,7 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                     else {
                         Calendar currTime = Calendar.getInstance();
                         int hour = currTime.get(Calendar.HOUR_OF_DAY);
-                        if (hour >= 7 && hour < 8) {
+                        if (hour == 7) {
                             Intent alarmIntent = new Intent(context, NotifyVertretungsplan.class);
                             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 

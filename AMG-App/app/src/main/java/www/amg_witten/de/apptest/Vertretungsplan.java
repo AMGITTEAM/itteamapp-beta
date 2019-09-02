@@ -3,12 +3,15 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.PersistableBundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -19,11 +22,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -36,6 +46,7 @@ import java.io.InputStreamReader;
 import java.net.Authenticator;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,14 +84,36 @@ public class Vertretungsplan extends AppCompatActivity
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,1,R.layout.vertretungsplan_activity);
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 File heute = action(thise, "Heute");
                 File folgetag = action(thise, "Folgetag");
                 generateLayout(heute, folgetag);
             }
-        }).start();
+        }).start();*/
+
+        TextView view = new TextView(this);
+        Spanned s = Html.fromHtml(getString(R.string.vertretungsplan_disabled_first)+"<br/><br/>"+
+                getString(R.string.vertretungsplan_disabled_second)+"<br/>"+getString(R.string.vertretungsplan_disabled_heute)+"<br/>"+
+                getString(R.string.vertretungsplan_disabled_folgetag));
+        view.setText(s);
+        view.setMovementMethod(LinkMovementMethod.getInstance());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(Html.fromHtml(getString(R.string.vertretungsplan_disabled_first)+"<br/><br/>"+
+                getString(R.string.vertretungsplan_disabled_second)+"<br/>"+getString(R.string.vertretungsplan_disabled_heute)+"<br/>"+
+                getString(R.string.vertretungsplan_disabled_folgetag)))
+                .setPositiveButton(getString(R.string.vertretungsplan_disabled_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onBackPressed();
+                    }
+                })
+                .setTitle(getString(R.string.vertretungsplan_disabled_title));
+        AlertDialog d = builder.create();
+        d.show();
+        ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private static File action(final Activity thise, String date){
@@ -118,7 +151,7 @@ public class Vertretungsplan extends AppCompatActivity
 
             Authenticator.setDefault(new MyAuthenticator(thise));
             urlEndings.add("001.htm");
-            String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
+            String main = "http://distrikt12.bplaced.net/web_old/";//"https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
             System.out.println(main);
 
             getAllEndings(main,urlEndings);
@@ -206,6 +239,8 @@ public class Vertretungsplan extends AppCompatActivity
                 String match = matcher.group();
                 allMatches.add(match.replace("<td class=\"list\" align=\"center\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","").replace("<td class=\"list\">","").replace("</td>","").replace("<b>","").replace("</b>","").replace("<span style=\"color: #800000\">","").replace("<span style=\"color: #0000FF\">","").replace("<span style=\"color: #010101\">","").replace("<span style=\"color: #008040\">","").replace("<span style=\"color: #008000\">","").replace("<span style=\"color: #FF00FF\">","").replace("</span>","").replace("&nbsp;","").replaceFirst(">",""));
             }
+
+            System.out.println(Arrays.deepToString(allMatches.toArray()));
 
             VertretungModel model = new VertretungModel(allMatches.get(0),allMatches.get(1),allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7));
 

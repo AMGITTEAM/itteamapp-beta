@@ -126,7 +126,6 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
         mViewNewColor.setBackgroundColor(mColor);
     }
 
-    @SuppressWarnings("deprecation")
     private void setView() {
         if (mParentView == null)
             return;

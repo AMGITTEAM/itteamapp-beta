@@ -70,7 +70,6 @@ public class ITTeamSenden extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
