@@ -1,7 +1,2 @@
-﻿Kurssprecher anzeigen abgeschlossen, warte auf Veröffentlichung
-Morgendliche Benachrichtigung erscheint erst beim Aktualisieren des Vertretungsplans
-Im Stundenplan wird Kurs-ID und Raum in Caps-Lock geschrieben
-Code aufgeräumt und Warnungen entfernt
-IDs aufgeräumt
-Haustechnik-Fehler Melden angefangen, noch nicht freigeschaltet
-Login ist nun wieder möglich, Danke an Jawago
+﻿Gradle-Update + Android 10 (Q) unterstützt
+Fehler im Vertretungsplan behoben (URL korrigiert)

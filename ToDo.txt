@@ -1,8 +1,6 @@
 ﻿Startseite
 Schwarzes Brett
  -> Klausurtermine im Stundenplan
-Kurssprecher im Stundenplan  -  Erlaubt? Sonst fertig
 Serverrückmeldung auswerten
-Bei Änderung im Vertretungsplan -> Benachrichtigung
 Hausmeldung beenden
 AG-Vorstellung
