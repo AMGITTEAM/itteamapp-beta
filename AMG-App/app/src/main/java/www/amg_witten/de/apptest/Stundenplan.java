@@ -186,7 +186,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         if(newTab!=null){
             newTab.select();
         }
-/*
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -375,7 +375,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         }).start();
-*/
+
 
         String klasse = Startseite.prefs.getString("klasse","");
         if(klasse.equals("EF")||klasse.equals("Q1")||klasse.equals("Q2")){

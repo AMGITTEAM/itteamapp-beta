@@ -375,9 +375,11 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Vertretungsplan abgeschaltet</string>
+    <string name="changelog">• Vertretungsplan reaktiviert</string>
 
     <string name="changelog_all">
+        <b>1.2.6 - 09.09.2019</b>\n
+        • Vertretungsplan reaktiviert\n\n
         <b>1.2.5 - 02.09.2019</b>\n
         • Vertretungsplan abgeschaltet\n\n
         <b>1.2.4 - 02.09.2019</b>\n

@@ -84,36 +84,14 @@ public class Vertretungsplan extends AppCompatActivity
         Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,1,R.layout.vertretungsplan_activity);
 
-        /*new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 File heute = action(thise, "Heute");
                 File folgetag = action(thise, "Folgetag");
                 generateLayout(heute, folgetag);
             }
-        }).start();*/
-
-        TextView view = new TextView(this);
-        Spanned s = Html.fromHtml(getString(R.string.vertretungsplan_disabled_first)+"<br/><br/>"+
-                getString(R.string.vertretungsplan_disabled_second)+"<br/>"+getString(R.string.vertretungsplan_disabled_heute)+"<br/>"+
-                getString(R.string.vertretungsplan_disabled_folgetag));
-        view.setText(s);
-        view.setMovementMethod(LinkMovementMethod.getInstance());
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(Html.fromHtml(getString(R.string.vertretungsplan_disabled_first)+"<br/><br/>"+
-                getString(R.string.vertretungsplan_disabled_second)+"<br/>"+getString(R.string.vertretungsplan_disabled_heute)+"<br/>"+
-                getString(R.string.vertretungsplan_disabled_folgetag)))
-                .setPositiveButton(getString(R.string.vertretungsplan_disabled_positive), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onBackPressed();
-                    }
-                })
-                .setTitle(getString(R.string.vertretungsplan_disabled_title));
-        AlertDialog d = builder.create();
-        d.show();
-        ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+        }).start();
     }
 
     private static File action(final Activity thise, String date){
@@ -151,7 +129,7 @@ public class Vertretungsplan extends AppCompatActivity
 
             Authenticator.setDefault(new MyAuthenticator(thise));
             urlEndings.add("001.htm");
-            String main = "http://distrikt12.bplaced.net/web_old/";//"https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
+            String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
             System.out.println(main);
 
             getAllEndings(main,urlEndings);
