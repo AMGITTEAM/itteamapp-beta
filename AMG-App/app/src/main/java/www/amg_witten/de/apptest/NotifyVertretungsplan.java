@@ -42,7 +42,7 @@ public class NotifyVertretungsplan extends BroadcastReceiver {
                     Authenticator.setDefault(new MyAuthenticator(context));
                     String next = "001.htm";
                     urlEndings.add(next);
-                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/subst_" + next;
+                    String main = "https://sus.amg-witten.de/Heute/subst_" + next;
                     Vertretungsplan.getAllEndings(main,urlEndings);
 
                     String[] stands = Vertretungsplan.getTables(main,urlEndings,tables);

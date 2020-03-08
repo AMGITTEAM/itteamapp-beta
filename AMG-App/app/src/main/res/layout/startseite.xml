@@ -23,8 +23,7 @@
             android:contentDescription="@string/startseite_logo_description"
             android:id="@+id/startseite_logo"
             android:scaleType="fitStart"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo_amg"/>
+            android:adjustViewBounds="true"/>
 
         <TextView
             android:layout_width="match_parent"

@@ -9,10 +9,8 @@ import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,19 +33,12 @@ public class FeedbackHolen extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,5, R.layout.it_team_holen);
+        methoden.onCreateFillIn(this,this,6, R.layout.it_team_holen);
 
         ITTeamHolenAnzeigen("select * from feedback;");
     }
@@ -58,7 +49,7 @@ public class FeedbackHolen extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=FeedbackHolen&request="+filter+"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
+                    URL url = new URL("https://amgitt.de/AMGAppServlet/amgapp?requestType=FeedbackHolen&request="+filter+"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(url.openStream()));
 
@@ -117,9 +108,20 @@ public class FeedbackHolen extends AppCompatActivity
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setMessage(getString(R.string.feedback_holen_dialog_loeschen))
-                                        .setPositiveButton(getString(R.string.feedback_holen_dialog_positive), new DialogInterface.OnClickListener() {
+                                AlertDialog.Builder builder;
+                                if(Startseite.theme == R.style.DarkTheme){
+                                    builder = new AlertDialog.Builder(context,R.style.DarkDialog);
+                                }
+                                else {
+                                    builder = new AlertDialog.Builder(context);
+                                }
+                                TextView textView = new TextView(context);
+                                textView.setText(R.string.feedback_holen_dialog_loeschen);
+                                textView.setTextColor(getResources().getColor(Startseite.textColor));
+                                float dpi = getResources().getDisplayMetrics().density;
+                                textView.setPadding((int)(19*dpi), (int)(5*dpi), (int)(14*dpi), (int)(5*dpi));
+                                builder.setView(textView);
+                                builder.setPositiveButton(getString(R.string.feedback_holen_dialog_positive), new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 Loeschen(texte[finali]);
@@ -202,7 +204,7 @@ public class FeedbackHolen extends AppCompatActivity
             public void run() {
                 try {
                     daten[1]=URLEncoder.encode(daten[1].replaceAll("\"","\"\""),"utf-8");
-                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from feedback where type=\""+daten[0]+"\" and description=\""+daten[1]+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    String url = "https://amgitt.de/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from feedback where type=\""+daten[0]+"\" and description=\""+daten[1]+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     URL oracle = new URL(url);
                     System.out.println(url);

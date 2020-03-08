@@ -30,18 +30,11 @@ public class Login extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,900,R.layout.login);
 
         if(Startseite.login>0){
@@ -65,7 +58,7 @@ public class Login extends AppCompatActivity
         }
 
         final Activity ac = this;
-        final ProgressDialog progress = new ProgressDialog(this);
+        final ProgressDialog progress = new ProgressDialog(this,R.style.DarkDialog);
         progress.setTitle(getString(R.string.login_process_connecting));
         progress.setMessage(getString(R.string.login_process_wait));
         progress.setCancelable(false);
@@ -74,7 +67,7 @@ public class Login extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    URL oracle = new URL("http://amgitt.de:8080/AMGAppServlet/");
+                    URL oracle = new URL("https://amgitt.de/AMGAppServlet/");
                     BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
                     in.close();
                     progress.dismiss();
@@ -123,7 +116,7 @@ public class Login extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Login&request=&username="+benutzername+"&password="+passwort+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    String url = "https://amgitt.de/AMGAppServlet/amgapp?requestType=Login&request=&username="+benutzername+"&password="+passwort+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     System.out.println(url);
                     URL oracle = new URL(url);

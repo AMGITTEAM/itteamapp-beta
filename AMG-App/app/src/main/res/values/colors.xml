@@ -10,4 +10,10 @@
 
     <color name="prev_color">#FFAAAA</color>
     <color name="new_color">#AAAAFF</color>
+
+    <color name="darkBar">#303135</color>
+    <color name="darkSelectedNav">#404652</color>
+    <color name="darkBackground">#202125</color>
+    <color name="darkTextColor">#F1F2F6</color>
+    <color name="darkHintTextColor">#808080</color>
 </resources>

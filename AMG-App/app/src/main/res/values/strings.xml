@@ -36,6 +36,7 @@
     <string name="title_activity_feedback">Feedback</string>
     <string name="title_activity_hilfe">Hilfe</string>
     <string name="title_activity_feedback_holen">Feedback abrufen</string>
+    <string name="title_activity_schwarzes_brett">Schwarzes Brett</string>
 
     <!--ColorPicker-->
 
@@ -54,6 +55,7 @@
     <string name="nav_drawer_startseite">Startseite</string>
     <string name="nav_drawer_vplan">Vertretungsplan</string>
     <string name="nav_drawer_stundenplan">Stundenplan</string>
+    <string name="nav_drawer_schwarzes_brett">Schwarzes Brett</string>
     <string name="nav_drawer_it_team_senden">Fehler melden</string>
     <string name="nav_drawer_it_team_holen">Meldungen abrufen</string>
     <string name="nav_drawer_feedback_holen">Feedback abrufen</string>
@@ -295,6 +297,8 @@
     <string name="einstellungen_klasse">Aktuelle Klasse:</string>
 
     <string name="einstellungen_notification">Benachrichtigung an/aus:</string>
+    <string name="einstellungen_darkDesign">Dunkles Design an/aus:</string>
+    <string name="einstellungen_kalenderAusblenden">Kalender auf der Startseite an/aus:</string>
 
     <string name="einstellungen_notificationtime">Benachrichtigungszeit:</string>
     <string name="einstellungen_notificationtime_edit">Bearbeiten</string>
@@ -375,9 +379,28 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Vertretungsplan reaktiviert</string>
+    <string name="changelog">• Dunkles Design vervollständigt\n
+        • Gradle &amp; Abhängigkeiten aktualisiert\n
+        • Fehler im Vertretungsplan behoben\n
+        • Abstürze behoben</string>
 
     <string name="changelog_all">
+        <b>1.4.1 - 13.01.2020</b>\n
+        • Dunkles Design vervollständigt\n
+        • Gradle Update\n
+        • Kalender auf der Startseite ausblenden funktioniert jetzt\n\n
+        <b>1.4.0 - 03.12.2019</b>\n
+        • Dunkles Design hinzugefügt\n
+        • Kommunikation auf HTTPS umgestellt\n
+        • Kalender von der Startseite kann ausgeblendet werden\n
+        • Logo auf der Startseite aktualisiert\n\n
+        <b>1.3.0 - 07.11.2019</b>\n
+        • Schwarzes Brett hinzugefügt\n
+        • Umlaute im Vertretungsplan korrigiert\n
+        • Gradle Update\n
+        • Stundenplan kann jetzt auch offline angesehen werden\n
+        • Vertretungsplan repariert (Re-Login benötigt)\n
+        • Kommunikation auf Port 80 umgestellt\n\n
         <b>1.2.6 - 09.09.2019</b>\n
         • Vertretungsplan reaktiviert\n\n
         <b>1.2.5 - 02.09.2019</b>\n

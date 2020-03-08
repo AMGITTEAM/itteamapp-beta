@@ -17,11 +17,17 @@
     <item name="einstellungen_changelog_button" type="id"/>
     <item name="einstellungen_klasse_layout" type="id"/>
     <item name="einstellungen_klasse_text" type="id"/>
-    <item name="einstellungen_klasseEnding_spinner" type="id"/>
+    <item name="einstellungen_klasseEndung_spinner" type="id"/>
     <item name="einstellungen_klasseNr_spinner" type="id"/>
     <item name="einstellungen_notification_layout" type="id"/>
     <item name="einstellungen_notification_text" type="id"/>
     <item name="einstellungen_notification_switch" type="id"/>
+    <item name="einstellungen_darkDesign_layout" type="id"/>
+    <item name="einstellungen_darkDesign_text" type="id"/>
+    <item name="einstellungen_darkDesign_switch" type="id"/>
+    <item name="einstellungen_kalenderAusblenden_layout" type="id"/>
+    <item name="einstellungen_kalenderAusblenden_text" type="id"/>
+    <item name="einstellungen_kalenderAusblenden_switch" type="id"/>
     <item name="einstellungen_notificationtime_layout" type="id"/>
     <item name="einstellungen_notificationtime_text" type="id"/>
     <item name="einstellungen_notificationtime_button" type="id"/>

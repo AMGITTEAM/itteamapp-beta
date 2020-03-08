@@ -16,10 +16,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -80,13 +78,11 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,2,R.layout.stundenplan_activity);
 
         tabLayout = findViewById(R.id.tab_layout);
@@ -160,12 +156,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             public void onPageScrollStateChanged(int i) {}
         });
 
-
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
         transistioning=false;
         bearbeiten=false;
 
@@ -198,10 +188,16 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 List<VertretungModel> fertigeMulti = new ArrayList<>();
                 final List<VertretungModelArrayModel> data = new ArrayList<>();
                 final List<String> fertigeKlassen = new ArrayList<>();
-                try {
-                    Looper.prepare();
-                    final ProgressDialog pDialog = new ProgressDialog(thise);
 
+                Looper.prepare();
+                final ProgressDialog pDialog;
+                if(Startseite.theme == R.style.DarkTheme){
+                    pDialog = new ProgressDialog(thise,R.style.DarkDialog);
+                }
+                else {
+                    pDialog = new ProgressDialog(thise);
+                }
+                try {
                     thise.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -215,7 +211,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
                     Authenticator.setDefault(new MyAuthenticator(thise));
                     urlEndings.add("001.htm");
-                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/";
+                    String main = "http://sus.amg-witten.de/Heute/";
 
                     Vertretungsplan.getAllEndings(main,urlEndings);
 
@@ -281,6 +277,12 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
                 catch (Exception e) {
                     e.printStackTrace();
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.hide();
+                        }
+                    });
                 }
                 final List<String> urlEndingsFolgetag = new ArrayList<>();
                 List<String> tablesFolgetag = new ArrayList<>();
@@ -291,8 +293,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 final List<VertretungModelArrayModel> dataFolgetag = new ArrayList<>();
                 final List<String> fertigeKlassenFolgetag = new ArrayList<>();
                 try {
-                    final ProgressDialog pDialog = new ProgressDialog(thise);
-
                     thise.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -306,7 +306,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
                     Authenticator.setDefault(new MyAuthenticator(thise));
                     urlEndingsFolgetag.add("001.htm");
-                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Folgetag/";
+                    String main = "http://sus.amg-witten.de/Folgetag/";
 
                     Vertretungsplan.getAllEndings(main,urlEndingsFolgetag);
 
@@ -372,6 +372,12 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
                 catch (Exception e) {
                     e.printStackTrace();
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.hide();
+                        }
+                    });
                 }
             }
         }).start();
@@ -455,9 +461,20 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             return true;
         }
         else if(id == R.id.stundenplan_komplett_loeschen){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(getString(R.string.stundenplan_ask_deleteAll))
-                    .setPositiveButton(getString(R.string.stundenplan_ask_deleteAll_positive), new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builder;
+            if(Startseite.theme == R.style.DarkTheme){
+                builder = new AlertDialog.Builder(this,R.style.DarkDialog);
+            }
+            else {
+                builder = new AlertDialog.Builder(this);
+            }
+            TextView textView = new TextView(this);
+            textView.setText(R.string.stundenplan_ask_deleteAll);
+            textView.setTextColor(getResources().getColor(Startseite.textColor));
+            float dpi = getResources().getDisplayMetrics().density;
+            textView.setPadding((int)(19*dpi), (int)(5*dpi), (int)(14*dpi), (int)(5*dpi));
+            builder.setView(textView);
+            builder.setPositiveButton(getString(R.string.stundenplan_ask_deleteAll_positive), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Startseite.prefs.edit().remove("stundenplanMontag").apply();
@@ -540,6 +557,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
         if(resultCode==1){
             if(stundePicking!=0){
                 Loeschen();
@@ -668,7 +686,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                                 public void run() {
                                     try {
                                         final String fachId = ((CustomListAdapter.ViewHolder)(view).getTag()).fachID;
-                                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude="+klasse+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                                        String url = "https://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude="+klasse+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                                         url = url.replaceAll(" ","%20");
                                         URL oracle = new URL(url);
                                         BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
@@ -692,11 +710,22 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                                             getActivity().runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                                    builder.setMessage("Kurs: "+fachId+"\n\n"+
+                                                    AlertDialog.Builder builder;
+                                                    if(Startseite.theme == R.style.DarkTheme){
+                                                        builder = new AlertDialog.Builder(getContext(),R.style.DarkDialog);
+                                                    }
+                                                    else {
+                                                        builder = new AlertDialog.Builder(getContext());
+                                                    }
+                                                    TextView textView = new TextView(getContext());
+                                                    textView.setText("Kurs: "+fachId+"\n\n"+
                                                             "Kurssprecher/in: "+sprecher+"\n"+
-                                                            "Vertretung: "+sprecherVertretung)
-                                                            .setPositiveButton("OK", null)
+                                                            "Vertretung: "+sprecherVertretung);
+                                                    textView.setTextColor(getResources().getColor(Startseite.textColor));
+                                                    float dpi = getResources().getDisplayMetrics().density;
+                                                    textView.setPadding((int)(19*dpi), (int)(5*dpi), (int)(14*dpi), (int)(5*dpi));
+                                                    builder.setView(textView);
+                                                    builder.setPositiveButton("OK", null)
                                                             .setTitle("Kurssprecher");
                                                     builder.create().show();
                                                 }

@@ -41,18 +41,11 @@ public class Feedback extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,902,R.layout.feedback);
 
         types[0] = getString(R.string.feedback_type_none);
@@ -98,7 +91,7 @@ public class Feedback extends AppCompatActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                try {String url = "https://amgitt.de/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     url = url.replaceAll("\n","%30");
                     URL oracle = new URL(url);
@@ -131,9 +124,20 @@ public class Feedback extends AppCompatActivity
     }
 
     private void askCompleteDebug(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.feedback_ask_completeDebug))
-                .setPositiveButton(getString(R.string.feedback_completeDebug_positiveButton), new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder;
+        if(Startseite.theme == R.style.DarkTheme){
+            builder = new AlertDialog.Builder(this,R.style.DarkDialog);
+        }
+        else {
+            builder = new AlertDialog.Builder(this);
+        }
+        TextView textView = new TextView(this);
+        textView.setText(R.string.feedback_ask_completeDebug);
+        textView.setTextColor(getResources().getColor(Startseite.textColor));
+        float dpi = getResources().getDisplayMetrics().density;
+        textView.setPadding((int)(19*dpi), (int)(5*dpi), (int)(14*dpi), (int)(5*dpi));
+        builder.setView(textView);
+        builder.setPositiveButton(getString(R.string.feedback_completeDebug_positiveButton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         doCompleteDebug();
@@ -163,7 +167,7 @@ public class Feedback extends AppCompatActivity
                 System.out.println("WORKING");
                 try {
                     description = URLEncoder.encode(description,"utf-8");
-                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    String url = "https://amgitt.de/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     url = url.replaceAll("\n","%30");
                     URL oracle = new URL(url);
@@ -179,11 +183,21 @@ public class Feedback extends AppCompatActivity
                         @Override
                         public void run() {
                             Toast.makeText(ac,getString(R.string.feedback_send_success),Toast.LENGTH_LONG).show();
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            TextView tv = new TextView(context);
-                            tv.setText(getString(R.string.feedback_full_id,id));
-                            tv.setTextIsSelectable(true);
-                            builder.setView(tv)
+                            AlertDialog.Builder builder;
+                            if(Startseite.theme == R.style.DarkTheme){
+                                builder = new AlertDialog.Builder(context,R.style.DarkDialog);
+                            }
+                            else {
+                                builder = new AlertDialog.Builder(context);
+                            }
+
+                            TextView textView = new TextView(context);
+                            textView.setText(getString(R.string.feedback_full_id,id));
+                            textView.setTextColor(getResources().getColor(Startseite.textColor));
+                            float dpi = getResources().getDisplayMetrics().density;
+                            textView.setPadding((int)(19*dpi), (int)(5*dpi), (int)(14*dpi), (int)(5*dpi));
+                            textView.setTextIsSelectable(true);
+                            builder.setView(textView)
                                     .setPositiveButton(getString(R.string.feedback_completeDebug_positiveButton), null)
                                     .setTitle(getString(R.string.feedback_completeDebug_title));
                             builder.create().show();

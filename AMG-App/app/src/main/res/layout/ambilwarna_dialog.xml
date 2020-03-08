@@ -65,10 +65,11 @@
 
         <LinearLayout
             android:id="@+id/ambilwarna_state"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/ambilwarna_spacer"
+            android:layout_toRightOf="@id/ambilwarna_reset"
             android:gravity="center"
             android:orientation="horizontal">
 

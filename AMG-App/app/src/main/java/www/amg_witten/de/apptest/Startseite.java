@@ -1,5 +1,7 @@
 package www.amg_witten.de.apptest;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,12 +9,13 @@ import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,40 +24,48 @@ public class Startseite extends AppCompatActivity
     public static String passwort;
     public static SharedPreferences prefs;
 
+    public static int theme;
+    public static int barColor;
+    public static int textColor;
+
 
     public static final boolean KURSSPRECHER_ENABLED = true;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        System.out.println(login);
 
-        initVars();
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,0, R.layout.startseite);
 
-        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptEnabled(true);
-        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).loadUrl("https://calendar.google.com/calendar/embed?title=Demn%C3%A4chst%20am%20AMG&showPrint=0&showTabs=0&showCalendars=0&showNav=0&showDate=0&showTz=0&mode=AGENDA&height=500&wkst=1&bgcolor=%23FFFFFF&src=lvcbajbvce91hrj2cg531ess60%40group.calendar.google.com&color=%235229A3&ctz=Europe%2FBerlin");
+        if(!prefs.getBoolean("kalenderAusblenden",false)){
+            ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptEnabled(true);
+            ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+            ((WebView)findViewById(R.id.webViewStartseiteCalendar)).loadUrl("https://calendar.google.com/calendar/embed?title=Demn%C3%A4chst%20am%20AMG&showPrint=0&showTabs=0&showCalendars=0&showNav=0&showDate=0&showTz=0&mode=AGENDA&height=500&wkst=1&bgcolor=%23FFFFFF&src=lvcbajbvce91hrj2cg531ess60%40group.calendar.google.com&color=%235229A3&ctz=Europe%2FBerlin");
+        }
+        else {
+            findViewById(R.id.webViewStartseiteCalendar).setVisibility(View.GONE);
+        }
+        if(theme == R.style.DarkTheme){
+            ((ImageView)findViewById(R.id.startseite_logo)).setImageDrawable(getResources().getDrawable(R.drawable.ausweis_logo_neu/*R.drawable.logo_amg_dark*/));
+        }
+        else {
+            ((ImageView)findViewById(R.id.startseite_logo)).setImageDrawable(getResources().getDrawable(R.drawable.ausweis_logo_neu/*R.drawable.logo_amg*/));
+        }
 
         checkForFirstRun();
     }
 
-    private void initVars(){
-        prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+    public static void initVars(Activity activity){
+        prefs = activity.getSharedPreferences("Prefs", MODE_PRIVATE);
         login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team, 100=Google-Tester
         benutzername = prefs.getString("loginUsername","");
         passwort = prefs.getString("loginPassword","");
-        System.out.println(login);
     }
 
     private void checkForFirstRun(){
@@ -105,10 +116,24 @@ public class Startseite extends AppCompatActivity
                 String freitag = prefs.getString("stundenplanFreitag","").replaceAll("\\|\\| \\|\\| \\|\\| ","|| || || || ");
                 prefs.edit().putString("stundenplanFreitag",freitag).apply();
             }
+            if(savedVersionCode<37){
+                startActivity(new Intent(this,Login.class));
+            }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.changelog)
-                    .setPositiveButton(getString(R.string.startseite_changelog_positive), null)
+            AlertDialog.Builder builder;
+            if(Startseite.theme == R.style.DarkTheme){
+                builder = new AlertDialog.Builder(this,R.style.DarkDialog);
+            }
+            else {
+                builder = new AlertDialog.Builder(this);
+            }
+            TextView textView = new TextView(this);
+            textView.setText(R.string.changelog);
+            textView.setTextColor(getResources().getColor(Startseite.textColor));
+            float dpi = getResources().getDisplayMetrics().density;
+            textView.setPadding((int)(19*dpi), (int)(5*dpi), (int)(14*dpi), (int)(5*dpi));
+            builder.setView(textView);
+            builder.setPositiveButton(getString(R.string.startseite_changelog_positive), null)
                     .setTitle(getString(R.string.startseite_changelog_title));
             builder.create().show();
         }

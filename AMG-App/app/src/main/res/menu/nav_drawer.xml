@@ -8,6 +8,8 @@
         android:id="@+id/nav_vertretungsplan"/>
     <item android:title="@string/nav_drawer_stundenplan"
         android:id="@+id/nav_stundenplan"/>
+    <item android:title="@string/nav_drawer_schwarzes_brett"
+        android:id="@+id/nav_schwarzes_brett"/>
 
     <item android:title="@string/nav_drawer_it_team_senden"
         android:id="@+id/nav_it_team_senden"/>

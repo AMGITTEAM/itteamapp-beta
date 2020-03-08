@@ -14,7 +14,7 @@ class VertretungModel {
     VertretungModel(String Stunde, String Klasse, String Art, String Fach, String ErsatzFach, String Vertretungslehrer, String Raum, String Hinweise){
         this.Stunde = Stunde;
         this.Klasse = Klasse;
-        this.Art = Art;
+        this.Art = Art.replaceAll("Stunde f.llt aus","Stunde f&auml;llt aus").replaceAll("Raum-.nd.","Raum-&Auml;nd.");
         this.Fach = Fach;
         this.ErsatzFach = ErsatzFach;
         this.Vertretungslehrer = Vertretungslehrer;

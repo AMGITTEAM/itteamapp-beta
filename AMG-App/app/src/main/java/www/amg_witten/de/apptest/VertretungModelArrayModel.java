@@ -55,10 +55,15 @@ class VertretungModelArrayModel {
             color=prefs.getString("vertretungErrorFarbe","#FF0000");
         }
 
-        String returns =  "<li data-panel-id=\"panel"+id+"\" style=\"background-color: "+color+";\">"+klasse+"</li>\n" +
-                "        <div class=\"panel panel"+id+"\">\n" +
-                "          <table width=\"99%\">\n" +
-                "            <colgroup>\n" +
+        String returns =  "<li data-panel-id=\"panel"+id+"\" style=\"background-color: "+color+";\">"+klasse+"</li>\n";
+        if(Startseite.theme == R.style.DarkTheme){
+            returns += "        <div class=\"panel panel"+id+"\" style=\"color: #"+Integer.toHexString(context.getResources().getColor(R.color.darkTextColor) & 0x00ffffff)+";background-color: #"+Integer.toHexString(context.getResources().getColor(R.color.darkBackground) & 0x00ffffff)+";\">\n";
+        }
+        else {
+            returns += "        <div class=\"panel panel"+id+"\">\n";
+        }
+        returns += "          <table width=\"99%\">\n";
+        returns += "            <colgroup>\n" +
                 "              <col width=\"9%\"/>\n" +
                 "              <col width=\"9%\"/>\n" +
                 "              <col width=\"18%\"/>\n" +

@@ -31,21 +31,22 @@ public class Lite {
 		String returnString = "";
 		try {
 			System.out.println(request);
-			if(request.equals("Login")){
+			switch (request) {
+			case "Login":
 				int rechthoehe = getRechthoehe(benutzername,passwort);
 				returnString = ""+rechthoehe;
 				if(rechthoehe>=1) {
 					String passwordVertretungsplanSchueler="";
 					try {
-						passwordVertretungsplanSchueler=doLogin(args);
+						passwordVertretungsplanSchueler=doLogin();
 					}
 					catch(NumberFormatException | SQLException | ClassNotFoundException e) {
 						e.printStackTrace();
 					}
 					returnString+="\n"+passwordVertretungsplanSchueler;
 				}
-			}
-			else if(request.equals("ITTeamMelden")){
+				break;
+			case "ITTeamMelden":
 				if(getRechthoehe(benutzername,passwort)>=2) {
 					if(getRechthoehe(benutzername,passwort)==100) {
 						returnString=true+"";
@@ -57,24 +58,24 @@ public class Lite {
 				else {
 					returnString="Du hast nicht genügend Rechte!";
 				}
-			}
-			else if(request.equals("ITTeamHolen")){
+				break;
+			case "ITTeamHolen":
 				if(getRechthoehe(benutzername,passwort)>=3) {
 					returnString+=doITTeamHolen(req);
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";
 				}
-			}
-			else if(request.equals("FeedbackHolen")){
+				break;
+			case "FeedbackHolen":
 				if(getRechthoehe(benutzername,passwort)>=3) {
 					returnString+=doFeedbackHolen(req);
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";
 				}
-			}
-			else if(request.equals("ITTeamLoeschen")){
+				break;
+			case "ITTeamLoeschen":
 				if(getRechthoehe(benutzername,passwort)>=3) {
 					if(getRechthoehe(benutzername,passwort)==100) {
 						returnString=true+"";
@@ -86,8 +87,8 @@ public class Lite {
 				else {
 					returnString="Du hast nicht genügend Rechte!";
 				}
-			}
-			else if(request.equals("Feedback")) {
+				break;
+			case "Feedback":
 				if(getRechthoehe(benutzername,passwort)>=1) {
 					if(getRechthoehe(benutzername,passwort)==100) {
 						returnString=true+"";
@@ -99,39 +100,59 @@ public class Lite {
 				else {
 					returnString="Du hast nicht genügend Rechte!";
 				}
-			}
-			else if(request.equals("HTMLRequest")) {
+				break;
+			case "HTMLRequest":
 				if(getRechthoehe(benutzername,passwort)>=1) {
 					returnString+=doHTMLRequest(req);
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";
 				}
-			}
-			else if(request.equals("KurssprecherRequest")) {
+				break;
+			case "KurssprecherRequest":
 				if(getRechthoehe(benutzername,passwort)>=1) {
 					returnString+=doKurssprecherRequest(args);
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";
 				}
-			}
-			else if(request.equals("GebaeudefehlerMelden")) {
+				break;
+			case "GebaeudefehlerMelden":
 				if(getRechthoehe(benutzername,passwort)>=2) {
 					doGebaeudefehlerMelden(args);
 				}
 				else {
 					returnString="Du hast nicht genügend Rechte!";
 				}
-			}
-			else if(request.equals("vplan")) {
+				break;
+			case "vplan":
 				if(getRechthoehe(benutzername,passwort)>=1) {
-					String pwd = doLogin(args);
-					returnString = VPlan.getVPlan(pwd,req);
+					String pwd = doLogin();
+					returnString = new VPlan().getVPlan(pwd,req);
 				}
-			}
-			else {
-				System.out.println("Request nicht gefunden: "+request);
+				else {
+					returnString="Du hast nicht genügend Rechte!";
+				}
+				break;
+			case "SchwarzesBrett":
+				if(getRechthoehe(benutzername,passwort)>=1) {
+					returnString+=doSchwarzesBrettRequest(req);
+				}
+				else {
+					returnString="Du hast nicht genügend Rechte!";
+				}
+				break;
+			case "einstellungen":
+				if(getRechthoehe(benutzername, passwort)>=1) {
+					returnString+=doGetSettings(req);
+				}
+				else {
+					returnString="Du hast nicht genügend Rechte!";
+				}
+				break;
+			default:
+				System.out.println("Request nicht gefunden: "+request+"!");
+				break;
 			}
 		}
 		catch (NullPointerException e){
@@ -153,9 +174,7 @@ public class Lite {
 			Connection conn = DriverManager.getConnection(path);
 		    Statement stat = conn.createStatement();
 		    String req = "select * from login where benutzername=\""+benutzername+"\" and passwort=\""+passwort+"\"";
-		    System.out.println(req);
 			ResultSet rs2 = stat.executeQuery(req);
-			System.out.println(rs2.getString("rechthoehe"));
 			int returns = Integer.parseInt(rs2.getString("rechthoehe"));
 			rs2.close();
 			stat.close();
@@ -163,12 +182,17 @@ public class Lite {
 			return returns;
 		}
 		catch(NumberFormatException | SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+			if(e.getMessage().equals("ResultSet closed")) {
+				System.out.println("NOT FOUND");
+			}
+			else {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
 	
-	public static void sendEMail(String msg) {
+	public static void sendSchadensMail(String msg) {
 		// Recipient's email ID needs to be mentioned.
 	      String to = "5958456@gmail.com";
 	 
@@ -210,15 +234,47 @@ public class Lite {
 	      }
 		
 	}
+	
+	public static void sendRegisterMail(String benutzername, String password, int rechthoehe, String name, String email, String wished_username, String wished_password, String wished_password_repeat) {
+	      String to = "amgwitten@gmail.com";
+	      String from = "amgwitten@gmail.com";
+	      String host = "localhost";
+	      
+	      Properties properties = System.getProperties();
+	      properties.setProperty("mail.smtp.host", host);
+	      Session session = Session.getDefaultInstance(properties);
 
-	public static String doLogin(String[] args) throws SQLException, ClassNotFoundException {
+	      try {
+	         MimeMessage message = new MimeMessage(session);
+	         message.setFrom(new InternetAddress(from));
+	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+	         message.setSubject("AMG-App: Registrierung","UTF-8");
+	         
+	         String msg = "Neue Registrierungs-Anfrage: \n\n";
+	         msg+="Benutzername: "+benutzername+"\n";
+	         msg+="Password: "+password+"\n";
+	         msg+="Rechthöhe: "+rechthoehe+"\n";
+	         msg+="Name: "+name+"\n";
+	         msg+="E-Mail: "+email+"\n";
+	         msg+="Gewünschter Benutzername: "+wished_username+"\n";
+	         msg+="Gewünschtes Passwort: "+wished_password+"\n";
+	         msg+="Gewünschtes Passwort wiederholt: "+wished_password_repeat+"\n";
+	         
+	         message.setText(msg,"UTF-8");
+	         
+	         Transport.send(message);
+	      } catch (MessagingException mex) {
+	         mex.printStackTrace();
+	      }
+		
+	}
+
+	public static String doLogin() throws SQLException, ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		Connection conn = DriverManager.getConnection(path);
 	    Statement stat = conn.createStatement();
 	    String req2 = "select * from passwords where benutzername=\"Schueler\"";
-	    System.out.println(req2);
 		ResultSet rs2 = stat.executeQuery(req2);
-		System.out.println(rs2.getString("password"));
 		String passwordVertretungsplanSchueler = rs2.getString("password");
 		rs2.close();
 		stat.close();
@@ -240,10 +296,6 @@ public class Lite {
 		String beschr=args[6].replaceAll("//", "\n");
 		String status=args[7];
 		String bearbVon=args[8];
-		
-		for (String arg:args) {
-			System.out.println(arg);
-		}
 		
 		Class.forName("org.sqlite.JDBC");
 	    Connection conn = DriverManager.getConnection(path);
@@ -270,7 +322,6 @@ public class Lite {
 	    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
 	    	success=false;
 	    }
-	    System.out.println(result);
 	    return success+"";
 	}
 	
@@ -280,7 +331,6 @@ public class Lite {
 		Class.forName("org.sqlite.JDBC");
 		Connection conn = DriverManager.getConnection(path);
 	    Statement stat = conn.createStatement();
-	    System.out.println("SELECT * FROM fehlermeldungen");
 		ResultSet rs2 = stat.executeQuery(req);
 		boolean ready=false;
 		int rowcount = 0;
@@ -292,7 +342,6 @@ public class Lite {
 				rowcount++;
 			}
 		}
-		System.out.println(rowcount);
 		returnString += rowcount+"/newthing/";
 		ResultSet rs = stat.executeQuery(req);
 	    while (rs.next()){
@@ -312,18 +361,43 @@ public class Lite {
 		Class.forName("org.sqlite.JDBC");
 		Connection conn = DriverManager.getConnection(path);
 	    Statement stat = conn.createStatement();
-	    System.out.println("SELECT * FROM feedback");
 		int rowcount = 0;
 		String returnStrin = "";
 		ResultSet rs = stat.executeQuery(req);
 	    while (rs.next()){
 	    	rowcount++;
 	    	returnStrin += "Typ: "+rs.getString("type")+"//Beschreibung: "+rs.getString("description")+"/newthing/";
-	    	System.out.println(rowcount+"Typ: "+rs.getString("type")+"//Beschreibung: "+rs.getString("description")+"/newthing/");
 	    }
 	    rs.close();
 		returnString += rowcount+"/newthing/";
-		System.out.println(rowcount);
+		returnString += returnStrin;
+	    stat.close();
+	    conn.close();
+	    
+	    return returnString;
+	}
+	
+	public static String doSchwarzesBrettRequest(String req) throws SQLException, ClassNotFoundException {
+		String returnString = "";
+		
+		Class.forName("org.sqlite.JDBC");
+		Connection conn = DriverManager.getConnection(path);
+	    Statement stat = conn.createStatement();
+		int rowcount = 0;
+		String returnStrin = "";
+		ResultSet rs = stat.executeQuery(req);
+	    while (rs.next()){
+	    	rowcount++;
+	    	returnStrin += "Stufe: "+rs.getString("stufe")+
+	    			"//Titel: \""+rs.getString("titel")+
+	    			"\"//Inhalt: \""+rs.getString("inhalt")+
+	    			"\"//Datum: "+rs.getString("datum")+
+	    			"//Enddatum: "+rs.getString("enddatum")+
+	    			"//Eingeblendet: "+rs.getString("eingeblendet")+
+	    			"/newthing/";
+	    }
+	    rs.close();
+		returnString += rowcount+"/newthing/";
 		returnString += returnStrin;
 	    stat.close();
 	    conn.close();
@@ -337,7 +411,6 @@ public class Lite {
 		c.setAutoCommit(false);
 		Statement stmt = c.createStatement();
 		String decoded = (URLDecoder.decode(req,"utf-8"));
-		System.out.println(decoded);
 		stmt.executeUpdate(decoded);
 		c.commit();
 		stmt.close();
@@ -350,10 +423,6 @@ public class Lite {
 		
 		String type = args[0];
 		String description = args[1];
-		
-		for (String arg:args) {
-			System.out.println(arg);
-		}
 		
 		Class.forName("org.sqlite.JDBC");
 	    Connection conn = DriverManager.getConnection(path);
@@ -372,7 +441,6 @@ public class Lite {
 	    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
 	    	success=false;
 	    }
-	    System.out.println(result);
 	    return success+"";
 	}
 	
@@ -384,14 +452,11 @@ public class Lite {
 			Connection conn = DriverManager.getConnection(path);
 		    Statement stat = conn.createStatement();
 		    String req2 = "select * from passwords where benutzername=\"Schueler\"";
-		    System.out.println(req2);
 			ResultSet rs2 = stat.executeQuery(req2);
-			System.out.println(rs2.getString("password"));
 			String pwd = rs2.getString("password");
 			Authenticator.setDefault(new SUSAuthenticator(pwd));
 		}
 		URL mainUrl = new URL(req);
-		System.out.println("HTMLRequest auf "+req);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
         StringBuilder full = new StringBuilder();
@@ -413,12 +478,10 @@ public class Lite {
 		Class.forName("org.sqlite.JDBC");
 		Connection conn = DriverManager.getConnection(path);
 	    Statement stat = conn.createStatement();
-	    System.out.println("SELECT * FROM kurssprecher");
 		ResultSet rs = stat.executeQuery("SELECT * FROM kurssprecher;");
 		int rowcount = 0;
 		String results = "";
 	    while (rs.next()){
-	    	System.out.println(kursid+" equals "+rs.getString("kursid")+"? "+klasse+" equals "+rs.getString("klasse"));
 	    	if(kursid.equals(rs.getString("kursid")) && klasse.equals(rs.getString("klasse"))) {
 			      results += "/newthing/Kurs-ID: "+rs.getString("kursid")+"//Kurssprecher: "+
 	    	rs.getString("sprecher")+"//Vertretung: "+rs.getString("vertretung");
@@ -454,7 +517,53 @@ public class Lite {
 		msg += "Bitte um weitere Bearbeitung.\n\n\n";
 		
 		msg += " - Dies ist eine automatisch erstellte Nachricht im Auftrag von J. Rienäcker - ";
-		sendEMail(msg);
+		sendSchadensMail(msg);
+	}
+
+	public static String doGetSettings(String req) throws ClassNotFoundException, SQLException {
+		String returnString = "";
+		
+		Class.forName("org.sqlite.JDBC");
+		Connection conn = DriverManager.getConnection(path);
+	    Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(req);
+	    while (rs.next()){
+	      returnString += rs.getString("einstellungen");
+	    }
+	    rs.close();
+	    stat.close();
+	    conn.close();
+	    
+	    return returnString;
+	}
+
+	public static boolean doSaveEinstellungen(String benutzername, String aktuelleKlasse, boolean iconsImVertretungsplan,
+			String farbeEigeneKlasse, String farbeUnterstufe, String farbeMittelstufe, String farbeOberstufe) throws SQLException, ClassNotFoundException {
+		Class.forName("org.sqlite.JDBC");
+		Connection c = DriverManager.getConnection(path);
+		c.setAutoCommit(false);
+		Statement stmt = c.createStatement();
+		stmt.executeUpdate("delete from einstellungen where benutzername=\""+benutzername+"\";");
+		c.commit();
+		stmt.close();
+		c.close();
+		
+	    Connection conn = DriverManager.getConnection(path);
+	    Statement stat = conn.createStatement();
+	    PreparedStatement prep = conn.prepareStatement("insert into einstellungen values (?, ?);");
+	    
+	    prep.setString(1, aktuelleKlasse+"//"+farbeEigeneKlasse+"//"+farbeUnterstufe+"//"+farbeMittelstufe+"//"+farbeOberstufe+"//"+iconsImVertretungsplan);
+	    prep.setString(2, benutzername);
+	    
+	    int result = prep.executeUpdate();
+	    prep.close();
+	    stat.close();
+	    conn.close();
+	    boolean success = true;
+	    if(result<=0||result==PreparedStatement.EXECUTE_FAILED) {
+	    	success=false;
+	    }
+	    return success;
 	}
 	
 }

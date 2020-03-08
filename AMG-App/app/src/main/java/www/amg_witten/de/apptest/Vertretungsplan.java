@@ -3,7 +3,6 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
@@ -11,7 +10,6 @@ import android.os.PersistableBundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -19,21 +17,13 @@ import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -42,11 +32,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Authenticator;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,16 +54,10 @@ public class Vertretungsplan extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
         Startseite.prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
         klasse = Startseite.prefs.getString("klasse","");
@@ -81,7 +65,6 @@ public class Vertretungsplan extends AppCompatActivity
         Startseite.login = Startseite.prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
         Startseite.benutzername = Startseite.prefs.getString("loginUsername","");
 
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,1,R.layout.vertretungsplan_activity);
 
         new Thread(new Runnable() {
@@ -94,7 +77,7 @@ public class Vertretungsplan extends AppCompatActivity
         }).start();
     }
 
-    private static File action(final Activity thise, String date){
+    private File action(final Activity thise, String date){
         String fuerDatum;
         String stand;
         final List<String> urlEndings = new ArrayList<>();
@@ -111,7 +94,13 @@ public class Vertretungsplan extends AppCompatActivity
                 Looper.prepare();
             }
             catch (Exception ignored){}
-            final ProgressDialog pDialog = new ProgressDialog(thise);
+            final ProgressDialog pDialog;
+            if(Startseite.theme == R.style.DarkTheme){
+                pDialog = new ProgressDialog(thise,R.style.DarkDialog);
+            }
+            else {
+                pDialog = new ProgressDialog(thise);
+            }
 
             thise.runOnUiThread(new Runnable() {
                 @Override
@@ -129,8 +118,7 @@ public class Vertretungsplan extends AppCompatActivity
 
             Authenticator.setDefault(new MyAuthenticator(thise));
             urlEndings.add("001.htm");
-            String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
-            System.out.println(main);
+            String main = "http://sus.amg-witten.de/"+date+"/";
 
             getAllEndings(main,urlEndings);
 
@@ -215,10 +203,26 @@ public class Vertretungsplan extends AppCompatActivity
             List<String> allMatches = new ArrayList<>();
             while (matcher.find()) {
                 String match = matcher.group();
-                allMatches.add(match.replace("<td class=\"list\" align=\"center\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","").replace("<td class=\"list\">","").replace("</td>","").replace("<b>","").replace("</b>","").replace("<span style=\"color: #800000\">","").replace("<span style=\"color: #0000FF\">","").replace("<span style=\"color: #010101\">","").replace("<span style=\"color: #008040\">","").replace("<span style=\"color: #008000\">","").replace("<span style=\"color: #FF00FF\">","").replace("</span>","").replace("&nbsp;","").replaceFirst(">",""));
+                allMatches.add(match
+                        .replace("<td class=\"list\" align=\"center\">","")
+                        .replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","")
+                        .replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","")
+                        .replace("<td class=\"list\" style=\"background-color: #FFFFFF\">","")
+                        .replace("<td class=\"list\" style=\"background-color: #FFFFFF\" >","")
+                        .replace("<td class=\"list\">","")
+                        .replace("</td>","")
+                        .replace("<b>","")
+                        .replace("</b>","")
+                        .replace("<span style=\"color: #800000\">","")
+                        .replace("<span style=\"color: #0000FF\">","")
+                        .replace("<span style=\"color: #010101\">","")
+                        .replace("<span style=\"color: #008040\">","")
+                        .replace("<span style=\"color: #008000\">","")
+                        .replace("<span style=\"color: #FF00FF\">","")
+                        .replace("</span>","")
+                        .replace("&nbsp;","")
+                        .replaceFirst(">",""));
             }
-
-            System.out.println(Arrays.deepToString(allMatches.toArray()));
 
             VertretungModel model = new VertretungModel(allMatches.get(0),allMatches.get(1),allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7));
 
@@ -260,7 +264,8 @@ public class Vertretungsplan extends AppCompatActivity
         while(!exit) {
             URL mainUrl = new URL(main+"subst_"+next);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
+            InputStream stream = mainUrl.openStream();
+            BufferedReader in = new BufferedReader(new InputStreamReader(stream));
             StringBuilder full = new StringBuilder();
             String str;
             while ((str = in.readLine()) != null) {
@@ -438,7 +443,7 @@ public class Vertretungsplan extends AppCompatActivity
         }
     }
 
-    private static void writeToFileWithProcess(ProgressDialog pDialog, File lFile, String finalfuerDatum, String finalstand, Context thise, List<VertretungModelArrayModel> data, List<String> fertigeKlassen){
+    private void writeToFileWithProcess(ProgressDialog pDialog, File lFile, String finalfuerDatum, String finalstand, Context thise, List<VertretungModelArrayModel> data, List<String> fertigeKlassen){
         try {
             FileWriter fw = new FileWriter(lFile);
             fw.write("<!DOCTYPE html>\n" +
@@ -470,7 +475,7 @@ public class Vertretungsplan extends AppCompatActivity
 
     }
 
-    private static void printHead(FileWriter fw) throws IOException{
+    private void printHead(FileWriter fw) throws IOException{
         fw.write("<head>\n" +
                 "<meta charset=\"UTF-8\">\n" +
                 "<title>Accordion</title>\n" +
@@ -526,15 +531,19 @@ public class Vertretungsplan extends AppCompatActivity
         fw.flush();
         fw.write("\n" +
                 "<style>\n" +
-                "body {\n" +
-                "  background-color: #ccc;\n" +
-                "  margin: auto auto;\n" +
+                "body {\n");
+        if(Startseite.theme == R.style.DarkTheme){
+            fw.write("  background-color: #"+Integer.toHexString(thise.getResources().getColor(R.color.darkBackground) & 0x00ffffff)+";\n");
+        }
+        else {
+            fw.write("  background-color: #ccc;\n");
+        }
+         fw.write("  margin: auto auto;\n" +
                 "  padding: 0;\n" +
                 "  width:100%;\n" +
                 "}\n" +
                 "/**/\n" +
                 "#accordion {\n" +
-                //"  width: 80%;\n" +
                 "  margin: 10px auto;\n" +
                 "  height: 50%;\n" +
                 "  position: relative;\n" +
@@ -573,7 +582,6 @@ public class Vertretungsplan extends AppCompatActivity
                 "  font-family: \"roboto\", sans-serif;\n" +
                 "  padding: 0.3em;\n" +
                 "  font-size: 1.0em;\n" +
-                "  color: white;\n" +
                 "  background-color: white;\n" +
                 "  color: #333;\n" +
                 "}\n" +
@@ -602,27 +610,43 @@ public class Vertretungsplan extends AppCompatActivity
                 "    width:100%;" +
                 "}\n" +
                 "\n" +
-                "   table, td, th {\n" +
-                "    border: 1px solid black;\n" +
-                "} \n");
+                "   table, td, th {\n");
+        if(Startseite.theme == R.style.DarkTheme){
+            fw.write("    border: 1px solid #"+Integer.toHexString(thise.getResources().getColor(R.color.darkTextColor) & 0x00ffffff)+";\n");
+        }
+        else {
+            fw.write("    border: 1px solid black;\n");
+        }
+        fw.write("} \n");
         fw.flush();
         fw.write(".aktuell {\n" +
                 "font-family: roboto, sans-serif; \n" +
                 "padding-top: 10px;\n" +
                 "font-size: 1.4em; \n" +
                 "font-weight:bold;\n" +
-                "text-align: center;\n" +
-                "color: white;\n" +
-                "text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;\n" +
+                "text-align: center;\n");
+        if(Startseite.theme == R.style.DarkTheme){
+            fw.write("color: #"+Integer.toHexString(thise.getResources().getColor(R.color.darkTextColor) & 0x00ffffff)+";\n");
+        }
+        else {
+            fw.write("color: white;\n");
+        }
+        fw.write("text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;\n" +
                 "}\n" +
                 "\n" +
                 ".stand {\n" +
                 "font-family: verdana, sans-serif; \n" +
                 "padding: 0 20px 10px 0;\n" +
                 "font-size: 0.8em; \n" +
-                "text-align: right;\n" +
-                "color: #232323;\n" +
-                "}\n" +
+                "text-align: right;\n");
+        if(Startseite.theme == R.style.DarkTheme){
+            fw.write("color: #"+Integer.toHexString(thise.getResources().getColor(R.color.darkTextColor) & 0x00ffffff)+";\n");
+        }
+        else {
+            fw.write("color: #232323;\n");
+        }
+
+        fw.write( "}\n" +
                 "</style>\n" +
                 "\t</head>\n");
         fw.flush();
@@ -665,7 +689,6 @@ public class Vertretungsplan extends AppCompatActivity
                         ((SwipeRefreshLayout)mSectionsPagerAdapter.getCurrentItem(0).getView().findViewById(R.id.vertretungsplan_swipe_refresh)).setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                             @Override
                             public void onRefresh() {
-                                System.out.println("YES");
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -688,7 +711,6 @@ public class Vertretungsplan extends AppCompatActivity
                         ((SwipeRefreshLayout)mSectionsPagerAdapter.getCurrentItem(1).getView().findViewById(R.id.vertretungsplan_swipe_refresh)).setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                             @Override
                             public void onRefresh() {
-                                System.out.println("YES");
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -698,7 +720,6 @@ public class Vertretungsplan extends AppCompatActivity
                                             @Override
                                             public void run() {
                                                 int page = mViewPager.getCurrentItem();
-                                                System.out.println(page);
                                                 generateLayout(heute,folgetag);
                                                 mViewPager.setCurrentItem(page);
                                             }

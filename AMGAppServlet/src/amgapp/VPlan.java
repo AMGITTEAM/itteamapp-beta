@@ -13,10 +13,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VPlan {
-	static String klasse = "";
-	static HashMap<String,String> settings = new HashMap<String,String>();
+	private String klasse = "";
+	private HashMap<String,String> settings = new HashMap<String,String>();
 	
-	public static String getVPlan(String pwd, String date) {
+	public void setKlasse(String klasse) {
+		this.klasse = klasse;
+	}
+	
+	public String getVPlan(String pwd, String date) {
 		String fuerDatum;
         String stand;
         final List<String> urlEndings = new ArrayList<>();
@@ -30,7 +34,7 @@ public class VPlan {
         try {
             Authenticator.setDefault(new MyAuthenticator(pwd));
             urlEndings.add("001.htm");
-            String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
+            String main = "http://sus.amg-witten.de/"+date+"/";
             System.out.println(main);
 
             getAllEndings(main,urlEndings);
@@ -61,14 +65,32 @@ public class VPlan {
         }
 	}
 	
-	static void tryMatcher(String s, List<VertretungModel> fertigeMulti, List<VertretungModel> vertretungModels){
+	void tryMatcher(String s, List<VertretungModel> fertigeMulti, List<VertretungModel> vertretungModels){
         try {
             Matcher matcher = Pattern.compile("<td class=\"list\"(?s)(.*?)</td>").matcher(s);
 
             List<String> allMatches = new ArrayList<>();
             while (matcher.find()) {
                 String match = matcher.group();
-                allMatches.add(match.replace("<td class=\"list\" align=\"center\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","").replace("<td class=\"list\">","").replace("</td>","").replace("<b>","").replace("</b>","").replace("<span style=\"color: #800000\">","").replace("<span style=\"color: #0000FF\">","").replace("<span style=\"color: #010101\">","").replace("<span style=\"color: #008040\">","").replace("<span style=\"color: #008000\">","").replace("<span style=\"color: #FF00FF\">","").replace("</span>","").replace("&nbsp;","").replaceFirst(">",""));
+                allMatches.add(match
+                        .replace("<td class=\"list\" align=\"center\">","")
+                        .replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","")
+                        .replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","")
+                        .replace("<td class=\"list\" style=\"background-color: #FFFFFF\">","")
+                        .replace("<td class=\"list\" style=\"background-color: #FFFFFF\" >","")
+                        .replace("<td class=\"list\">","")
+                        .replace("</td>","")
+                        .replace("<b>","")
+                        .replace("</b>","")
+                        .replace("<span style=\"color: #800000\">","")
+                        .replace("<span style=\"color: #0000FF\">","")
+                        .replace("<span style=\"color: #010101\">","")
+                        .replace("<span style=\"color: #008040\">","")
+                        .replace("<span style=\"color: #008000\">","")
+                        .replace("<span style=\"color: #FF00FF\">","")
+                        .replace("</span>","")
+                        .replace("&nbsp;","")
+                        .replaceFirst(">",""));
             }
 
             VertretungModel model = new VertretungModel(allMatches.get(0),allMatches.get(1),allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7));
@@ -105,7 +127,7 @@ public class VPlan {
         }
     }
 
-    static void getAllEndings(String main, List<String> urlEndings) throws IOException {
+    void getAllEndings(String main, List<String> urlEndings) throws IOException {
         boolean exit=false;
         String next="001.htm";
         while(!exit) {
@@ -137,7 +159,7 @@ public class VPlan {
         }
     }
 
-    static String[] getTables(String main, List<String> urlEndings, List<String> tables) throws IOException {
+    String[] getTables(String main, List<String> urlEndings, List<String> tables) throws IOException {
         String stand = "";
         String fuerDatum = "";
         for (int i=0;i<urlEndings.size();i++) {
@@ -174,7 +196,7 @@ public class VPlan {
         return new String[] {stand,fuerDatum};
     }
 
-    static void getKlassenList(List<String> tables, List<String> klassen) {
+    void getKlassenList(List<String> tables, List<String> klassen) {
         for(int i=0; i<tables.size(); i++){
             String[] klassenArrayUnfertig = tables.get(i).split("td class=\"list inline_header\" colspan=\"8\"");
             for(int ie = 0; ie<klassenArrayUnfertig.length; ie++){
@@ -186,7 +208,7 @@ public class VPlan {
         }
     }
 
-    static void getOnlyRealKlassenList(List<String> tables, List<String> realEintraege) {
+    void getOnlyRealKlassenList(List<String> tables, List<String> realEintraege) {
         for(int i=0; i<tables.size(); i++){
             String[] eintraegeArrayUnfertigZwei = tables.get(i).split("tr ");
             for (String eintraegeArrayUnfertigEin : eintraegeArrayUnfertigZwei) {
@@ -199,7 +221,7 @@ public class VPlan {
         }
     }
 
-    static void parseKlassenWithProcess(List<String> klassen, List<String> fertigeKlassen, List<VertretungModel> vertretungModels, List<VertretungModelArrayModel> data){
+    void parseKlassenWithProcess(List<String> klassen, List<String> fertigeKlassen, List<VertretungModel> vertretungModels, List<VertretungModelArrayModel> data){
         for(int i=0; i<klassen.size(); i++){
             if(!fertigeKlassen.contains(klassen.get(i))){
                 int rightRowsCount = 0;
@@ -223,7 +245,7 @@ public class VPlan {
         }
     }
 
-    private static String getHTML(String finalfuerDatum, String finalstand, List<VertretungModelArrayModel> data, List<String> fertigeKlassen){
+    private String getHTML(String finalfuerDatum, String finalstand, List<VertretungModelArrayModel> data, List<String> fertigeKlassen){
         try {
             String returnString = "<!DOCTYPE html>\n" +
                     "<html>\n";
@@ -248,7 +270,7 @@ public class VPlan {
         return "Fehler beim Generieren!";
     }
 
-    private static String printHead() throws IOException{
+    private String printHead() throws IOException{
         String returnString = "<head>\n" +
                 "<meta charset=\"UTF-8\">\n" +
                 "<title>Accordion</title>\n" +
@@ -403,21 +425,29 @@ public class VPlan {
         return returnString;
     }
 
-    private static String onlyElement(String full, String element, String params) {
+    private String onlyElement(String full, String element, String params) {
         String partOne;
         partOne = full.split("<"+element+params+">")[1];
         return partOne.split("</"+element+">")[0];
     }
 
-    private static String onlyElement(String full, String element) {
+    private String onlyElement(String full, String element) {
         return onlyElement(full,element,"");
     }
 
-    private static String onlyArgumentOfElement(String full, String element, String argument) {
+    private String onlyArgumentOfElement(String full, String element, String argument) {
         String partOne = full.split("<"+element)[1];
         String partTwo = partOne.split(argument+"=\"")[1];
         return partTwo.split("\"")[0];
     }
+
+	public void setSettings(String farbeEigeneKlasse, String farbeUnterstufe, String farbeMittelstufe, String farbeOberstufe, String iconsImVertretungsplan) {
+		settings.put("vertretungEigeneKlasseFarbe",farbeEigeneKlasse);
+		settings.put("vertretungUnterstufeFarbe", farbeUnterstufe);
+		settings.put("vertretungMittelstufeFarbe",farbeMittelstufe);
+		settings.put("vertretungOberstufeFarbe", farbeOberstufe);
+		settings.put("vertretungsplanIconsEnabled",iconsImVertretungsplan);
+	}
 
 
 }

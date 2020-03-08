@@ -1,1 +1,4 @@
-﻿Vertretungsplan reaktiviert
+﻿• Dunkles Design vervollständigt
+• Gradle & Abhängigkeiten aktualisiert
+• Fehler im Vertretungsplan behoben
+• Abstürze behoben

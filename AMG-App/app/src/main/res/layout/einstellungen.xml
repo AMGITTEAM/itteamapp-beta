@@ -26,7 +26,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_changelog"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -59,7 +58,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_klasse"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -80,8 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@+id/einstellungen_klasseEndung_spinner"
-            android:layout_toLeftOf="@+id/einstellungen_klasseEndung_spinner"
+            android:layout_toStartOf="@id/einstellungen_klasseEndung_spinner"
+            android:layout_toLeftOf="@id/einstellungen_klasseEndung_spinner"
             android:descendantFocusability="blocksDescendants"
             android:layout_marginRight="5dp" />
     </RelativeLayout>
@@ -102,7 +100,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_notification"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -124,6 +121,70 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_notification_layout"
+        android:id="@id/einstellungen_darkDesign_layout">
+
+
+        <TextView
+            android:id="@id/einstellungen_darkDesign_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:text="@string/einstellungen_darkDesign"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true" />
+
+        <Switch
+            android:id="@id/einstellungen_darkDesign_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="end" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/einstellungen_darkDesign_layout"
+        android:id="@id/einstellungen_kalenderAusblenden_layout">
+
+
+        <TextView
+            android:id="@id/einstellungen_kalenderAusblenden_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:text="@string/einstellungen_kalenderAusblenden"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true" />
+
+        <Switch
+            android:id="@id/einstellungen_kalenderAusblenden_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="end" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/einstellungen_kalenderAusblenden_layout"
         android:id="@id/einstellungen_notificationtime_layout">
 
 
@@ -135,7 +196,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_notificationtime"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -169,7 +229,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_colorOwn"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -203,7 +262,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_colorUnter"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -237,7 +295,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_colorMitte"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -271,7 +328,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_colorOber"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -305,7 +361,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_vertretungsplan_icons"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />
@@ -338,7 +393,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="@string/einstellungen_all_settings"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_alignParentLeft="true" />

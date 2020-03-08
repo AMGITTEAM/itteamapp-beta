@@ -1,9 +1,12 @@
 package yuku.ambilwarna.colorpicker;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -88,7 +91,9 @@ public class AmbilWarnaDialogFragment extends DialogFragment implements View.OnT
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater mainInflater, ViewGroup container, Bundle savedInstanceState) {
+        Context contextThemeWrapper = new ContextThemeWrapper(getActivity(),R.style.DarkTheme);
+        LayoutInflater inflater = mainInflater.cloneInContext(contextThemeWrapper);
         mParentView = inflater.inflate(R.layout.ambilwarna_dialog, container, false);
 
         initView();

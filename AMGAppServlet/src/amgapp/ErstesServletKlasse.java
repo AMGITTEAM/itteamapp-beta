@@ -39,9 +39,9 @@ public class ErstesServletKlasse extends HttpServlet {
 			request = URLDecoder.decode(HttpRequest.getParameter("request").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(request);
 			benutzername = URLDecoder.decode(HttpRequest.getParameter("username").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
-			System.out.println(request);
+			System.out.println(benutzername);
 			passwort = URLDecoder.decode(HttpRequest.getParameter("password").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
-			System.out.println(request);
+			System.out.println(passwort);
 			datum = URLDecoder.decode(HttpRequest.getParameter("datum").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(datum);
 			gebaeude = URLDecoder.decode(HttpRequest.getParameter("gebaeude").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
@@ -61,20 +61,15 @@ public class ErstesServletKlasse extends HttpServlet {
 			bearbeitetVon = URLDecoder.decode(HttpRequest.getParameter("bearbeitetVon").replaceAll("%20", " ").replaceAll("%30", "\n"),"utf-8");
 			System.out.println(bearbeitetVon);
 		}
-		catch (NumberFormatException ex) {
-			ausfuehrFehler = true;
-			ex.printStackTrace();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		catch (NullPointerException ignored) {}
+		
 		try {
 			String returnString = Lite.transact(requestType, request, benutzername, passwort, datum, gebaeude, etage, raum, wichtigkeit, fehler, beschreibung, status, bearbeitetVon);
 			if(!requestType.equals("vplan")) {
 				System.out.println(requestType+" not "+"vplan");
 				returnString = URLEncoder.encode(returnString.replaceAll("\n","//"), "utf-8");
+				System.out.println(returnString);
 			}
-			System.out.println(returnString);
 			HttpRequest.setAttribute("responsed", returnString);
 			HttpRequest.setAttribute("fehler", ausfuehrFehler);
 			if(requestType.equals("HTMLRequest")) {

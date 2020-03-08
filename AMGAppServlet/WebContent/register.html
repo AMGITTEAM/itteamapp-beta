@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>IT-Team</title>
+</head>
+<body>
+	<form method="get" action="/AMGAppServlet/visual">
+		<table>
+			<tr>
+				<td>
+					<label for="username">Benutzergruppe</label>
+				</td>
+				<td>
+					<select name="username" id="username" required>
+					<option selected hidden disabled value="">Bitte w&auml;hlen...</option>
+					<option value="Schueler">Schueler</option>
+					<option value="Lehrer">Lehrer</option>
+					<option value="ITTeam">ITTeam</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="password">Passwort der Benutzergruppe</label>
+				</td>
+				<td>
+					<input type="password" name="password" id="password" minlength="6" maxlength="9" required/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="hidden" name="requestType" id="requestType"
+						value="register-send" />
+					<label for="name">Voller Name: </label>
+				</td>
+				<td>
+					<input type="text" name="name" id="name" required minlength="2"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="email">E-Mail: </label>
+				</td>
+				<td>
+					<input type="email" name="email" id="email" required />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="wished_username">Gew&uuml;nschter Benutzername: </label>
+				</td>
+				<td>
+					<input type="text" name="wished_username" id="wished_username" minlength="2" maxlength="30" required />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="wished_password">Gew&uuml;nschtes Passwort: </label>
+				</td>
+				<td>
+					<input type="password" name="wished_password" id="wished_password" minlength="4" maxlength="30" required />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="wished_password_repeat">Passwort wiederholen: </label>
+				</td>
+				<td>
+					<input type="password" name="wished_password_repeat" id="wished_password_repeat" minlength="4" maxlength="30" required />
+				</td>
+			</tr>
+		</table>
+		<br />
+		<button type="submit">Absenden</button>
+	</form>
+</body>
+</html>
