@@ -1,4 +1,9 @@
-﻿• Dunkles Design vervollständigt
-• Gradle & Abhängigkeiten aktualisiert
+﻿• Gradle & Abhängigkeiten aktualisiert
 • Fehler im Vertretungsplan behoben
 • Abstürze behoben
+• Fußzeilen-Navigation hinzugefügt
+    -> neue Icons verwendet
+• Warnung vor dem Logout hinzugefügt
+• Änderungen am Layout werden ohne einen Neustart angewandt
+• Menü des Stundenplans als FloatingButton erstellt
+• Schwarzes Brett deaktiviert

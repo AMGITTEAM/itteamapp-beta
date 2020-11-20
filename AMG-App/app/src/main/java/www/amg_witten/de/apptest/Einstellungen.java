@@ -24,6 +24,8 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -31,6 +33,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -45,14 +48,20 @@ public class Einstellungen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final Context context = this;
-
+    private boolean shouldExecResume = false;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecResume)
+            Methoden.onResumeFillIn(this);
+        else
+            shouldExecResume = true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Methoden methoden = new Methoden();
         methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_main);
-
         methoden.onCreateFillIn(this,this,901,R.layout.einstellungen);
 
         final SharedPreferences prefs = getSharedPreferences("Prefs",MODE_PRIVATE);
@@ -161,6 +170,7 @@ public class Einstellungen extends AppCompatActivity
         RelativeLayout colorMitte = findViewById(R.id.einstellungen_colorMitte_layout);
         RelativeLayout colorOber = findViewById(R.id.einstellungen_colorOber_layout);
         RelativeLayout iconsVertretungsplanLayout = findViewById(R.id.einstellungen_vertretungsplan_icons_layout);
+        final RelativeLayout navLayout = findViewById(R.id.einstellungen_nav_layout);
         if(Startseite.login>0){
             Switch notificationSwitch = findViewById(R.id.einstellungen_notification_switch);
             notificationLayout.setVisibility(RelativeLayout.VISIBLE);
@@ -262,6 +272,25 @@ public class Einstellungen extends AppCompatActivity
                         prefs.edit().putBoolean("vertretungsplanIconsEnabled",isChecked).apply();
                     }
                 });
+                Spinner spinner = findViewById(R.id.einstellungen_nav_spinner);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                        R.array.einstellungen_nav_options, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(Startseite.navigationType);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        if(position != Startseite.navigationType){
+                            prefs.edit().putInt("navigationType",position).apply();
+                            Startseite.navigationType = position;
+                            Startseite.requiresRecreate = true;
+                            recreate();
+                        }
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
             }
             else {
                 colorOwn.setVisibility(RelativeLayout.GONE);
@@ -269,6 +298,7 @@ public class Einstellungen extends AppCompatActivity
                 colorMitte.setVisibility(RelativeLayout.GONE);
                 colorOber.setVisibility(RelativeLayout.GONE);
                 iconsVertretungsplanLayout.setVisibility(RelativeLayout.GONE);
+                navLayout.setVisibility(RelativeLayout.GONE);
             }
         }
         else {
@@ -278,6 +308,7 @@ public class Einstellungen extends AppCompatActivity
             colorUnter.setVisibility(RelativeLayout.GONE);
             colorMitte.setVisibility(RelativeLayout.GONE);
             colorOber.setVisibility(RelativeLayout.GONE);
+            navLayout.setVisibility(RelativeLayout.GONE);
         }
 
         Button changelogButton = findViewById(R.id.einstellungen_changelog_button);
@@ -379,14 +410,8 @@ public class Einstellungen extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            Intent intent = new Intent(this, Startseite.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
+        if(Methoden.onBackPressedFillIn(this))
+            super.onBackPressed();
     }
 
     @Override

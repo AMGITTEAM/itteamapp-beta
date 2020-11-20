@@ -38,14 +38,20 @@ public class Feedback extends AppCompatActivity
     private EditText descriptionText = null;
     private Spinner typeSpinner = null;
     private final String[] types = new String[4];
-
+    private boolean shouldExecResume = false;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecResume)
+            Methoden.onResumeFillIn(this);
+        else
+            shouldExecResume = true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Methoden methoden = new Methoden();
         methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_main);
-
         methoden.onCreateFillIn(this,this,902,R.layout.feedback);
 
         types[0] = getString(R.string.feedback_type_none);
@@ -61,12 +67,8 @@ public class Feedback extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        if(Methoden.onBackPressedFillIn(this, false, true))
             super.onBackPressed();
-        }
     }
 
     @Override

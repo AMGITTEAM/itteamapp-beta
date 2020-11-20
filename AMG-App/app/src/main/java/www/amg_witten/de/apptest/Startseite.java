@@ -27,18 +27,27 @@ public class Startseite extends AppCompatActivity
     public static int theme;
     public static int barColor;
     public static int textColor;
+    public static int navigationType;
+    public static boolean requiresRecreate;
 
 
     public static final boolean KURSSPRECHER_ENABLED = true;
 
+    private boolean shouldExecResume = false;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecResume)
+            Methoden.onResumeFillIn(this);
+        else
+            shouldExecResume = true;
+    }
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Methoden methoden = new Methoden();
         methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_main);
-
         System.out.println(login);
 
         methoden.onCreateFillIn(this,this,0, R.layout.startseite);
@@ -52,10 +61,10 @@ public class Startseite extends AppCompatActivity
             findViewById(R.id.webViewStartseiteCalendar).setVisibility(View.GONE);
         }
         if(theme == R.style.DarkTheme){
-            ((ImageView)findViewById(R.id.startseite_logo)).setImageDrawable(getResources().getDrawable(R.drawable.ausweis_logo_neu/*R.drawable.logo_amg_dark*/));
+            ((ImageView)findViewById(R.id.startseite_logo)).setImageDrawable(getResources().getDrawable(R.drawable.ausweis_logo_neu));
         }
         else {
-            ((ImageView)findViewById(R.id.startseite_logo)).setImageDrawable(getResources().getDrawable(R.drawable.ausweis_logo_neu/*R.drawable.logo_amg*/));
+            ((ImageView)findViewById(R.id.startseite_logo)).setImageDrawable(getResources().getDrawable(R.drawable.ausweis_logo_neu));
         }
 
         checkForFirstRun();
@@ -66,6 +75,7 @@ public class Startseite extends AppCompatActivity
         login = prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team, 100=Google-Tester
         benutzername = prefs.getString("loginUsername","");
         passwort = prefs.getString("loginPassword","");
+        navigationType = prefs.getInt("navigationType",0);
     }
 
     private void checkForFirstRun(){
@@ -142,7 +152,7 @@ public class Startseite extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             System.exit(0);

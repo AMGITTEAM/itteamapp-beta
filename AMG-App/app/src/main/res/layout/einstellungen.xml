@@ -382,6 +382,38 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@id/einstellungen_vertretungsplan_icons_layout"
+        android:id="@+id/einstellungen_nav_layout">
+
+
+        <TextView
+            android:id="@+id/einstellungen_nav_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:text="@string/einstellungen_nav"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true" />
+
+        <Spinner
+            android:id="@+id/einstellungen_nav_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="end" /> <!--FIXME change to select-->
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/einstellungen_nav_layout"
         android:id="@id/einstellungen_all_settings_layout">
 
 

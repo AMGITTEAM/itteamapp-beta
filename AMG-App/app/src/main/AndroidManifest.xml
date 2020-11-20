@@ -84,6 +84,10 @@
             android:label="@string/title_activity_stundenplan"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name="www.amg_witten.de.apptest.BotNavSonstiges"
+            android:label="@string/title_activity_botnav_sonstiges"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name="www.amg_witten.de.apptest.StundenplanEdit"
             android:label="@string/title_activity_stundenplan"
             android:theme="@style/AppTheme.NoActionBar"/>

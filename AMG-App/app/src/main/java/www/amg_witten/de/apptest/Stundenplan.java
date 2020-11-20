@@ -12,10 +12,11 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -75,14 +76,26 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
     private static VertretungModelArrayModel eigeneKlasseHeute = null;
     private static VertretungModelArrayModel eigeneKlasseFolgetag = null;
     private static int noOfDayOfTheWeek;
+    private boolean shouldExecResume = false;
 
+    private boolean fabExpanded = false;
+    private FloatingActionButton fabSettings;
+    private LinearLayout layoutFabDelete;
+    private LinearLayout layoutFabEdit;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecResume)
+            Methoden.onResumeFillIn(this);
+        else
+            shouldExecResume = true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Methoden methoden = new Methoden();
         methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_main);
-
         methoden.onCreateFillIn(this,this,2,R.layout.stundenplan_activity);
 
         tabLayout = findViewById(R.id.tab_layout);
@@ -176,6 +189,75 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         if(newTab!=null){
             newTab.select();
         }
+
+        final View.OnClickListener settingsListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (fabExpanded)
+                    closeSubMenusFab();
+                else
+                    openSubMenusFab();
+            }
+        };
+        final View.OnClickListener doneListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bearbeiten = false;
+                mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+                mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
+                fabSettings.setOnClickListener(settingsListener);
+                fabSettings.setImageResource(R.drawable.baseline_edit_24);
+            }
+        };
+        fabSettings = this.findViewById(R.id.fab);
+        layoutFabDelete = this.findViewById(R.id.layoutFabDelete);
+        layoutFabEdit = this.findViewById(R.id.layoutFabEdit);
+        fabSettings.setOnClickListener(settingsListener);
+        layoutFabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder;
+                if(Startseite.theme == R.style.DarkTheme){
+                    builder = new AlertDialog.Builder(context,R.style.DarkDialog);
+                }
+                else {
+                    builder = new AlertDialog.Builder(context);
+                }
+                TextView textView = new TextView(context);
+                textView.setText(R.string.stundenplan_ask_deleteAll);
+                textView.setTextColor(getResources().getColor(Startseite.textColor));
+                float dpi = getResources().getDisplayMetrics().density;
+                textView.setPadding((int)(19*dpi), (int)(5*dpi), (int)(14*dpi), (int)(5*dpi));
+                builder.setView(textView);
+                builder.setPositiveButton(getString(R.string.stundenplan_ask_deleteAll_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Startseite.prefs.edit().remove("stundenplanMontag").apply();
+                        Startseite.prefs.edit().remove("stundenplanDienstag").apply();
+                        Startseite.prefs.edit().remove("stundenplanMittwoch").apply();
+                        Startseite.prefs.edit().remove("stundenplanDonnerstag").apply();
+                        Startseite.prefs.edit().remove("stundenplanFreitag").apply();
+                        mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+                        mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
+                    }
+                })
+                        .setNegativeButton(getString(R.string.stundenplan_ask_deleteAll_negative),null)
+                        .setTitle(getString(R.string.stundenplan_ask_deleteAll_title));
+                builder.create().show();
+            }
+        });
+        layoutFabEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeSubMenusFab();
+                bearbeiten=true;
+                mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+                mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
+                fabSettings.setOnClickListener(doneListener);
+                fabSettings.setImageResource(R.drawable.baseline_done_24);
+            }
+        });
+        closeSubMenusFab();
 
         new Thread(new Runnable() {
             @Override
@@ -441,57 +523,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
             mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_stundenplan, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            bearbeiten=!item.isChecked();
-            mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
-            mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
-            item.setChecked(!item.isChecked());
-            return true;
-        }
-        else if(id == R.id.stundenplan_komplett_loeschen){
-            AlertDialog.Builder builder;
-            if(Startseite.theme == R.style.DarkTheme){
-                builder = new AlertDialog.Builder(this,R.style.DarkDialog);
-            }
-            else {
-                builder = new AlertDialog.Builder(this);
-            }
-            TextView textView = new TextView(this);
-            textView.setText(R.string.stundenplan_ask_deleteAll);
-            textView.setTextColor(getResources().getColor(Startseite.textColor));
-            float dpi = getResources().getDisplayMetrics().density;
-            textView.setPadding((int)(19*dpi), (int)(5*dpi), (int)(14*dpi), (int)(5*dpi));
-            builder.setView(textView);
-            builder.setPositiveButton(getString(R.string.stundenplan_ask_deleteAll_positive), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Startseite.prefs.edit().remove("stundenplanMontag").apply();
-                            Startseite.prefs.edit().remove("stundenplanDienstag").apply();
-                            Startseite.prefs.edit().remove("stundenplanMittwoch").apply();
-                            Startseite.prefs.edit().remove("stundenplanDonnerstag").apply();
-                            Startseite.prefs.edit().remove("stundenplanFreitag").apply();
-                            mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
-                            mViewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
-                        }
-                    })
-                    .setNegativeButton(getString(R.string.stundenplan_ask_deleteAll_negative),null)
-                    .setTitle(getString(R.string.stundenplan_ask_deleteAll_title));
-            builder.create().show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void NewStunde(View view) {
@@ -1037,16 +1068,23 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
         return 5;
     }
 
+    private void closeSubMenusFab(){
+        layoutFabDelete.setVisibility(View.INVISIBLE);
+        layoutFabEdit.setVisibility(View.INVISIBLE);
+        fabSettings.setImageResource(R.drawable.baseline_edit_24);
+        fabExpanded = false;
+    }
+    private void openSubMenusFab(){
+        layoutFabDelete.setVisibility(View.VISIBLE);
+        layoutFabEdit.setVisibility(View.VISIBLE);
+        fabSettings.setImageResource(R.drawable.baseline_close_24);
+        fabExpanded = true;
+    }
+
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            Intent intent = new Intent(this, Startseite.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
+        if(Methoden.onBackPressedFillIn(this))
+            super.onBackPressed();
     }
 
     @Override

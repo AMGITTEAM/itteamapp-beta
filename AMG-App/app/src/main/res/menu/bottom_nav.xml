@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/botnav_startseite"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Startseite"/>
+    <item
+        android:id="@+id/botnav_vertretungsplan"
+        android:icon="@drawable/baseline_people_alt_24"
+        android:title="Vertretungsplan"/>
+    <item
+        android:id="@+id/botnav_stundenplan"
+        android:icon="@drawable/baseline_table_chart_24"
+        android:title="Stundenplan"/>
+    <item
+        android:id="@+id/botnav_sonstiges"
+        android:icon="@drawable/baseline_more_horiz_24"
+        android:title="Sonstiges"/>
+
+</menu>

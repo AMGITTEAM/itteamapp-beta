@@ -28,14 +28,20 @@ public class StundenplanEdit extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final Context context = this;
-
+    private boolean shouldExecResume = false;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecResume)
+            Methoden.onResumeFillIn(this);
+        else
+            shouldExecResume = true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Methoden methoden = new Methoden();
         methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_main);
-
         methoden.onCreateFillIn(this,this,3,R.layout.stundenplan_edit);
 
         LinkedHashSet<String> stundenplanMontag = Stundenplan.loadStundenplanOrdered("Montag");
@@ -109,12 +115,8 @@ public class StundenplanEdit extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        if(Methoden.onBackPressedFillIn(this, false, true))
             super.onBackPressed();
-        }
     }
 
     @Override

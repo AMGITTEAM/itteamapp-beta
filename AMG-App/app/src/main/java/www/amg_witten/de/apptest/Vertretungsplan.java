@@ -51,14 +51,20 @@ public class Vertretungsplan extends AppCompatActivity
     public Vertretungsplan(){
         thise = this;
     }
-
+    private boolean shouldExecResume = false;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecResume)
+            Methoden.onResumeFillIn(this);
+        else
+            shouldExecResume = true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Methoden methoden = new Methoden();
         methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_main);
-
         Startseite.prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
         klasse = Startseite.prefs.getString("klasse","");
 
@@ -863,14 +869,13 @@ public class Vertretungsplan extends AppCompatActivity
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-            View rootView = inflater.inflate(R.layout.vertretungsplan_fragment, container, false);
-            WebView webView = rootView.findViewById(R.id.webView);
+            view = inflater.inflate(R.layout.vertretungsplan_fragment, container, false);
+            WebView webView = view.findViewById(R.id.webView);
 
             webView.loadUrl("file://"+getArguments().getString("file"));
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-            view=rootView;
-            return rootView;
+            return view;
         }
 
         @Override
@@ -890,14 +895,8 @@ public class Vertretungsplan extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            Intent intent = new Intent(this, Startseite.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
+        if(Methoden.onBackPressedFillIn(this))
+            super.onBackPressed();
     }
 
     @Override

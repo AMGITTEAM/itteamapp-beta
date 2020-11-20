@@ -1,15 +1,12 @@
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="DarkTheme" parent="AppTheme">
         <item name="android:colorBackground">@color/darkBackground</item>
         <item name="android:textColor">@color/darkTextColor</item>
         <item name="windowActionBar">false</item>
@@ -19,6 +16,11 @@
         <item name="android:colorForeground">@color/white</item>
         <item name="android:editTextColor">@color/darkTextColor</item>
         <item name="android:itemBackground">@color/darkBar</item>
+        <item name="cardViewStyle">@style/DarkCardStyle</item>
+    </style>
+
+    <style name="DarkCardStyle">
+        <item name="cardBackgroundColor">@color/darkElevated</item>
     </style>
 
     <style name="DarkDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -42,18 +44,12 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
     <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-
         <item name="colorAccent">#FFFFFF</item>
-
         <item name="android:textColorPrimary">#232323</item>
-
         <item name="android:background">#FFFFFF</item>
-
     </style>
 
 </resources>

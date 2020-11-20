@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,11 +19,43 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.view.MenuItem;
 import android.view.ViewStub;
+import android.widget.Toast;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
 class Methoden {
+    public static boolean onBackPressedFillIn(Activity currentActivity) {
+        return onBackPressedFillIn(currentActivity, false, false);
+    }
+
+    public static boolean onBackPressedFillIn(Activity currentActivity, boolean superBack, boolean finish) {
+        DrawerLayout drawer = currentActivity.findViewById(R.id.main_drawer_layout);
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else if(superBack){
+            return true; //call object's super onBack
+        } else if(finish) {
+            currentActivity.finish();
+        } else if((Startseite.navigationType == 1) && (currentActivity instanceof Einstellungen || currentActivity instanceof Login || currentActivity instanceof Hilfe || currentActivity instanceof Info)) {
+            return true; //call object's super onBack
+        } else {
+            Intent intent = new Intent(currentActivity, Startseite.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            currentActivity.startActivity(intent);
+        }
+        return false;
+    }
+
+    public static void onResumeFillIn(AppCompatActivity activity){
+        if(Startseite.requiresRecreate){
+            activity.recreate();
+            if(activity instanceof Startseite){
+                Startseite.requiresRecreate = false;
+            }
+        }
+    }
+
     void onNavigationItemSelectedFillIn(MenuItem item, int currentNavId, Activity currentActivity){
         int id = item.getItemId();
 
@@ -87,65 +122,108 @@ class Methoden {
         DrawerLayout drawer = currentActivity.findViewById(R.id.main_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+    void onBottomNavigationItemSelectedFillIn(MenuItem item, Activity currentActivity){
+        int id = item.getItemId();
 
-    void onCreateFillIn(AppCompatActivity currentActivity, NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener, Integer navigationNr, int layout){
+        switch (id) {
+            case R.id.botnav_startseite:
+                Intent intent = new Intent(currentActivity, Startseite.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                currentActivity.startActivity(intent);
+                break;
+            case R.id.botnav_vertretungsplan:
+                currentActivity.startActivity(new Intent(currentActivity, Vertretungsplan.class));
+                break;
+            case R.id.botnav_stundenplan:
+                currentActivity.startActivity(new Intent(currentActivity, Stundenplan.class));
+                break;
+            case R.id.botnav_sonstiges:
+                currentActivity.startActivity(new Intent(currentActivity, BotNavSonstiges.class));
+                break;
+        }
+    }
+
+    void onCreateFillIn(final AppCompatActivity currentActivity, NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener, Integer navigationNr, int layout){
         Startseite.initVars(currentActivity);
-        Toolbar toolbar = currentActivity.findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(currentActivity.getResources().getColor(Startseite.barColor));
-        currentActivity.setSupportActionBar(toolbar);
+        makeTheme(currentActivity);
+        if(Startseite.navigationType == 1) {
+            currentActivity.setContentView(R.layout.all_bottom_navigation);
 
-        DrawerLayout drawer = currentActivity.findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(currentActivity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            BottomNavigationView bottomNavigationView = currentActivity.findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    onBottomNavigationItemSelectedFillIn(item, currentActivity);
+                    return true;
+                }
+            });
 
-        NavigationView navigationView = currentActivity.findViewById(R.id.main_nav_view);
-        navigationView.setNavigationItemSelectedListener(navigationItemSelectedListener);
-        navigationView.setItemTextColor(ColorStateList.valueOf(currentActivity.getResources().getColor(Startseite.textColor)));
-        if(Startseite.theme == R.style.DarkTheme){
-            navigationView.setBackgroundColor(currentActivity.getResources().getColor(R.color.darkBar));
-            navigationView.setItemBackground(currentActivity.getResources().getDrawable(R.drawable.nav_menu_dark));
-        }
+            bottomNavigationView.getMenu().getItem(Math.min(navigationNr,3)).setChecked(true);
 
-        if(navigationNr!=null){
-            switch (navigationNr) {
-                case 900:
-                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 4).setCheckable(true).setChecked(true);
-                    break;
-                case 901:
-                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 3).setCheckable(true).setChecked(true);
-                    break;
-                case 902:
-                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 2).setCheckable(true).setChecked(true);
-                    break;
-                case 903:
-                    navigationView.getMenu().getItem(navigationView.getMenu().size() - 1).setCheckable(true).setChecked(true);
-                    break;
-                default:
-                    navigationView.getMenu().getItem(navigationNr).setCheckable(true).setChecked(true);
-                    break;
+            if(Startseite.login==0){
+                bottomNavigationView.getMenu().getItem(1).setVisible(false);
+                bottomNavigationView.getMenu().getItem(2).setVisible(false);
             }
-        }
+        } else {
+            currentActivity.setContentView(R.layout.all_main);
 
-        if(Startseite.login>0){
-            navigationView.getMenu().getItem(navigationView.getMenu().size()-4).setTitle("Logout");
-        }
-        if(Startseite.login<1){
-            navigationView.getMenu().getItem(1).setVisible(false);
-            navigationView.getMenu().getItem(2).setVisible(false);
-            navigationView.getMenu().getItem(3).setVisible(false);
-            navigationView.getMenu().getItem(4).setVisible(false);
-            navigationView.getMenu().getItem(5).setVisible(false);
-            navigationView.getMenu().getItem(6).setVisible(false);
-        }
-        if(Startseite.login==1){
-            navigationView.getMenu().getItem(4).setVisible(false);
-            navigationView.getMenu().getItem(5).setVisible(false);
-            navigationView.getMenu().getItem(6).setVisible(false);
-        }
-        if(Startseite.login<=2){
-            navigationView.getMenu().getItem(5).setVisible(false);
-            navigationView.getMenu().getItem(6).setVisible(false);
+            Toolbar toolbar = currentActivity.findViewById(R.id.toolbar);
+            toolbar.setBackgroundColor(currentActivity.getResources().getColor(Startseite.barColor));
+            currentActivity.setSupportActionBar(toolbar);
+
+            DrawerLayout drawer = currentActivity.findViewById(R.id.main_drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(currentActivity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = currentActivity.findViewById(R.id.main_nav_view);
+            navigationView.setNavigationItemSelectedListener(navigationItemSelectedListener);
+            navigationView.setItemTextColor(ColorStateList.valueOf(currentActivity.getResources().getColor(Startseite.textColor)));
+            if(Startseite.theme == R.style.DarkTheme){
+                navigationView.setBackgroundColor(currentActivity.getResources().getColor(R.color.darkBar));
+                navigationView.setItemBackground(currentActivity.getResources().getDrawable(R.drawable.nav_menu_dark));
+            }
+
+            if(navigationNr!=null){
+                switch (navigationNr) {
+                    case 900:
+                        navigationView.getMenu().getItem(navigationView.getMenu().size() - 4).setCheckable(true).setChecked(true);
+                        break;
+                    case 901:
+                        navigationView.getMenu().getItem(navigationView.getMenu().size() - 3).setCheckable(true).setChecked(true);
+                        break;
+                    case 902:
+                        navigationView.getMenu().getItem(navigationView.getMenu().size() - 2).setCheckable(true).setChecked(true);
+                        break;
+                    case 903:
+                        navigationView.getMenu().getItem(navigationView.getMenu().size() - 1).setCheckable(true).setChecked(true);
+                        break;
+                    default:
+                        navigationView.getMenu().getItem(navigationNr).setCheckable(true).setChecked(true);
+                        break;
+                }
+            }
+
+            navigationView.getMenu().getItem(3).setVisible(false); //schwarzes Brett
+            if(Startseite.login>0){
+                navigationView.getMenu().getItem(navigationView.getMenu().size()-4).setTitle("Logout");
+            }
+            if(Startseite.login<1){
+                navigationView.getMenu().getItem(1).setVisible(false);
+                navigationView.getMenu().getItem(2).setVisible(false);
+                navigationView.getMenu().getItem(4).setVisible(false);
+                navigationView.getMenu().getItem(5).setVisible(false);
+                navigationView.getMenu().getItem(6).setVisible(false);
+            }
+            if(Startseite.login==1){
+                navigationView.getMenu().getItem(4).setVisible(false);
+                navigationView.getMenu().getItem(5).setVisible(false);
+                navigationView.getMenu().getItem(6).setVisible(false);
+            }
+            if(Startseite.login<=2){
+                navigationView.getMenu().getItem(5).setVisible(false);
+                navigationView.getMenu().getItem(6).setVisible(false);
+            }
         }
 
         ViewStub stub = currentActivity.findViewById(R.id.all_content);

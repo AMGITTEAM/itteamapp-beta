@@ -37,6 +37,7 @@
     <string name="title_activity_hilfe">Hilfe</string>
     <string name="title_activity_feedback_holen">Feedback abrufen</string>
     <string name="title_activity_schwarzes_brett">Schwarzes Brett</string>
+    <string name="title_activity_botnav_sonstiges">Sonstiges</string>
 
     <!--ColorPicker-->
 
@@ -212,7 +213,7 @@
     <string name="it_team_holen_filter_raum_12">12</string>
     <string name="it_team_holen_filter_raum_13">13</string>
     <string name="it_team_holen_filter_raum_14">14</string>
-    
+
     <!--IT-Team-Holen-->
 
     <string name="it_team_holen_change_status">Status</string>
@@ -310,6 +311,11 @@
     <string name="einstellungen_color_edit">Bearbeiten</string>
 
     <string name="einstellungen_vertretungsplan_icons">Icons im Vertretungsplan an/aus:</string>
+    <string name="einstellungen_nav">Navigation:</string>
+    <string-array name="einstellungen_nav_options">
+        <item>Hamburger</item>
+        <item>Fußzeile</item>
+    </string-array>
 
 
     <string name="einstellungen_all_settings">Alle Einstellungen anzeigen:</string>
@@ -348,7 +354,8 @@
     <string name="info_manager">Diese App wird programmiert, verwaltet und gewartet von\nAdrian Kathagen</string>
     <string name="info_version_placeholder">Version wird geladen…</string>
     <string name="info_credits_placeholder">Credits werden geladen…</string>
-    <string name="info_credits">Icons: Silk Icons, by Mark James - famfamfam</string>
+    <string name="info_credits">Icons: Silk Icons, by Mark James - famfamfam\n
+Material Icons, by material\u200a.io</string>
     <string name="info_schule">Diese App wurde programmiert für das\n
 Albert-Martmöller-Gymnasium\n
 Oberdorf 9\n
@@ -379,12 +386,26 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Dunkles Design vervollständigt\n
-        • Gradle &amp; Abhängigkeiten aktualisiert\n
+    <string name="changelog">• Gradle &amp; Abhängigkeiten aktualisiert\n
         • Fehler im Vertretungsplan behoben\n
-        • Abstürze behoben</string>
+        • Abstürze behoben\n
+        • Fußzeilen-Navigation hinzugefügt\n
+            -> neue Icons verwendet\n
+        • Warnung vor dem Logout hinzugefügt\n
+        • Änderungen am Layout werden ohne einen Neustart angewandt\n
+        • Menü des Stundenplans als FloatingButton erstellt\n
+        • Schwarzes Brett deaktiviert</string>
 
     <string name="changelog_all">
+        <b>1.5.0 - ??????????</b>\n
+        • Gradle &amp; Abhängigkeiten aktualisiert\n
+        • Fehler im Vertretungsplan behoben\n
+        • Abstürze behoben\n
+        • Fußzeilen-Navigation hinzugefügt\n
+            -> neue Icons verwendet\n
+        • Warnung vor dem Logout hinzugefügt\n
+        • Änderungen am Layout werden ohne einen Neustart angewandt\n
+        • Menü des Stundenplans als FloatingButton erstellt\n\n
         <b>1.4.1 - 13.01.2020</b>\n
         • Dunkles Design vervollständigt\n
         • Gradle Update\n

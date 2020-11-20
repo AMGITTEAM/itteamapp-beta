@@ -15,25 +15,27 @@ import android.widget.EditText;
 
 public class ITTeamSenden4Sonstige extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private boolean shouldExecResume = false;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecResume)
+            Methoden.onResumeFillIn(this);
+        else
+            shouldExecResume = true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Methoden methoden = new Methoden();
         methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_main);
-
         methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden4_sonstige);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        if(Methoden.onBackPressedFillIn(this, false, true))
             super.onBackPressed();
-        }
     }
 
     @Override

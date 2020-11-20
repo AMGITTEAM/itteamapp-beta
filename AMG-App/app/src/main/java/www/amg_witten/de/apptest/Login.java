@@ -5,12 +5,15 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import android.view.View;
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -27,33 +30,60 @@ import java.util.Calendar;
 
 public class Login extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private boolean shouldExecResume = false;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(shouldExecResume)
+            Methoden.onResumeFillIn(this);
+        else
+            shouldExecResume = true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Methoden methoden = new Methoden();
+        final Methoden methoden = new Methoden();
         methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.all_main);
-
         methoden.onCreateFillIn(this,this,900,R.layout.login);
 
         if(Startseite.login>0){
-            SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
-            prefs.edit().putInt("login",0).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
-            prefs.edit().putString("loginUsername","").apply();
-            prefs.edit().putString("loginPassword","").apply();
-            prefs.edit().putString("passwordVertretungsplanSchueler","").apply();
-            Toast.makeText(this,getString(R.string.login_logout_success),Toast.LENGTH_LONG).show();
-            Startseite.login=0;
-            Intent alarmIntent = new Intent(this, NotifyVertretungsplan.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+            final Login context = this;
+            AlertDialog.Builder builder;
+            if(Startseite.theme == R.style.DarkTheme) {
+                builder = new AlertDialog.Builder(this, R.style.DarkDialog);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+            AlertDialog dialog = builder.setMessage("Möchtest du dich wirklich ausloggen?")
+                    .setTitle("Logout")
+                    .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
+                            prefs.edit().putInt("login",0).apply(); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
+                            prefs.edit().putString("loginUsername","").apply();
+                            prefs.edit().putString("loginPassword","").apply();
+                            prefs.edit().putString("passwordVertretungsplanSchueler","").apply();
+                            Toast.makeText(context,getString(R.string.login_logout_success),Toast.LENGTH_LONG).show();
+                            Startseite.login=0;
+                            Intent alarmIntent = new Intent(context, NotifyVertretungsplan.class);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
-            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            manager.cancel(pendingIntent);
-            prefs.edit().putBoolean("notificationEnabled",false).apply();
-            Intent intent = new Intent(this, Startseite.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+                            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                            manager.cancel(pendingIntent);
+                            prefs.edit().putBoolean("notificationEnabled",false).apply();
+
+                            methoden.onCreateFillIn(context,context,900,R.layout.login);
+                        }
+                    })
+                    .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onBackPressed();
+                        }
+                    })
+                    .create();
+            dialog.show();
             return;
         }
 
@@ -90,14 +120,8 @@ public class Login extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            Intent intent = new Intent(this, Startseite.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
+        if(Methoden.onBackPressedFillIn(this))
+            super.onBackPressed();
     }
 
     @Override
