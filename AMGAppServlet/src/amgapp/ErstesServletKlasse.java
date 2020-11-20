@@ -67,7 +67,7 @@ public class ErstesServletKlasse extends HttpServlet {
 			String returnString = Lite.transact(requestType, request, benutzername, passwort, datum, gebaeude, etage, raum, wichtigkeit, fehler, beschreibung, status, bearbeitetVon);
 			if(!requestType.equals("vplan")) {
 				System.out.println(requestType+" not "+"vplan");
-				returnString = URLEncoder.encode(returnString.replaceAll("\n","//"), "utf-8");
+				returnString = URLEncoder.encode(returnString.replaceAll("\n","//"), "utf-8").replaceAll("\\+","%20");
 				System.out.println(returnString);
 			}
 			HttpRequest.setAttribute("responsed", returnString);

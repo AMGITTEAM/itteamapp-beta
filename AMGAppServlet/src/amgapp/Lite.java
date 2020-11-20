@@ -56,7 +56,7 @@ public class Lite {
 					}
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "ITTeamHolen":
@@ -64,7 +64,7 @@ public class Lite {
 					returnString+=doITTeamHolen(req);
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "FeedbackHolen":
@@ -72,7 +72,7 @@ public class Lite {
 					returnString+=doFeedbackHolen(req);
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "ITTeamLoeschen":
@@ -85,7 +85,7 @@ public class Lite {
 					}
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "Feedback":
@@ -98,7 +98,7 @@ public class Lite {
 					}
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "HTMLRequest":
@@ -106,7 +106,7 @@ public class Lite {
 					returnString+=doHTMLRequest(req);
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "KurssprecherRequest":
@@ -114,7 +114,7 @@ public class Lite {
 					returnString+=doKurssprecherRequest(args);
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "GebaeudefehlerMelden":
@@ -122,7 +122,7 @@ public class Lite {
 					doGebaeudefehlerMelden(args);
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "vplan":
@@ -131,7 +131,7 @@ public class Lite {
 					returnString = new VPlan().getVPlan(pwd,req);
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "SchwarzesBrett":
@@ -139,7 +139,7 @@ public class Lite {
 					returnString+=doSchwarzesBrettRequest(req);
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			case "einstellungen":
@@ -147,7 +147,7 @@ public class Lite {
 					returnString+=doGetSettings(req);
 				}
 				else {
-					returnString="Du hast nicht genügend Rechte!";
+					returnString="Du hast nicht genï¿½gend Rechte!";
 				}
 				break;
 			default:
@@ -156,7 +156,7 @@ public class Lite {
 			}
 		}
 		catch (NullPointerException e){
-			System.out.println("Internet überprüfen");
+			System.out.println("Internet ï¿½berprï¿½fen");
 		}
 		catch (Exception e){
 			returnString = "Error: "+e;
@@ -253,12 +253,12 @@ public class Lite {
 	         String msg = "Neue Registrierungs-Anfrage: \n\n";
 	         msg+="Benutzername: "+benutzername+"\n";
 	         msg+="Password: "+password+"\n";
-	         msg+="Rechthöhe: "+rechthoehe+"\n";
+	         msg+="Rechthï¿½he: "+rechthoehe+"\n";
 	         msg+="Name: "+name+"\n";
 	         msg+="E-Mail: "+email+"\n";
-	         msg+="Gewünschter Benutzername: "+wished_username+"\n";
-	         msg+="Gewünschtes Passwort: "+wished_password+"\n";
-	         msg+="Gewünschtes Passwort wiederholt: "+wished_password_repeat+"\n";
+	         msg+="Gewï¿½nschter Benutzername: "+wished_username+"\n";
+	         msg+="Gewï¿½nschtes Passwort: "+wished_password+"\n";
+	         msg+="Gewï¿½nschtes Passwort wiederholt: "+wished_password_repeat+"\n";
 	         
 	         message.setText(msg,"UTF-8");
 	         
@@ -447,7 +447,7 @@ public class Lite {
 	public static String doHTMLRequest(String req) throws ClassNotFoundException, SQLException, IOException {
 		String returnString = "";
 
-		if(req.contains("http://amg-witten.de/fileadmin/VertretungsplanSUS")) {
+		if(req.contains("http://sus.amg-witten.de/")) {
 			Class.forName("org.sqlite.JDBC");
 			Connection conn = DriverManager.getConnection(path);
 		    Statement stat = conn.createStatement();
@@ -498,7 +498,7 @@ public class Lite {
 	
 	public static void doGebaeudefehlerMelden(String[] args) {
 		String msg = "Hallo,\n" + 
-				"folgende Meldung wurde über die AMG-App übermittelt:\n\n";
+				"folgende Meldung wurde ï¿½ber die AMG-App ï¿½bermittelt:\n\n";
 		
 		String datum = args[0];
 		String gebaeude=args[1];
@@ -516,7 +516,7 @@ public class Lite {
 		
 		msg += "Bitte um weitere Bearbeitung.\n\n\n";
 		
-		msg += " - Dies ist eine automatisch erstellte Nachricht im Auftrag von J. Rienäcker - ";
+		msg += " - Dies ist eine automatisch erstellte Nachricht im Auftrag von J. Rienï¿½cker - ";
 		sendSchadensMail(msg);
 	}
 
